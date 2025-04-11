@@ -1,0 +1,15 @@
+# Java
+*.class
+*.jar
+*.war
+*.ear
+*.log
+
+# VS Code
+.vscode/
+.settings/
+bin/
+target/
+
+# MacOS
+.DS_Store
