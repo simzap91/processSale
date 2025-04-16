@@ -8,6 +8,8 @@ public class ItemDTO {
 
     public ItemDTO(int itemID, String itemDescription, double price, int vatRate) {
         this.itemID = itemID;
-        
+        this.itemDescription = itemDescription;
+        this.price = price;
+        this.vatRate = vatRate;
     }
 }
