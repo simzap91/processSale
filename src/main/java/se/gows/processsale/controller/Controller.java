@@ -3,7 +3,9 @@ package se.gows.processsale.controller;
 import se.gows.processsale.DTO.ItemDTO;
 import se.gows.processsale.DTO.ViewDTO;
 import se.gows.processsale.integration.*;
+import se.gows.processsale.model.Receipt;
 import se.gows.processsale.model.Sale;
+import se.gows.processsale.DTO.SummaryDTO;
 
 /**
  * This is the application's only controller. All calls to the model pass through this class.
@@ -55,6 +57,9 @@ public class Controller {
         return viewDTO;
     }
     
-
+    public Receipt createReceipt(SummaryDTO summaryDTO, Transaction trans) {
+        Receipt receipt = new Receipt(summaryDTO, trans);
+        return receipt;
+    }
 
 }
