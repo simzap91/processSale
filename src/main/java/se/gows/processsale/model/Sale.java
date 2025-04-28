@@ -12,7 +12,7 @@ public class Sale {
     private LocalTime timeOfSale;
     private ArrayList<RegisteredItem> itemList = new ArrayList<>();
     private double totalPrice;
-    private int totalVAT;
+    private double totalVAT;
     public InventoryDBHandler invHandler;
 
     /**

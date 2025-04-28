@@ -11,7 +11,7 @@ public class SummaryDTO {
     public double totalIncVat;
     public RegisteredItem[] itemList;
 
-    public SummaryDTO (LocalTime timeOfSale, double totalPrice, int totalVAT, double totalIncVat, RegisteredItem[] itemList){
+    public SummaryDTO (LocalTime timeOfSale, double totalPrice, double totalVAT, double totalIncVat, RegisteredItem[] itemList){
         this.timeOfSale = timeOfSale;
         this.totalPrice = totalPrice;
         this.totalVAT = totalVAT;
