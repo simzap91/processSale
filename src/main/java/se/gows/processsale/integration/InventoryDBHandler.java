@@ -18,21 +18,21 @@ public class InventoryDBHandler {
         // 2) Step through the items in inventoryDB 
         for (String itemInInventory : inventoryDB) {
 
-            // 3) Fetch item as list of Strings
-            String[] parts = fetchItemAsList(itemInInventory, itemID);
+            // 3) Compare list item IDs with scanned item ID
+            if (readListItemID(itemInInventory) == itemID){
+                
+                // 4) If item found -> Fetch item as list of Strings
+                String[] parts = fetchItemAsList(itemInInventory);
 
-            // If item sucessfully received
-            if (parts != null) {
-
-                // 4) Fetch remaining item attributes from invItem
+                // 5) Fetch item attributes from invItem
                 String itemDesc = parts[1].trim();
                 double price = Double.parseDouble(parts[2].trim());
                 double itemVat = Double.parseDouble(parts[3].trim());
 
-                // 5) Create new ItemDTO
+                // 6) Create new ItemDTO
                 scannedItem = new ItemDTO(itemID, itemDesc, price, itemVat);
 
-                // 6) Item is found -> break loop
+                // 7) Item is found -> break loop
                 break;
             }
         }
@@ -55,13 +55,13 @@ public class InventoryDBHandler {
     private void updateItemInvStatus(int itemID, int itemCount) {
 
         // 1) Step through the items in inventoryDB 
-        for (String itemInInventory : inventoryDB) {
+        for (String invItem : inventoryDB) {
 
-            // 2) Fetch item as list of Strings
-            String[] parts = fetchItemAsList(itemInInventory, itemID);
+            // 3) Compare list item IDs with scanned item ID
+            if (readListItemID(invItem) == itemID){
 
-            // If item sucessfully fetched
-            if (parts != null) {
+                // 2) Fetch item as list of Strings
+                String[] parts = fetchItemAsList(invItem);
 
                 // 3) Fetch item invStatus
                 int invStatus = Integer.parseInt(parts[4].trim());
@@ -76,7 +76,7 @@ public class InventoryDBHandler {
                 String updatedItemString = String.join(",", parts);
 
                 // 7) Put updated item back in inventoryDB
-                itemInInventory = updatedItemString;
+                invItem = updatedItemString;
                 
                 // 8) All done -> break loop
                 break;
@@ -84,19 +84,25 @@ public class InventoryDBHandler {
         }
     }
 
-    
-    private String[] fetchItemAsList(String dbItem, int itemID){
+    /*
+     * Takes a 
+     */
+    private String[] fetchItemAsList(String dbItem){
 
-        String[] outputParts = null;
-
-        // 1) Split the invItem string on commas
+        // Split dbItem string on commas
         String[] parts = dbItem.split(",");
-        // 2) Parse invItem itemID as int
-        int invItemID = Integer.parseInt(parts[0]);
 
-        if (invItemID == itemID) {
-            outputParts = parts;
-        }
-        return outputParts;
+        return parts;
+    }
+
+    private int readListItemID(String invItem){
+        // Split invItem on commas
+        String[] parts = invItem.split(",");
+
+        // Get list item ID
+        int listItemId = Integer.parseInt(parts[0].trim());
+
+        // Return list item ID
+        return listItemId;
     }
 }
