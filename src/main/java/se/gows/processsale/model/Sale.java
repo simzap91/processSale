@@ -4,19 +4,23 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 
 import se.gows.processsale.DTO.ItemDTO;
+import se.gows.processsale.DTO.SummaryDTO;
 import se.gows.processsale.DTO.ViewDTO;
+import se.gows.processsale.integration.InventoryDBHandler;
 
 public class Sale {
     private LocalTime timeOfSale;
     private ArrayList<RegisteredItem> itemList = new ArrayList<>();
     private double totalPrice;
     private int totalVAT;
+    public InventoryDBHandler invHandler;
 
     /**
      * 
      */
-    public Sale() {
+    public Sale(InventoryDBHandler invHandler) {
         timeOfSale = LocalTime.now(); //setTimeOfSale
+        this.invHandler = invHandler; // set invHandler
     }
 
     /**
@@ -126,5 +130,27 @@ public class Sale {
             return true;
         }
         return false;
+    }
+
+    /**
+     * public method that end sale and update InventoryDB
+     * @param itemID
+     * @return
+     */
+    public SummaryDTO endSale(){
+
+        // Convert itemList to array
+        RegisteredItem[] itemListArray = itemList.toArray(new RegisteredItem[0]);
+
+        // Calculate total inc VAT
+        double totalIncVat = calculateRunningTotalIncVat();
+
+        // Create summaryDTO
+        SummaryDTO sumDTO = new SummaryDTO(timeOfSale, totalPrice, totalVAT, totalIncVat, itemListArray);
+
+        // Update inventoryDB
+        invHandler.updateInventoryDB(itemList);
+
+        return sumDTO;
     }
 }

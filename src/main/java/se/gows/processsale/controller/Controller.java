@@ -29,7 +29,7 @@ public class Controller {
      * Starts a new sale. This method must be called first in the process.
      */
     public void startSale() {
-        currentSale = new Sale();
+        currentSale = new Sale(invHandler);
     }
 
     public ViewDTO scanItem(int itemID, int quantity) {
@@ -57,7 +57,19 @@ public class Controller {
         return viewDTO;
     }
 
-    
+    /**
+     * Ends sale.
+     */
+    public SummaryDTO endSale() {
+
+        // End sale and create sumDTO
+        SummaryDTO sumDTO = currentSale.endSale();
+
+        // Set local attribute
+        currentSaleSummaryDTO = sumDTO;
+
+        return currentSaleSummaryDTO;
+    }
 
 
     
