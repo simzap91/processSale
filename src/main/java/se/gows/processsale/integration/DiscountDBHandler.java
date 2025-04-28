@@ -15,22 +15,22 @@ public class DiscountDBHandler {
     public DiscountDTO fetchDiscount(int[] discountTypes, int customerID, RegisteredItem[] purchasedItems, double totalPrice){
 
         DiscountDTO discountDTO = null;
-        double sumDiscountTypeOne = 0;
-        double rateDiscountTypeTwo = 0;
-        double rateDiscountTypeThree = 0;
+        double discountSumItems = 0;
+        double discountRateSalePrice = 0;
+        double discountRateCustomer = 0;
 
         for (int type : discountTypes) {
             if (type == 0) {
                 continue;
             }
             if (type == 1) {
-                sumDiscountTypeOne = calculateDiscountSumTypeOne(purchasedItems);
+                discountSumItems = calculateDiscountSumTypeOne(purchasedItems);
             }
             if (type == 2) {
-                rateDiscountTypeTwo = calculateDiscountRateTypeTwo(totalPrice);
+                discountRateSalePrice = calculateDiscountRateTypeTwo(totalPrice);
             }
             if (type == 3) {
-                rateDiscountTypeThree = calculateDiscountRateTypeThree(customerID);
+                discountRateCustomer = calculateDiscountRateTypeThree(customerID);
             }
             if (type > 3 || type < 0) {
                 System.out.println("Invalid discount type");
@@ -38,8 +38,8 @@ public class DiscountDBHandler {
         }
 
         // If discount, create new discountDTO
-        if (sumDiscountTypeOne > 0 || rateDiscountTypeTwo > 0 || rateDiscountTypeThree > 0) {
-            discountDTO = new DiscountDTO(sumDiscountTypeOne, rateDiscountTypeTwo, rateDiscountTypeThree);
+        if (discountSumItems > 0 || discountRateSalePrice > 0 || discountRateCustomer > 0) {
+            discountDTO = new DiscountDTO(discountSumItems, discountRateSalePrice, discountRateCustomer);
         }
         return discountDTO;
     }
