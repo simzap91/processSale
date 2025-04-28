@@ -1,5 +1,8 @@
 package se.gows.processsale.controller;
 
+import se.gows.processsale.DTO.ItemDTO;
+import se.gows.processsale.DTO.SummaryDTO;
+import se.gows.processsale.DTO.ViewDTO;
 import se.gows.processsale.integration.*;
 import se.gows.processsale.model.Sale;
 
@@ -11,6 +14,7 @@ public class Controller {
     private AccountingDBHandler accHandler;
     private DiscountDBHandler discHandler;
     private Sale currentSale;
+    private SummaryDTO currentSaleSummaryDTO;
 
     public Controller(InventoryDBHandler invHandler, 
                         AccountingDBHandler accHandler, 
@@ -27,4 +31,36 @@ public class Controller {
     public void startSale() {
         currentSale = new Sale();
     }
+
+    public ViewDTO scanItem(int itemID, int quantity) {
+        boolean itemRegistered;
+        ViewDTO viewDTO;
+        ItemDTO scannedItem;
+
+        // Check if item exist in sale
+        itemRegistered = currentSale.checkItemList(itemID);
+
+        // If item not registered, fetch item from DB and add to itemList
+        if (!itemRegistered) {
+            // Fetch item from DB
+            scannedItem = invHandler.fetchItemFromDB(itemID);
+
+            // Add new item to list
+            currentSale.addItem(scannedItem, quantity);
+        } else {
+            // If item already registered, update item quantity in itemList
+            currentSale.updateItem(itemID, quantity);
+        }
+
+        // Fetch ViewDTO for cashier display
+        viewDTO = currentSale.createViewDTO(itemID);
+        return viewDTO;
+    }
+
+    
+
+
+    
+
+
 }
