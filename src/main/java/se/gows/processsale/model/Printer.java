@@ -20,7 +20,14 @@ public class Printer {
         System.out.println("Time of Sale" + receipt.timeOfSale);
         System.out.println();
         System.out.println("Item list:");
-       
+        for(RegisteredItem i : receipt.itemList ) {
+            System.out.println("* " + i.item.itemDescription + " " + i.item.price + "kr");
+        }
+        System.out.println();
+        System.out.println("Total price: " + receipt.totalPrice);
+        System.out.println("Total VAT: " + receipt.totalVAT);
+        System.out.println();
+        System.out.println("Total (incl. VAT):" + receipt.totalIncVat);
         //add
 
     }
