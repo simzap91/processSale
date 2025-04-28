@@ -2,6 +2,7 @@ package se.gows.processsale.view;
 import se.gows.processsale.DTO.SummaryDTO;
 import se.gows.processsale.DTO.ViewDTO;
 import se.gows.processsale.controller.*;
+import se.gows.processsale.model.Amount;
 
 public class View {
     private Controller ctrl;
@@ -36,7 +37,8 @@ public class View {
         // endSale
         SummaryDTO sumDTO = ctrl.endSale();
         System.out.println("Sale ended.\n");
-        
+        Amount payment = new Amount(100);
+        ctrl.registerPayment(payment);
 
     }
 }
