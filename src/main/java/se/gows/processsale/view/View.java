@@ -1,4 +1,5 @@
 package se.gows.processsale.view;
+import se.gows.processsale.DTO.SummaryDTO;
 import se.gows.processsale.DTO.ViewDTO;
 import se.gows.processsale.controller.*;
 
@@ -31,6 +32,10 @@ public class View {
             // Code that sets itemsLeft to false
             itemsLeft = false;
         }
+
+        // endSale
+        SummaryDTO sumDTO = ctrl.endSale();
+        System.out.println("Sale ended.\n");
         
 
     }

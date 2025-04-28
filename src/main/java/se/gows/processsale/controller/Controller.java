@@ -1,6 +1,7 @@
 package se.gows.processsale.controller;
 
 import se.gows.processsale.DTO.ItemDTO;
+import se.gows.processsale.DTO.SummaryDTO;
 import se.gows.processsale.DTO.ViewDTO;
 import se.gows.processsale.integration.*;
 import se.gows.processsale.model.Sale;
@@ -13,6 +14,7 @@ public class Controller {
     private AccountingDBHandler accHandler;
     private DiscountDBHandler discHandler;
     private Sale currentSale;
+    private SummaryDTO currentSaleSummaryDTO;
 
     public Controller(InventoryDBHandler invHandler, 
                         AccountingDBHandler accHandler, 
@@ -54,6 +56,10 @@ public class Controller {
         viewDTO = currentSale.createViewDTO(itemID);
         return viewDTO;
     }
+
+    
+
+
     
 
 
