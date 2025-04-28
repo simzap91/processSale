@@ -1,5 +1,7 @@
 package se.gows.processsale.integration;
-import se.gows.processsale.model.Sale;
+
+import se.gows.processsale.model.RegisteredItem;
+import se.gows.processsale.DTO.DiscountDTO;
 
 public class DiscountDBHandler {
     
