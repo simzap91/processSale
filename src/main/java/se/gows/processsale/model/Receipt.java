@@ -7,17 +7,17 @@ import se.gows.processsale.model.Transaction;
 
 
 public class Receipt {
-    private LocalTime timeOfSale;
-    private double totalPrice;
-    private double totalVAT;
-    private double totalIncVat;
-    private RegisteredItem[] itemList;
-    private Amount amountPaid;
-    private Amount amountChange;
+    public LocalTime timeOfSale;
+    public double totalPrice;
+    public double totalVAT;
+    public double totalIncVat;
+    public RegisteredItem[] itemList;
+    public Amount amountPaid;
+    public Amount amountChange;
     
 
     public Receipt(SummaryDTO summaryDTO, Transaction trans) {
-        this.LocalTime = summaryDTO.timeOfSale;
+        this.timeOfSale = summaryDTO.timeOfSale;
         this.totalPrice = summaryDTO.totalPrice;
         this.totalVAT = summaryDTO.totalVAT;
         this.totalIncVat = summaryDTO.totalIncVat;

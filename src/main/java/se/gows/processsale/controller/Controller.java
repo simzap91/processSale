@@ -4,9 +4,10 @@ import se.gows.processsale.DTO.ItemDTO;
 import se.gows.processsale.DTO.SummaryDTO;
 import se.gows.processsale.DTO.ViewDTO;
 import se.gows.processsale.integration.*;
+import se.gows.processsale.model.Printer;
 import se.gows.processsale.model.Receipt;
 import se.gows.processsale.model.Sale;
-import se.gows.processsale.DTO.SummaryDTO;
+import se.gows.processsale.model.Transaction;
 
 /**
  * This is the application's only controller. All calls to the model pass through this class.
@@ -83,6 +84,11 @@ public class Controller {
     public Receipt createReceipt(SummaryDTO summaryDTO, Transaction trans) {
         Receipt receipt = new Receipt(summaryDTO, trans);
         return receipt;
+    }
+
+     public Printer createPrinter(Receipt receipt) {
+        Printer receiptPrinter = new Printer(receipt);
+        return receiptPrinter;
     }
 
 }
