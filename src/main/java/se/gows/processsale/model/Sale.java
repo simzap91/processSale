@@ -25,12 +25,12 @@ public class Sale {
      * @param itemID
      * @return
      */
-    public boolean checkItemList(int itemID) 
+    public boolean checkItemList(int itemID)
     {
         // Step through items in itemList
         for (RegisteredItem regItem : itemList){
 
-            if (regItem.item.itemID == itemID) {
+            if (itemIdsAreEqual(regItem, itemID)) {
                 // ItemID found in itemList -> return true
                 return true;
             }
@@ -64,7 +64,7 @@ public class Sale {
         for (RegisteredItem regItem : itemList) {
 
             // Step thorugh the list until item is found
-            if (regItem.item.itemID == itemID) {
+            if (itemIdsAreEqual(regItem, itemID)) { // Eventuellt göra om till metod
                 // Update quantity
                 regItem.setQuantity(regItem.quantity + quantity);
 
@@ -114,10 +114,17 @@ public class Sale {
      */
     public RegisteredItem getRegisteredItem(int itemID){
         for (RegisteredItem regItem : itemList){
-            if (regItem.item.itemID == itemID) {
+            if (itemIdsAreEqual(regItem, itemID)) {
                 return regItem;
             }
         }
         return null;
+    }
+
+    private boolean itemIdsAreEqual(RegisteredItem regItem, int itemID){
+        if (regItem.item.itemID == itemID) {
+            return true;
+        }
+        return false;
     }
 }
