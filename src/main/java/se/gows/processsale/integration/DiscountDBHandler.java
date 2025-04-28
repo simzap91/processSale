@@ -3,8 +3,6 @@ import se.gows.processsale.model.Sale;
 
 public class DiscountDBHandler {
     
-
-
     public double fetchDiscount(int customerID, Sale currentSale){
 
         double discountRate = customerDiscount(customerID);
