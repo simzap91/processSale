@@ -91,14 +91,14 @@ public class Controller {
         }
         return finalSale.totalIncVat;
     }
-    
+    public void registerPayment(Amount payment){
+        Transaction trans = new Transaction(payment, null,currentSaleSummaryDTO.totalPrice);
+    }
     public Receipt createReceipt(SummaryDTO summaryDTO, Transaction trans) {
         Receipt receipt = new Receipt(summaryDTO, trans);
         return receipt;
     }
-    public void registerPayment(Amount payment){
-        Transaction trans = new Transaction(payment, null,currentSaleSummaryDTO.totalPrice);
-    }
+    
 
 //skapa kvitto
 
