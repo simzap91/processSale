@@ -38,20 +38,6 @@ public class InventoryDBHandler {
         }
         return scannedItem;
     }
-    private String[] fetchItemAsList(String dbItem, int itemID){
-
-        String[] outputParts = null;
-
-        // 1) Split the invItem string on commas
-        String[] parts = dbItem.split(",");
-        // 2) Parse invItem itemID as int
-        int invItemID = Integer.parseInt(parts[0]);
-
-        if (invItemID == itemID) {
-            outputParts = parts;
-        }
-        return outputParts;
-    }
 
     public void updateInventoryDB(ArrayList<RegisteredItem> itemList) {
 
@@ -96,5 +82,21 @@ public class InventoryDBHandler {
                 break;
             }
         }
+    }
+
+    
+    private String[] fetchItemAsList(String dbItem, int itemID){
+
+        String[] outputParts = null;
+
+        // 1) Split the invItem string on commas
+        String[] parts = dbItem.split(",");
+        // 2) Parse invItem itemID as int
+        int invItemID = Integer.parseInt(parts[0]);
+
+        if (invItemID == itemID) {
+            outputParts = parts;
+        }
+        return outputParts;
     }
 }

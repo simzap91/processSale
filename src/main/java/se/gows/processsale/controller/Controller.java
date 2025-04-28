@@ -32,6 +32,10 @@ public class Controller {
         currentSale = new Sale(invHandler);
     }
 
+    /**
+     * Takes scanned itemID and passes it further to the Sale object. 
+     * Also checks if item is registered in the sale. If not, it passes it to inventory handler (which create an itemDTO and sends back).
+     */
     public ViewDTO scanItem(int itemID, int quantity) {
         boolean itemRegistered;
         ViewDTO viewDTO;
@@ -58,7 +62,8 @@ public class Controller {
     }
 
     /**
-     * Ends sale.
+     * Calls endSale()-method in sale object.
+     * Returns a summary of the sale (to be displayed in View).
      */
     public SummaryDTO endSale() {
 
