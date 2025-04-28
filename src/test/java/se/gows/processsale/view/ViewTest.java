@@ -1,4 +1,3 @@
 package se.gows.processsale.view;
 
-class ViewTest {
-}
+public class ViewTest{}

@@ -1,8 +1,8 @@
 package se.gows.processsale.startup;
 
 import se.gows.processsale.controller.*;
-import se.gows.processsale.view.*;
 import se.gows.processsale.integration.*;
+import se.gows.processsale.view.*;
 
 public class Main {
     public static void main(String[] args) {
