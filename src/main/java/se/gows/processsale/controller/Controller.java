@@ -4,7 +4,7 @@ import se.gows.processsale.DTO.ItemDTO;
 import se.gows.processsale.DTO.SummaryDTO;
 import se.gows.processsale.DTO.ViewDTO;
 import se.gows.processsale.integration.*;
-import se.gows.processsale.model.Sale;
+import se.gows.processsale.model.*;
 
 /**
  * This is the application's only controller. All calls to the model pass through this class.
@@ -70,9 +70,18 @@ public class Controller {
 
         return currentSaleSummaryDTO;
     }
+    public Sale requestDiscount(int customerID, SummaryDTO finalSale){
 
-
+        double discountRate = fetchDiscount(customerID,finalSale);
+        finalSale.
+        return currentSale;
+    }
     
+    public void registerPayment(Amount payment){
+        Transaction trans = new Transaction(payment, currentSaleSummaryDTO.totalPrice);
+    }
+
+//skapa kvitto
 
 
 }
