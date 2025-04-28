@@ -80,13 +80,16 @@ public class Controller {
     }
     int[] disclist = {0,1,2,3};
     public SummaryDTO requestDiscount(int customerID, SummaryDTO finalSale){
-        DiscountDTO discount = discHandler.fetchDiscount(disclist, customerID, finalSale.itemList, finalSale.totalIncVat);
-        double finalPrice = calculateDiscount(finalSale, discount);
-        finalSale.totalIncVat = finalPrice;
+            DiscountDTO discount = discHandler.fetchDiscount(disclist, customerID, finalSale.itemList, finalSale.totalIncVat);
+            double finalPrice = calculateDiscount(finalSale, discount);
+            finalSale.totalIncVat = finalPrice;
         return finalSale;
     }
     private double calculateDiscount(SummaryDTO finalSale, DiscountDTO discount){
-        return (finalSale.totalIncVat-discount.discountSumItems)*discount.discountRateSalePrice*discount.discountRateCustomer;
+        if(finalSale.totalIncVat-discount.discountSumItems>0){
+            return (finalSale.totalIncVat-discount.discountSumItems)*discount.discountRateSalePrice*discount.discountRateCustomer;
+        }
+        return finalSale.totalIncVat;
     }
     
     public Receipt createReceipt(SummaryDTO summaryDTO, Transaction trans) {
