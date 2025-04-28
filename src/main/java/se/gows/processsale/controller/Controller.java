@@ -80,7 +80,7 @@ public class Controller {
     }
     int[] disclist = {0,1,2,3};
     public SummaryDTO requestDiscount(int customerID, SummaryDTO finalSale){
-        DiscountDTO discount = fetchDiscount(disclist, customerID, finalSale.itemList, finalSale.totalIncVat);
+        DiscountDTO discount = discHandler.fetchDiscount(disclist, customerID, finalSale.itemList, finalSale.totalIncVat);
         double finalPrice = calculateDiscount(finalSale, discount);
         finalSale.totalIncVat = finalPrice;
         return finalSale;
