@@ -1,5 +1,6 @@
 package se.gows.processsale.controller;
 
+import se.gows.processsale.DTO.DiscountDTO;
 import se.gows.processsale.DTO.ItemDTO;
 import se.gows.processsale.DTO.SummaryDTO;
 import se.gows.processsale.DTO.ViewDTO;
@@ -78,11 +79,22 @@ public class Controller {
         return currentSaleSummaryDTO;
     }
 
-
+    public SummaryDTO requestDiscount(int customerID, SummaryDTO finalSale){
+        DiscountDTO discount = fetchDiscount(1,1,finalSale.itemList,finalSale.totalIncVat);
+        double finalPrice = (finalSale.totalIncVat-discount.discountSumItems)*discount.discountRateSalePrice*discount.discountRateCustomer;
+        finalSale.totalIncVat = finalPrice;
+        return finalSale;
+    }
     
     public Receipt createReceipt(SummaryDTO summaryDTO, Transaction trans) {
         Receipt receipt = new Receipt(summaryDTO, trans);
         return receipt;
     }
+    public void registerPayment(Amount payment){
+        Transaction trans = new Transaction(payment, currentSaleSummaryDTO.totalPrice);
+    }
+
+//skapa kvitto
+
 
 }
