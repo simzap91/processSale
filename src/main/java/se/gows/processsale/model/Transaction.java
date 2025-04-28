@@ -14,5 +14,8 @@ public class Transaction {
         this.totalPrice = totalPrice;
     }
 
-    
+    public int payment(Amount payment, double totalPrice){
+        
+        return pay;
+    }
 }
