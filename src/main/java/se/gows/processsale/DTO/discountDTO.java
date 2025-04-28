@@ -1,14 +1,14 @@
 package se.gows.processsale.DTO;
 
-public class discountDTO {
+public class DiscountDTO {
     double discountRateSalePrice;
-    double discountIteminsale;
+    double discountSumItems;
     double discountRateCustomer;
 
 
-    public discountDTO(double discountRateSalePrice, double discountIteminsale, double discountRateCustomer) {
-        this.discountRateSalePrice = discountIteminsale;
-        this.discountIteminsale = discountIteminsale;
+    public DiscountDTO(double discountRateSalePrice, double discountSumItems, double discountRateCustomer) {
+        this.discountRateSalePrice = discountRateSalePrice;
+        this.discountSumItems = discountSumItems;
         this.discountRateCustomer = discountRateCustomer;
     }
 }
