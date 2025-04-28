@@ -29,9 +29,13 @@ public class Controller {
      * Starts a new sale. This method must be called first in the process.
      */
     public void startSale() {
-        currentSale = new Sale();
+        currentSale = new Sale(invHandler);
     }
 
+    /**
+     * Takes scanned itemID and passes it further to the Sale object. 
+     * Also checks if item is registered in the sale. If not, it passes it to inventory handler (which create an itemDTO and sends back).
+     */
     public ViewDTO scanItem(int itemID, int quantity) {
         boolean itemRegistered;
         ViewDTO viewDTO;
@@ -57,7 +61,20 @@ public class Controller {
         return viewDTO;
     }
 
-    
+    /**
+     * Calls endSale()-method in sale object.
+     * Returns a summary of the sale (to be displayed in View).
+     */
+    public SummaryDTO endSale() {
+
+        // End sale and create sumDTO
+        SummaryDTO sumDTO = currentSale.endSale();
+
+        // Set local attribute
+        currentSaleSummaryDTO = sumDTO;
+
+        return currentSaleSummaryDTO;
+    }
 
 
     

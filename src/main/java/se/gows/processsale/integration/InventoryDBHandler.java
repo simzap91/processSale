@@ -38,6 +38,53 @@ public class InventoryDBHandler {
         }
         return scannedItem;
     }
+
+    public void updateInventoryDB(ArrayList<RegisteredItem> itemList) {
+
+        // Step through all registered items in itemList
+        for (RegisteredItem item : itemList) {
+
+            int itemID = item.item.itemID;
+            int itemCount = item.quantity;
+
+            // Update item invStatus in DB
+            updateItemInvStatus(itemID, itemCount);
+        }
+    }
+
+    private void updateItemInvStatus(int itemID, int itemCount) {
+
+        // 1) Step through the items in inventoryDB 
+        for (String itemInInventory : inventoryDB) {
+
+            // 2) Fetch item as list of Strings
+            String[] parts = fetchItemAsList(itemInInventory, itemID);
+
+            // If item sucessfully fetched
+            if (parts != null) {
+
+                // 3) Fetch item invStatus
+                int invStatus = Integer.parseInt(parts[4].trim());
+
+                // 4) Calculate new invStatus
+                int updatedInvStatus = invStatus - itemCount;
+
+                // 5) Replace invStatus with updatedInvStatus (convert int to string)
+                parts[parts.length - 1] = String.valueOf(updatedInvStatus).trim();
+
+                // 6) Join the parts back into a single comma-separated string
+                String updatedItemString = String.join(",", parts);
+
+                // 7) Put updated item back in inventoryDB
+                itemInInventory = updatedItemString;
+                
+                // 8) All done -> break loop
+                break;
+            }
+        }
+    }
+
+    
     private String[] fetchItemAsList(String dbItem, int itemID){
 
         String[] outputParts = null;
