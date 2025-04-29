@@ -28,7 +28,7 @@ public class View {
 
         // scanItem
         while (itemsLeft){
-            int itemId = 0;
+            int itemId = 1;
             int quantity = 0;
             // Create ViewDTO from scanned item
             ViewDTO viewDTO = ctrl.scanItem(itemId, quantity);

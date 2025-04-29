@@ -101,7 +101,7 @@ public class Controller {
      * @param payment payment payed by customer
      */
     public void registerPayment(Amount payment){
-        Transaction trans = new Transaction(payment, null,currentSaleSummaryDTO.totalPrice);
+        Transaction trans = new Transaction(payment, currentSaleSummaryDTO.totalPrice);
     }
 
 
