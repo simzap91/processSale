@@ -6,7 +6,6 @@ import se.gows.processsale.DTO.SummaryDTO;
 import se.gows.processsale.DTO.ViewDTO;
 import se.gows.processsale.integration.*;
 import se.gows.processsale.model.*;
-import se.gows.processsale.DTO.SummaryDTO;
 
 /**
  * This is the application's only controller. All calls to the model pass through this class.
@@ -81,8 +80,6 @@ public class Controller {
 
         return currentSaleSummaryDTO;
     }
-
-
 
     /**
      * Takes a discount request from customer and passes to Discount DB handler

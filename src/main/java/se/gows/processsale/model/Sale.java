@@ -157,9 +157,9 @@ public class Sale {
 
     public SummaryDTO calculateDiscount(SummaryDTO finalSale, DiscountDTO discount){
 
-        double discountSumTypeOne = discount.discountSumItems;
-        double discountRateTypeTwo = 1.0 - discount.discountRateSalePrice;
-        double discountRateTypeThree = 1.0 - discount.discountRateCustomer;
+        double discountSumTypeOne = discount.discountSumTypeOne;
+        double discountRateTypeTwo = 1.0 - discount.discountRateTypeTwo;
+        double discountRateTypeThree = 1.0 - discount.discountRateTypeThree;
 
         if(finalSale.totalIncVat - discountSumTypeOne > 0){
 
