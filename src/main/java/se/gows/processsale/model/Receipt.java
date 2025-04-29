@@ -3,8 +3,6 @@ package se.gows.processsale.model;
 import java.time.LocalTime;
 
 import se.gows.processsale.DTO.SummaryDTO;
-import se.gows.processsale.model.Transaction;
-
 
 public class Receipt {
     private LocalTime timeOfSale;
@@ -17,7 +15,7 @@ public class Receipt {
     
 
     public Receipt(SummaryDTO summaryDTO, Transaction trans) {
-        this.LocalTime = summaryDTO.timeOfSale;
+        this.timeOfSale = summaryDTO.timeOfSale;
         this.totalPrice = summaryDTO.totalPrice;
         this.totalVAT = summaryDTO.totalVAT;
         this.totalIncVat = summaryDTO.totalIncVat;
