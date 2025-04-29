@@ -111,6 +111,10 @@ public class Controller {
     public void registerPayment(Amount payment){
         Transaction trans = new Transaction(payment, null,currentSaleSummaryDTO.totalPrice);
     }
+
+
+
+
     /**
      * Creates new receipt
      * @param summaryDTO summary of the sale
@@ -123,7 +127,9 @@ public class Controller {
     }
     
 
-//skapa kvitto
+    accHandler.updateAccountingDB(receipt); 
+
+    //skapa kvitto
 
 
 }
