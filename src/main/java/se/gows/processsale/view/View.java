@@ -32,6 +32,10 @@ public class View {
             int quantity = 0;
             // Create ViewDTO from scanned item
             ViewDTO viewDTO = ctrl.scanItem(itemId, quantity);
+            
+            if (viewDTO.regItem == null){
+                System.out.println("Invalid identifier.");
+            }
 
             // Code that sets itemsLeft to false
             itemsLeft = false;

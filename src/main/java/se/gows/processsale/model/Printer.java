@@ -1,7 +1,5 @@
 package se.gows.processsale.model;
 
-
-
 public class Printer {
     private Receipt receipt;
 
