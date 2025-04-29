@@ -156,8 +156,14 @@ public class Sale {
     }
 
     public SummaryDTO calculateDiscount(SummaryDTO finalSale, DiscountDTO discount){
-        if(finalSale.totalIncVat-discount.discountSumItems>0){
-            totalPrice -= ((finalSale.totalPrice-discount.discountSumItems)*discount.discountRateSalePrice*discount.discountRateCustomer);
+
+        double discountSumTypeOne = discount.discountSumItems;
+        double discountRateTypeTwo = 1.0 - discount.discountRateSalePrice;
+        double discountRateTypeThree = 1.0 - discount.discountRateCustomer;
+
+        if(finalSale.totalIncVat - discountSumTypeOne > 0){
+
+            totalPrice -= finalSale.totalPrice * discountRateTypeTwo * discountRateTypeThree - discountSumTypeOne;
             
             finalSale.totalIncVat = calculateRunningTotalIncVat();
         }

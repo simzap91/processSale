@@ -20,6 +20,6 @@ public class Printer {
         System.out.println("Total price: " + receipt.totalPrice);
         System.out.println("Total VAT: " + receipt.totalVAT);
         System.out.println();
-        System.out.println("Total (incl. VAT):" + receipt.totalIncVat);
+        System.out.println("Total (incl. VAT): " + String.format("%.2f", receipt.totalIncVat) + " kr");
     }
 }

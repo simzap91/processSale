@@ -58,6 +58,10 @@ public class View {
         Amount payment = new Amount(100);
         Transaction trans = ctrl.registerPayment(payment);
 
+        // 
+
+        // Receipt
+
         Receipt receipt = ctrl.createReceipt(sumDTO, trans);
         Printer printer = ctrl.createPrinter();
 
