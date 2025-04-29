@@ -58,11 +58,9 @@ public class DiscountDBHandler {
 
                     // Get discount rate as decimal number
                     double discItemRate = Math.round(discObj[1] * 100.0) / 10000.0;
-                    System.out.println(discItemRate);
 
                     // Calculate discounted sum
                     double discItemSum = Math.round(regItem.item.price * discItemRate * 100.0) / 100.0;
-                    System.out.println(discItemSum);
 
                     // Update registered item object
                     regItem.discountRate = discItemRate;
