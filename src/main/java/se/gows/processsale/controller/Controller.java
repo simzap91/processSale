@@ -82,7 +82,7 @@ public class Controller {
         return currentSaleSummaryDTO;
     }
 
-    int[] disclist = {0,1,2,3};
+
 
     /**
      * Takes a discount request from customer and passes to Discount DB handler
@@ -90,18 +90,11 @@ public class Controller {
      * @param finalSale summary of the ended sale
      * @return summaryDTO that contains the updated sale summary after discount
      */
-    public SummaryDTO requestDiscount(int customerID, SummaryDTO finalSale){
-            DiscountDTO discount = discHandler.fetchDiscount(disclist, customerID, finalSale.itemList, finalSale.totalIncVat);
-            double finalPrice = calculateDiscount(finalSale, discount);
+    public SummaryDTO requestDiscount(int customerID, SummaryDTO finalSale, int[] discTypes){
+            DiscountDTO discount = discHandler.fetchDiscount(discTypes, customerID, finalSale.itemList, finalSale.totalIncVat);
+            SummaryDTO updatedFinalSale = currentSale.calculateDiscount(finalSale, discount);
             finalSale.totalIncVat = finalPrice;
         return finalSale;
-    }
-
-    private double calculateDiscount(SummaryDTO finalSale, DiscountDTO discount){
-        if(finalSale.totalIncVat-discount.discountSumItems>0){
-            return (finalSale.totalIncVat-discount.discountSumItems)*discount.discountRateSalePrice*discount.discountRateCustomer;
-        }
-        return finalSale.totalIncVat;
     }
 
     /**
@@ -126,9 +119,9 @@ public class Controller {
         return receipt;
     }
     
-
-    accHandler.updateAccountingDB(receipt); 
-
+    public void updateAccountingDB(Receipt receipt) {
+        accHandler.updateAccountingBalance(receipt); 
+    }
     //skapa kvitto
 
 

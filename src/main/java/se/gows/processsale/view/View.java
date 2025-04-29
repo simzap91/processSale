@@ -43,10 +43,16 @@ public class View {
 
         // requestDiscount
         
+        int customerID = 1;
+        int[] discTypes = {1,2,3};
+
+        ctrl.requestDiscount(customerID, sumDTO, discTypes);
 
         // registerPayment
         Amount payment = new Amount(100);
         ctrl.registerPayment(payment);
+
+        
 
     }
 }

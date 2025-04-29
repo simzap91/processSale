@@ -8,16 +8,16 @@ public class DiscountDBHandler {
     // Data base
     int[] memberCustomerIDs = {1,2,3,4,5}; // Format: {customerID}
     int[][] activeItemDiscounts = {{1, 20},{2, 10}}; // Format: {itemID, discountRate (%)}
-    int memberDiscount = 15; // Discount rate (%) on entire sale for member customers
+    double memberDiscount = 0.15; // Discount rate (%) on entire sale for member customers
     int discountTypeTwoLimit = 200; // Total price limit (SEK) to reach discount status
-    int discountEntireSale = 10; // Discount rate (%) on entire sale if total price > limit
+    double discountEntireSale = 0.1; // Discount rate (%) on entire sale if total price > limit
 
     public DiscountDTO fetchDiscount(int[] discountTypes, int customerID, RegisteredItem[] purchasedItems, double totalPrice){
 
         DiscountDTO discountDTO = null;
         double discountSumItems = 0;
-        double discountRateSalePrice = 0;
-        double discountRateCustomer = 0;
+        double discountRateSalePrice = 1;
+        double discountRateCustomer = 1;
 
         for (int type : discountTypes) {
             if (type == 0) {
@@ -38,7 +38,7 @@ public class DiscountDBHandler {
         }
 
         // If discount, create new discountDTO
-        if (discountSumItems > 0 || discountRateSalePrice > 0 || discountRateCustomer > 0) {
+        if (discountSumItems > 0 || discountRateSalePrice < 1 || discountRateCustomer < 1) {
             discountDTO = new DiscountDTO(discountSumItems, discountRateSalePrice, discountRateCustomer);
         }
         return discountDTO;

@@ -3,6 +3,7 @@ package se.gows.processsale.model;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
+import se.gows.processsale.DTO.DiscountDTO;
 import se.gows.processsale.DTO.ItemDTO;
 import se.gows.processsale.DTO.SummaryDTO;
 import se.gows.processsale.DTO.ViewDTO;
@@ -152,5 +153,14 @@ public class Sale {
         invHandler.updateInventoryDB(itemList);
 
         return sumDTO;
+    }
+
+    public SummaryDTO calculateDiscount(SummaryDTO finalSale, DiscountDTO discount){
+        if(finalSale.totalIncVat-discount.discountSumItems>0){
+            totalPrice -= ((finalSale.totalPrice-discount.discountSumItems)*discount.discountRateSalePrice*discount.discountRateCustomer);
+            
+            finalSale.totalIncVat = calculateRunningTotalIncVat();
+        }
+        return finalSale;
     }
 }
