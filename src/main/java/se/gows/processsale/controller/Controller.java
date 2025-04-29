@@ -124,4 +124,9 @@ public class Controller {
     //skapa kvitto
 
 
+     public Printer createPrinter(Receipt receipt) {
+        Printer receiptPrinter = new Printer(receipt);
+        return receiptPrinter;
+    }
+
 }
