@@ -46,7 +46,7 @@ public class View {
         int customerID = 1;
         int[] discTypes = {1,2,3};
 
-        ctrl.requestDiscount(customerID, sumDTO, discTypes);
+        sumDTO = ctrl.requestDiscount(customerID, sumDTO, discTypes);
 
         // registerPayment
         Amount payment = new Amount(100);

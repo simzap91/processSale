@@ -93,8 +93,7 @@ public class Controller {
     public SummaryDTO requestDiscount(int customerID, SummaryDTO finalSale, int[] discTypes){
             DiscountDTO discount = discHandler.fetchDiscount(discTypes, customerID, finalSale.itemList, finalSale.totalIncVat);
             SummaryDTO updatedFinalSale = currentSale.calculateDiscount(finalSale, discount);
-            finalSale.totalIncVat = finalPrice;
-        return finalSale;
+        return updatedFinalSale;
     }
 
     /**
