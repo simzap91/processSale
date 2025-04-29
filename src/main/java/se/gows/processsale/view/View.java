@@ -17,6 +17,9 @@ public class View {
         this.ctrl = ctrl;
     }
 
+    /**
+     * Runs simulation of sale process.
+     */
     public void runFakeExecution() {
 
         // startSale
@@ -37,6 +40,11 @@ public class View {
         // endSale
         SummaryDTO sumDTO = ctrl.endSale();
         System.out.println("Sale ended.\n");
+
+        // requestDiscount
+        
+
+        // registerPayment
         Amount payment = new Amount(100);
         ctrl.registerPayment(payment);
 
