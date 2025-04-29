@@ -4,6 +4,8 @@ import se.gows.processsale.DTO.ViewDTO;
 import se.gows.processsale.controller.*;
 import se.gows.processsale.model.Amount;
 
+import se.gows.processsale.model.*;
+
 public class View {
     private Controller ctrl;
     boolean itemsLeft = true;
@@ -29,7 +31,7 @@ public class View {
         // scanItem
         while (itemsLeft){
             int itemId = 1;
-            int quantity = 0;
+            int quantity = 2;
             // Create ViewDTO from scanned item
             ViewDTO viewDTO = ctrl.scanItem(itemId, quantity);
             
@@ -54,9 +56,12 @@ public class View {
 
         // registerPayment
         Amount payment = new Amount(100);
-        ctrl.registerPayment(payment);
+        Transaction trans = ctrl.registerPayment(payment);
 
-        
+        Receipt receipt = ctrl.createReceipt(sumDTO, trans);
+        Printer printer = ctrl.createPrinter();
+
+        printer.printReceipt(receipt);
 
     }
 }

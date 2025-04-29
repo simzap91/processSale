@@ -100,8 +100,9 @@ public class Controller {
      * Creates new transaction object from payed amount
      * @param payment payment payed by customer
      */
-    public void registerPayment(Amount payment){
+    public Transaction registerPayment(Amount payment){
         Transaction trans = new Transaction(payment, currentSaleSummaryDTO.totalPrice);
+        return trans;
     }
 
 
@@ -124,8 +125,8 @@ public class Controller {
     //skapa kvitto
 
 
-     public Printer createPrinter(Receipt receipt) {
-        Printer receiptPrinter = new Printer(receipt);
+     public Printer createPrinter() {
+        Printer receiptPrinter = new Printer();
         return receiptPrinter;
     }
 
