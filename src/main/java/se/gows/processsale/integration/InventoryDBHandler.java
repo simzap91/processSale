@@ -10,35 +10,25 @@ public class InventoryDBHandler {
     // Inventory DB - Format: {itemID, itemDescription, price, VAT (decimal), invStatus}
     String[] inventoryDB = {"1, Mjölk, 14.90, 0.25, 500", "2, Smör, 39.90, 0.25, 500"};
     
+    /* 
+     * Fetches item from inventoryDB.
+     * Fetches item with ID that matches passed itemID.
+     * If no item ID matches the methods returns null.
+     */
     public ItemDTO fetchItemFromDB(int itemID) {
 
-        // 1) Declare new itemDTO
-        ItemDTO scannedItem = null;
+        // Fetch inventory item as list of strings
+        String[] invItem = fetchInventoryItem(itemID);
 
-        // 2) Step through the items in inventoryDB 
-        for (String itemInInventory : inventoryDB) {
+        // Create new itemDTO
+        ItemDTO scannedItem = createItemDTO(invItem);
 
-            // 3) Compare list item IDs with scanned item ID
-            if (readListItemID(itemInInventory) == itemID){
-                
-                // 4) If item found -> Fetch item as list of Strings
-                String[] parts = fetchItemAsList(itemInInventory);
-
-                // 5) Fetch item attributes from invItem
-                String itemDesc = parts[1].trim();
-                double price = Double.parseDouble(parts[2].trim());
-                double itemVat = Double.parseDouble(parts[3].trim());
-
-                // 6) Create new ItemDTO
-                scannedItem = new ItemDTO(itemID, itemDesc, price, itemVat);
-
-                // 7) Item is found -> break loop
-                break;
-            }
-        }
         return scannedItem;
     }
 
+    /* 
+     * Updates the inventory status for each item after a sale.
+     */
     public void updateInventoryDB(ArrayList<RegisteredItem> itemList) {
 
         // Step through all registered items in itemList
@@ -52,6 +42,9 @@ public class InventoryDBHandler {
         }
     }
 
+    /* 
+     * Calculate and updates the inventory status for a specific item in inventoryDB.
+     */
     private void updateItemInvStatus(int itemID, int itemCount) {
 
         // 1) Step through the items in inventoryDB 
@@ -61,7 +54,7 @@ public class InventoryDBHandler {
             if (readListItemID(invItem) == itemID){
 
                 // 2) Fetch item as list of Strings
-                String[] parts = fetchItemAsList(invItem);
+                String[] parts = getItemAsListOfStrings(invItem);
 
                 // 3) Fetch item invStatus
                 int invStatus = Integer.parseInt(parts[4].trim());
@@ -85,24 +78,104 @@ public class InventoryDBHandler {
     }
 
     /*
-     * Takes a 
+     * Takes an itemID, finds the item in invetoryDB, convert the item to a list of strings and return that list.
+     * If the item is not present in iventoryDB, the method returns null.
      */
-    private String[] fetchItemAsList(String dbItem){
+    private String[] fetchInventoryItem(int itemID){
 
-        // Split dbItem string on commas
-        String[] parts = dbItem.split(",");
+        // Fetch item String from inventory DB
+        String invItem = fetchItemStringFromDB(itemID);
 
+        if (invItem != null) {
+            // Convert invItem to list
+            String[] parts = getItemAsListOfStrings(invItem);
+
+            return parts;
+        }
+        return null;
+    }
+
+    /*
+     * Takes an itemID, finds the item string in invetoryDB and returns it.
+     * If the item is not present in iventoryDB, the method returns null.
+     */
+    private String fetchItemStringFromDB(int itemID){
+
+        // Step through the items in inventoryDB 
+        for (String invItem : inventoryDB) {
+            if (readListItemID(invItem) == itemID) {
+                return invItem;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Converts item string to a list of strings.
+     * 
+     * @param invItem  a comma-separated string, e.g. "1, Mjölk, 2, ..."
+     * @return         a list of strings (e.g. ["1", "Mjölk", "2", ...])
+     * @throws 
+     */
+    private String[] getItemAsListOfStrings(String invItem){
+        // Throw exception if invItem is null
+        if (invItem == null) {
+            throw new IllegalArgumentException("Input string is null");
+        }
+
+        // Split invItem string on commas
+        String[] parts = invItem.split(",");
         return parts;
     }
 
-    private int readListItemID(String invItem){
-        // Split invItem on commas
-        String[] parts = invItem.split(",");
+    /**
+     * Parses the integer before the first comma.
+     * 
+     * @param invItem  a comma-separated string, e.g. "1, Mjölk, 2"
+     * @return          the parsed int (the “1” in the example)
+     * @throws IllegalArgumentException if invItem is null, empty, or does not start with a valid int
+     */
+    private int readListItemID(String invItem) {
+        // Throw exception if invItem is null
+        if (invItem == null) {
+            throw new IllegalArgumentException("Input string is null");
+        }
 
-        // Get list item ID
-        int listItemId = Integer.parseInt(parts[0].trim());
+        // 1) Split invItem into two parts, with the expected ID as first part
+        String[] parts = invItem.split(",", 2);
 
-        // Return list item ID
-        return listItemId;
+        // 2) If first part is empty, throw exception
+        if (parts.length == 0 || parts[0].trim().isEmpty()) {
+            throw new IllegalArgumentException("No value before the first comma in: \"" + invItem + "\"");
+        }
+
+        // 3) Parse first part (expected ID) and return as an int
+        String firstPart = parts[0].trim();
+        try {
+            return Integer.parseInt(firstPart);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Invalid integer value: \"" + firstPart + "\"", e);
+        }
+    }
+
+    /**
+     * Convert the item (as list of strings) to ItemDTO.
+     * 
+     * @param parts  a comma-separated string, e.g. "1, Mjölk, 2"
+     * @return        a new itemDTO
+     * @throws IllegalArgumentException if invItem is null, empty, or does not start with a valid int
+     */
+    private ItemDTO createItemDTO(String[] parts){
+
+        // 1) Convert item attributes from invItem
+        int itemID = Integer.parseInt(parts[0].trim());
+        String itemDesc = parts[1].trim();
+        double price = Double.parseDouble(parts[2].trim());
+        double itemVat = Double.parseDouble(parts[3].trim());
+
+        // 2) Convert to ItemDTO
+        ItemDTO newItemDTO = new ItemDTO(itemID, itemDesc, price, itemVat);
+
+        return newItemDTO;
     }
 }
