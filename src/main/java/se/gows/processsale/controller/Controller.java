@@ -6,7 +6,6 @@ import se.gows.processsale.DTO.SummaryDTO;
 import se.gows.processsale.DTO.ViewDTO;
 import se.gows.processsale.integration.*;
 import se.gows.processsale.model.*;
-import se.gows.processsale.model.Transaction;
 import se.gows.processsale.DTO.SummaryDTO;
 
 /**
@@ -36,8 +35,11 @@ public class Controller {
     }
 
     /**
-     * Takes scanned itemID and passes it further to the Sale object. 
-     * Also checks if item is registered in the sale. If not, it passes it to inventory handler (which create an itemDTO and sends back).
+     * Passes the scanned item to Sale object.
+     * Also checks if item is registered in the sale. If not, it passes it to inventory handler (which create a new itemDTO and sends back).
+     * @param itemID item identifier of scanned item
+     * @param quantity quantity of scanned item
+     * @return  viewDTO that shows the last scanned item and running total (inc VAT)
      */
     public ViewDTO scanItem(int itemID, int quantity) {
         boolean itemRegistered;
@@ -67,6 +69,7 @@ public class Controller {
     /**
      * Calls endSale()-method in sale object.
      * Returns a summary of the sale (to be displayed in View).
+     * @return summaryDTO that contains time of sale, total price, total VAT, total price inc VAT, list of purchased items
      */
     public SummaryDTO endSale() {
 
@@ -78,22 +81,42 @@ public class Controller {
 
         return currentSaleSummaryDTO;
     }
+
     int[] disclist = {0,1,2,3};
+
+    /**
+     * Takes a discount request from customer and passes to Discount DB handler
+     * @param customerID customerID to check if customer is member
+     * @param finalSale summary of the ended sale
+     * @return summaryDTO that contains the updated sale summary after discount
+     */
     public SummaryDTO requestDiscount(int customerID, SummaryDTO finalSale){
             DiscountDTO discount = discHandler.fetchDiscount(disclist, customerID, finalSale.itemList, finalSale.totalIncVat);
             double finalPrice = calculateDiscount(finalSale, discount);
             finalSale.totalIncVat = finalPrice;
         return finalSale;
     }
+
     private double calculateDiscount(SummaryDTO finalSale, DiscountDTO discount){
         if(finalSale.totalIncVat-discount.discountSumItems>0){
             return (finalSale.totalIncVat-discount.discountSumItems)*discount.discountRateSalePrice*discount.discountRateCustomer;
         }
         return finalSale.totalIncVat;
     }
+
+    /**
+     * Creates new transaction object from payed amount
+     * @param payment payment payed by customer
+     */
     public void registerPayment(Amount payment){
         Transaction trans = new Transaction(payment, null,currentSaleSummaryDTO.totalPrice);
     }
+    /**
+     * Creates new receipt
+     * @param summaryDTO summary of the sale
+     * @param trans object that holds the transaction
+     * @return new receipt of the sale
+     */
     public Receipt createReceipt(SummaryDTO summaryDTO, Transaction trans) {
         Receipt receipt = new Receipt(summaryDTO, trans);
         return receipt;
