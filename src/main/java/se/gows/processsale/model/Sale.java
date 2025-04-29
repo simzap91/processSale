@@ -163,7 +163,7 @@ public class Sale {
 
         if(finalSale.totalIncVat - discountSumTypeOne > 0){
 
-            totalPrice -= finalSale.totalPrice * discountRateTypeTwo * discountRateTypeThree - discountSumTypeOne;
+            totalPrice = finalSale.totalPrice * discountRateTypeTwo * discountRateTypeThree - discountSumTypeOne;
             
             finalSale.totalIncVat = calculateRunningTotalIncVat();
         }

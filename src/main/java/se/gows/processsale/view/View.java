@@ -46,6 +46,8 @@ public class View {
         // endSale
         SummaryDTO sumDTO = ctrl.endSale();
         System.out.println("Sale ended.\n");
+        System.out.println("Total; " + sumDTO.totalPrice);
+        System.out.println("Total (inc. VAT); " + sumDTO.totalIncVat);
 
         // requestDiscount
         
@@ -53,12 +55,16 @@ public class View {
         int[] discTypes = {1,2,3};
 
         sumDTO = ctrl.requestDiscount(customerID, sumDTO, discTypes);
+        System.out.println("After discount:");
+        System.out.println("Total; " + sumDTO.totalPrice);
+        System.out.println("Total (inc. VAT); " + sumDTO.totalIncVat);
 
         // registerPayment
         Amount payment = new Amount(100);
         Transaction trans = ctrl.registerPayment(payment);
 
-        // 
+        // Print summary
+        System.out.println(sumDTO.totalIncVat);
 
         // Receipt
 
