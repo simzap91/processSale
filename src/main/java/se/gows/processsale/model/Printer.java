@@ -17,9 +17,9 @@ public class Printer {
             System.out.println("* " + regItem.quantity + " " + regItem.item.itemDescription + " á " + regItem.item.price + "kr -> " + (regItem.quantity * regItem.item.price + "kr"));
         }
         System.out.println();
-        System.out.println("Total price: " + receipt.totalPrice);
-        System.out.println("Total VAT: " + receipt.totalVAT);
+        System.out.println("Total price: " + receipt.totalPrice + "kr");
+        System.out.println("Total VAT: " + receipt.totalVAT + "kr");
         System.out.println();
-        System.out.println("Total (incl. VAT):" + receipt.totalIncVat);
+        System.out.println("Total (incl. VAT):" + receipt.totalIncVat + "kr");
     }
 }
