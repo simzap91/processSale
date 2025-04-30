@@ -126,10 +126,10 @@ public class Sale {
         double discountRateTypeTwo = 1.0 - discount.discountRateTypeTwo;
         double discountRateTypeThree = 1.0 - discount.discountRateTypeThree;
 
-        if(currentSaleSumDTO.totalIncVat - discountSumTypeOne > 0){
-            totalPrice = (currentSaleSumDTO.totalPrice - discountSumTypeOne) * discountRateTypeTwo * discountRateTypeThree;
-            currentSaleSumDTO.totalPrice = totalPrice;
-            currentSaleSumDTO.totalIncVat = calculateRunningTotalIncVat();
+        if(currentSaleSumDTO.saleSums.totalIncVat - discountSumTypeOne > 0){
+            totalPrice = (currentSaleSumDTO.saleSums.totalPrice - discountSumTypeOne) * discountRateTypeTwo * discountRateTypeThree;
+            currentSaleSumDTO.saleSums.totalPrice = totalPrice;
+            currentSaleSumDTO.saleSums.totalIncVat = calculateRunningTotalIncVat();
         }
         return currentSaleSumDTO;
     }
