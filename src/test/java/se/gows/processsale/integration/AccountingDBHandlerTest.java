@@ -32,6 +32,7 @@ public void tearDown(){
     testSaleDTO = null;
     testTransaction = null;
     testReceipt = null;
+    accDBtest = null;
 }
     @Test
     void testUpdateAccountBalance(Receipt testReceipt) {
