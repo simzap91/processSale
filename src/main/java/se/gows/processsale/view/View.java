@@ -65,9 +65,5 @@ public class View {
 
         // Receipt
         ctrl.printReceipt();
-
-        // Update accounting
-        System.out.println();
-        ctrl.updateAccountingDB();
     }
 }

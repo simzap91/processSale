@@ -94,6 +94,7 @@ public class Controller {
         Transaction trans = new Transaction(payment, currentSaleDTO.saleSums.totalIncVat);
         Receipt receipt = createReceipt(currentSaleDTO, trans);
         cashRegister = new CashRegister(trans, receipt);
+        accHandler.updateAccountBalance(cashRegister.receipt);
     }
 
     /**
@@ -105,10 +106,6 @@ public class Controller {
     public Receipt createReceipt(SaleDTO saleDTO, Transaction trans) {
         Receipt receipt = new Receipt(saleDTO, trans);
         return receipt;
-    }
-    
-    public void updateAccountingDB() {
-        accHandler.updateAccountBalance(cashRegister.receipt); 
     }
 
     public void printReceipt(){
