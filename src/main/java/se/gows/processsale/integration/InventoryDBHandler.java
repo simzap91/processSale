@@ -16,13 +16,12 @@ public class InventoryDBHandler {
      * If no item ID matches the methods returns null.
      */
     public ItemDTO fetchItemFromDB(int itemID) {
-
-        // Fetch inventory item as list of strings
         String[] invItem = fetchInventoryItem(itemID);
+        ItemDTO scannedItem = null;
 
-        // Create new itemDTO
-        ItemDTO scannedItem = createItemDTO(invItem);
-
+        if (invItem != null){
+            scannedItem = createItemDTO(invItem);
+        }
         return scannedItem;
     }
 
@@ -133,29 +132,12 @@ public class InventoryDBHandler {
      * 
      * @param invItem  a comma-separated string, e.g. "1, Mjölk, 2"
      * @return          the parsed int (the “1” in the example)
-     * @throws IllegalArgumentException if invItem is null, empty, or does not start with a valid int
      */
     private int readListItemID(String invItem) {
-        // Throw exception if invItem is null
-        if (invItem == null) {
-            throw new IllegalArgumentException("Input string is null");
-        }
+        String[] itemParts = invItem.split(",", 2);
+        String stringItemId = itemParts[0].trim();
 
-        // 1) Split invItem into two parts, with the expected ID as first part
-        String[] parts = invItem.split(",", 2);
-
-        // 2) If first part is empty, throw exception
-        if (parts.length == 0 || parts[0].trim().isEmpty()) {
-            throw new IllegalArgumentException("No value before the first comma in: \"" + invItem + "\"");
-        }
-
-        // 3) Parse first part (expected ID) and return as an int
-        String firstPart = parts[0].trim();
-        try {
-            return Integer.parseInt(firstPart);
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("Invalid integer value: \"" + firstPart + "\"", e);
-        }
+        return Integer.parseInt(stringItemId);
     }
 
     /**

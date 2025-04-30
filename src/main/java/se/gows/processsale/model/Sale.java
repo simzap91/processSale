@@ -98,13 +98,13 @@ public class Sale {
      * @param itemID
      * @return
      */
-    public ViewDTO createViewDTO(int itemID) {
+    public ViewDTO createViewDTO(ItemDTO scannedItem) {
 
         // calculate total inc VAT
         double runningTotIncVat = calculateRunningTotalIncVat();
 
         // Fetch Registered item from list
-        RegisteredItem regItem = getRegisteredItem(itemID);
+        RegisteredItem regItem = getRegisteredItem(scannedItem);
 
         // Create view DTO
         ViewDTO viewDTO = new ViewDTO(regItem, runningTotIncVat);
@@ -117,12 +117,13 @@ public class Sale {
      * @param itemID
      * @return
      */
-    public RegisteredItem getRegisteredItem(int itemID){
-        for (RegisteredItem regItem : itemList){
-            if (itemIdsAreEqual(regItem, itemID)) {
-                return regItem;
+    public RegisteredItem getRegisteredItem(ItemDTO scannedItem){
+        if (scannedItem != null)
+            for (RegisteredItem regItem : itemList){
+                if (itemIdsAreEqual(regItem, scannedItem.itemID)) {
+                    return regItem;
+                }
             }
-        }
         return null;
     }
 

@@ -27,6 +27,7 @@ public class View {
         // startSale
         ctrl.startSale();
         System.out.println("A new sale has been started.");
+        System.out.println();
 
         // scanItem
         while (itemsLeft){
@@ -34,10 +35,12 @@ public class View {
             int quantity = 2;
             // Create ViewDTO from scanned item
             ViewDTO viewDTO = ctrl.scanItem(itemId, quantity);
-            
-            if (viewDTO.regItem == null){
-                System.out.println("Invalid identifier.");
-            }
+
+            if (viewDTO.regItem == null)
+                System.out.println("Invalid identifier: " + itemId);
+            else 
+                System.out.println(" * " +viewDTO.regItem.quantity + " " + viewDTO.regItem.item.itemDescription + " á " + viewDTO.regItem.item.price);
+            System.out.println("Running total (inc. VAT): " + viewDTO.runningTotalIncVat);
 
             // Code that sets itemsLeft to false
             itemsLeft = false;

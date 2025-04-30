@@ -43,25 +43,20 @@ public class Controller {
     public ViewDTO scanItem(int itemID, int quantity) {
         boolean itemRegistered;
         ViewDTO viewDTO;
-        ItemDTO scannedItem;
+        ItemDTO scannedItem = null;
 
-        // Check if item exist in sale
         itemRegistered = currentSale.checkItemList(itemID);
 
-        // If item not registered, fetch item from DB and add to itemList
         if (!itemRegistered) {
-            // Fetch item from DB
             scannedItem = invHandler.fetchItemFromDB(itemID);
 
-            // Add new item to list
-            currentSale.addItem(scannedItem, quantity);
+            if (scannedItem != null) {
+                currentSale.addItem(scannedItem, quantity);
+            }
         } else {
-            // If item already registered, update item quantity in itemList
             currentSale.updateItem(itemID, quantity);
         }
-
-        // Fetch ViewDTO for cashier display
-        viewDTO = currentSale.createViewDTO(itemID);
+        viewDTO = currentSale.createViewDTO(scannedItem);
         return viewDTO;
     }
 
@@ -101,9 +96,6 @@ public class Controller {
         Transaction trans = new Transaction(payment, currentSaleSummaryDTO.totalPrice);
         return trans;
     }
-
-
-
 
     /**
      * Creates new receipt
