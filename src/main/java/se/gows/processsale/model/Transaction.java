@@ -9,7 +9,7 @@ public class Transaction {
         calculateChange(amountPaid, totalPriceIncVat);
     }
 
-    private void calculateChange(Amount amountPaid,double totalPrice){
-        this.amountChange = new Amount(amountPaid.amount - totalPrice);
+    private void calculateChange(Amount amountPaid, double totalPriceIncVat){
+        this.amountChange = new Amount(amountPaid.amount - totalPriceIncVat);
     }
 }

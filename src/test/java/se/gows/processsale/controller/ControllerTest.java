@@ -1,9 +1,15 @@
 package se.gows.processsale.controller;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,6 +22,7 @@ import se.gows.processsale.integration.*;
 import se.gows.processsale.model.Amount;
 import se.gows.processsale.model.Receipt;
 import se.gows.processsale.model.RegisteredItem;
+import se.gows.processsale.model.Transaction;
 
 public class ControllerTest {
 
@@ -30,16 +37,6 @@ public class ControllerTest {
         fakeAccHandler = new FakeAccountingDBHandler();
         fakeDiscHandler = new FakeDiscountDBHandler();
         ctrl = new Controller(fakeInvHandler, fakeAccHandler, fakeDiscHandler);
-    }
-
-    @Test
-    void testCreatePrinter() {
-
-    }
-
-    @Test
-    void testCreateReceipt() {
-
     }
 
     @Test
@@ -83,6 +80,7 @@ public class ControllerTest {
         ctrl.scanItem(1001, 1);
 
         SaleDTO saleBeforeDiscount = ctrl.endSale();
+        double originalPrice = saleBeforeDiscount.saleSums.totalPrice;
 
         int[] discountTypes = {1, 2, 3};
         int customerID = 1;
@@ -90,25 +88,23 @@ public class ControllerTest {
         SaleDTO saleAfterDiscount = ctrl.requestDiscount(customerID, saleBeforeDiscount, discountTypes);
 
         assertNotNull(saleAfterDiscount, "Discounted SaleDTO should not be null");
-        assertTrue(saleAfterDiscount.saleSums.totalPrice < saleBeforeDiscount.saleSums.totalPrice, "Total price should be reduced after discount");
+        assertTrue(saleAfterDiscount.saleSums.totalPrice < originalPrice, "Total price should be reduced after discount");
     }
 
     @Test
     void testRegisterPayment() {
         ctrl.startSale();
-        ctrl.scanItem(1001, 1);  // Add one test item (10 kr)
+        ctrl.scanItem(1001, 1);
         ctrl.endSale();
 
-        Amount payment = new Amount(2000); // 20.00 kr
+        Amount payment = new Amount(2000);
 
         ctrl.registerPayment(payment);
 
         FakeAccountingDBHandler acc = (FakeAccountingDBHandler) fakeAccHandler;
 
-        // ✅ Check accounting was updated
         assertTrue(acc.updateCalled, "Accounting handler should have been updated");
 
-        // ✅ Check receipt details
         Receipt receipt = acc.lastReceipt;
         assertNotNull(receipt, "Receipt should not be null");
         assertEquals(2000, receipt.amountPaid.amount, "Paid amount should match input");
@@ -116,11 +112,50 @@ public class ControllerTest {
         assertEquals(payment.amount - receipt.saleSums.totalIncVat, receipt.amountChange.amount, 0.01, "Change should be correct");
     }
 
+    @Test
+    void testCreateReceipt() {
+        
+        ctrl.startSale();
+        ctrl.scanItem(1001, 2);
+        SaleDTO saleDto = ctrl.endSale();
+        
+        Amount payment = new Amount(5000);
+        Transaction trans = new Transaction(payment, saleDto.saleSums.totalIncVat);
+
+        Receipt receipt = ctrl.createReceipt(saleDto, trans);
+
+        assertNotNull(receipt, "Receipt should not be null");
+        assertEquals(saleDto.timeOfSale,      receipt.timeOfSale,      "timeOfSale should be copied");
+        assertSame  (saleDto.saleSums,        receipt.saleSums,        "saleSums should be the same object");
+        assertArrayEquals(saleDto.itemList,   receipt.itemList,        "itemList should be the same array");
+        assertEquals(payment.amount,          receipt.amountPaid.amount,   "Paid amount matches transaction");
+        assertEquals(trans.amountChange.amount, receipt.amountChange.amount, "Change matches transaction");
+    }
+
+    @Test
+    void testPrintReceipt() {
+
+        ctrl.startSale();
+        ctrl.scanItem(1001, 1);
+        ctrl.endSale();
+        ctrl.registerPayment(new Amount(2000));
+
+        ByteArrayOutputStream buf = new ByteArrayOutputStream();
+        PrintStream  oldOut = System.out;
+        System.setOut(new PrintStream(buf));
+
+        assertDoesNotThrow(() -> ctrl.printReceipt(), "printReceipt() should not throw");
+
+        System.setOut(oldOut);
+        String output = buf.toString().trim();
+        assertFalse(output.isEmpty(), "Expected some receipt text to be printed");
+    }
+
     class FakeInventoryDBHandler extends InventoryDBHandler {
         @Override
         public ItemDTO fetchItemFromDB(int itemID) {
             if (itemID == 1001) {
-                return new ItemDTO(itemID, "TestItem", 1000, 200);
+                return new ItemDTO(itemID, "TestItem", 1000, 0.2);
             }
             return null;
         }

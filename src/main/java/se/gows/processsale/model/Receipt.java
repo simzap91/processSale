@@ -11,7 +11,6 @@ public class Receipt {
     public RegisteredItem[] itemList;
     public Amount amountPaid;
     public Amount amountChange;
-    
 
     public Receipt(SaleDTO saleDTO, Transaction trans) {
         this.timeOfSale = saleDTO.timeOfSale;

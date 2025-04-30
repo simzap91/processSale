@@ -127,8 +127,8 @@ public class Sale {
         double discountRateTypeThree = 1.0 - discount.discountRateTypeThree;
 
         if (currentSaleDTO.saleSums.totalIncVat - discountSumTypeOne > 0){
-            totalPrice = (currentSaleDTO.saleSums.totalPrice - discountSumTypeOne) * discountRateTypeTwo * discountRateTypeThree;
-            currentSaleDTO.saleSums.totalPrice = totalPrice;
+            this.totalPrice = (currentSaleDTO.saleSums.totalPrice - discountSumTypeOne) * discountRateTypeTwo * discountRateTypeThree;
+            currentSaleDTO.saleSums.totalPrice = this.totalPrice;
             currentSaleDTO.saleSums.totalIncVat = calculateRunningTotalIncVat();
         }
         return currentSaleDTO;
