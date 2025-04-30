@@ -126,7 +126,7 @@ public class Sale {
         double discountRateTypeTwo = 1.0 - discount.discountRateTypeTwo;
         double discountRateTypeThree = 1.0 - discount.discountRateTypeThree;
 
-        if(currentSaleDTO.saleSums.totalIncVat - discountSumTypeOne > 0){
+        if (currentSaleDTO.saleSums.totalIncVat - discountSumTypeOne > 0){
             totalPrice = (currentSaleDTO.saleSums.totalPrice - discountSumTypeOne) * discountRateTypeTwo * discountRateTypeThree;
             currentSaleDTO.saleSums.totalPrice = totalPrice;
             currentSaleDTO.saleSums.totalIncVat = calculateRunningTotalIncVat();

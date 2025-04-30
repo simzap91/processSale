@@ -80,10 +80,10 @@ public class Controller {
      * @param discTypes 
      * @return summaryDTO that contains the updated sale summary after discount
      */
-    public SaleDTO requestDiscount(int customerID, SaleDTO currentSaleSumDTO, int[] discTypes){
+    public SaleDTO requestDiscount(int customerID, SaleDTO currentSaleDTO, int[] discTypes){
             DiscountDTO discount = discHandler.fetchDiscount(discTypes, customerID, currentSaleDTO.itemList, currentSaleDTO.saleSums.totalIncVat);
-            SaleDTO updatedCurrentSaleDTO = currentSale.calculateDiscount(currentSaleSumDTO, discount);
-        return updatedCurrentSaleDTO;
+            currentSaleDTO = currentSale.calculateDiscount(currentSaleDTO, discount);
+        return currentSaleDTO;
     }
 
     /**
