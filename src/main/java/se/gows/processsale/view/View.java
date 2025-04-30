@@ -2,8 +2,6 @@ package se.gows.processsale.view;
 import se.gows.processsale.DTO.SaleDTO;
 import se.gows.processsale.DTO.ViewDTO;
 import se.gows.processsale.controller.*;
-import se.gows.processsale.model.Amount;
-
 import se.gows.processsale.model.*;
 
 public class View {
@@ -39,7 +37,7 @@ public class View {
             if (viewDTO.regItem == null)
                 System.out.println("Invalid identifier: " + itemId);
             else 
-                System.out.println(" * " +viewDTO.regItem.quantity + " " + viewDTO.regItem.item.itemDescription + " á " + viewDTO.regItem.item.price);
+                System.out.println(" * " + viewDTO.regItem.quantity + " " + viewDTO.regItem.item.itemDescription + " á " + viewDTO.regItem.item.price);
             System.out.println("Running total (inc. VAT): " + viewDTO.runningTotalIncVat);
 
             // Code that sets itemsLeft to false
@@ -49,8 +47,8 @@ public class View {
         // endSale
         SaleDTO currentSaleSumDTO = ctrl.endSale();
         System.out.println("Sale ended.\n");
-        System.out.println("Total: " + currentSaleSumDTO.totalPrice);
-        System.out.println("Total (inc. VAT): " + currentSaleSumDTO.totalIncVat);
+        System.out.println("Total: " + currentSaleSumDTO.saleSums.totalPrice);
+        System.out.println("Total (inc. VAT): " + currentSaleSumDTO.saleSums.totalIncVat);
 
         // requestDiscount
         int customerID = 1;
@@ -58,8 +56,8 @@ public class View {
 
         currentSaleSumDTO = ctrl.requestDiscount(customerID, currentSaleSumDTO, discTypes);
         System.out.println("After discount:");
-        System.out.println("Total; " + currentSaleSumDTO.totalPrice);
-        System.out.println("Total (inc. VAT); " + currentSaleSumDTO.totalIncVat);
+        System.out.println("Total; " + currentSaleSumDTO.saleSums.totalPrice);
+        System.out.println("Total (inc. VAT); " + currentSaleSumDTO.saleSums.totalIncVat);
 
         // registerPayment
         Amount payment = new Amount(100);

@@ -79,9 +79,9 @@ public class Controller {
      * @param discTypes 
      * @return summaryDTO that contains the updated sale summary after discount
      */
-    public SaleDTO requestDiscount(int customerID, SaleDTO currentSaleDTO, int[] discTypes){
-            DiscountDTO discount = discHandler.fetchDiscount(discTypes, customerID, currentSaleDTO.itemList, currentSaleDTO.totalIncVat);
-            SaleDTO updatedCurrentSaleDTO = currentSale.calculateDiscount(currentSaleDTO, discount);
+    public SaleDTO requestDiscount(int customerID, SaleDTO currentSaleSumDTO, int[] discTypes){
+            DiscountDTO discount = discHandler.fetchDiscount(discTypes, customerID, currentSaleDTO.itemList, currentSaleDTO.saleSums.totalIncVat);
+            SaleDTO updatedCurrentSaleDTO = currentSale.calculateDiscount(currentSaleSumDTO, discount);
         return updatedCurrentSaleDTO;
     }
 
@@ -90,7 +90,7 @@ public class Controller {
      * @param payment payment payed by customer
      */
     public Transaction registerPayment(Amount payment){
-        Transaction trans = new Transaction(payment, currentSaleDTO.totalIncVat);
+        Transaction trans = new Transaction(payment, currentSaleDTO.saleSums.totalIncVat);
         return trans;
     }
 
