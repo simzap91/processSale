@@ -10,6 +10,7 @@ import se.gows.processsale.model.*;
 /**
  * This is the application's only controller. All calls to the model pass through this class.
  */
+
 public class Controller {
     private InventoryDBHandler invHandler;
     private AccountingDBHandler accHandler;
