@@ -37,7 +37,7 @@ public class View {
             if (viewDTO.regItem == null)
                 System.out.println("Invalid identifier: " + itemId);
             else 
-                System.out.println(" * " + viewDTO.regItem.quantity + " " + viewDTO.regItem.item.itemDescription + " á " + viewDTO.regItem.item.price);
+                System.out.println(" * " +viewDTO.regItem.quantity + " " + viewDTO.regItem.item.itemDescription + " á " + viewDTO.regItem.item.price);
             System.out.println("Running total (inc. VAT): " + viewDTO.runningTotalIncVat);
 
             // Code that sets itemsLeft to false
@@ -45,26 +45,26 @@ public class View {
         }
 
         // endSale
-        SaleDTO currentSaleSumDTO = ctrl.endSale();
+        SaleDTO currentSaleDTO = ctrl.endSale();
         System.out.println("Sale ended.\n");
-        System.out.println("Total: " + currentSaleSumDTO.saleSums.totalPrice);
-        System.out.println("Total (inc. VAT): " + currentSaleSumDTO.saleSums.totalIncVat);
+        System.out.println("Total: " + currentSaleDTO.saleSums.totalPrice);
+        System.out.println("Total (inc. VAT): " + currentSaleDTO.saleSums.totalIncVat);
 
         // requestDiscount
         int customerID = 1;
         int[] discTypes = {1,2,3};
 
-        currentSaleSumDTO = ctrl.requestDiscount(customerID, currentSaleSumDTO, discTypes);
+        currentSaleDTO = ctrl.requestDiscount(customerID, currentSaleDTO, discTypes);
         System.out.println("After discount:");
-        System.out.println("Total; " + currentSaleSumDTO.saleSums.totalPrice);
-        System.out.println("Total (inc. VAT); " + currentSaleSumDTO.saleSums.totalIncVat);
+        System.out.println("Total; " + currentSaleDTO.saleSums.totalPrice);
+        System.out.println("Total (inc. VAT); " + currentSaleDTO.saleSums.totalIncVat);
 
         // registerPayment
         Amount payment = new Amount(100);
         Transaction trans = ctrl.registerPayment(payment);
 
         // Receipt
-        Receipt receipt = ctrl.createReceipt(currentSaleSumDTO, trans);
+        Receipt receipt = ctrl.createReceipt(currentSaleDTO, trans);
         Printer printer = ctrl.createPrinter();
         printer.printReceipt(receipt);
 

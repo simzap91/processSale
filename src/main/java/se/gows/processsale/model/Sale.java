@@ -116,21 +116,21 @@ public class Sale {
     public SaleDTO endSale(){
         RegisteredItem[] itemListArray = itemList.toArray(new RegisteredItem[0]);
         double totalIncVat = calculateRunningTotalIncVat();
-        SaleDTO sumDTO = new SaleDTO(timeOfSale, totalPrice, totalVAT, totalIncVat, itemListArray);
+        SaleDTO saleDTO = new SaleDTO(timeOfSale, totalPrice, totalVAT, totalIncVat, itemListArray);
         invHandler.updateInventoryDB(itemList);
-        return sumDTO;
+        return saleDTO;
     }
 
-    public SaleDTO calculateDiscount(SaleDTO currentSaleSumDTO, DiscountDTO discount){
+    public SaleDTO calculateDiscount(SaleDTO currentSaleDTO, DiscountDTO discount){
         double discountSumTypeOne = discount.discountSumTypeOne;
         double discountRateTypeTwo = 1.0 - discount.discountRateTypeTwo;
         double discountRateTypeThree = 1.0 - discount.discountRateTypeThree;
 
-        if(currentSaleSumDTO.saleSums.totalIncVat - discountSumTypeOne > 0){
-            totalPrice = (currentSaleSumDTO.saleSums.totalPrice - discountSumTypeOne) * discountRateTypeTwo * discountRateTypeThree;
-            currentSaleSumDTO.saleSums.totalPrice = totalPrice;
-            currentSaleSumDTO.saleSums.totalIncVat = calculateRunningTotalIncVat();
+        if(currentSaleDTO.saleSums.totalIncVat - discountSumTypeOne > 0){
+            totalPrice = (currentSaleDTO.saleSums.totalPrice - discountSumTypeOne) * discountRateTypeTwo * discountRateTypeThree;
+            currentSaleDTO.saleSums.totalPrice = totalPrice;
+            currentSaleDTO.saleSums.totalIncVat = calculateRunningTotalIncVat();
         }
-        return currentSaleSumDTO;
+        return currentSaleDTO;
     }
 }
