@@ -2,7 +2,7 @@ package se.gows.processsale.controller;
 
 import se.gows.processsale.DTO.DiscountDTO;
 import se.gows.processsale.DTO.ItemDTO;
-import se.gows.processsale.DTO.SummaryDTO;
+import se.gows.processsale.DTO.SaleDTO;
 import se.gows.processsale.DTO.ViewDTO;
 import se.gows.processsale.integration.*;
 import se.gows.processsale.model.*;
@@ -16,7 +16,7 @@ public class Controller {
     private AccountingDBHandler accHandler;
     private DiscountDBHandler discHandler;
     private Sale currentSale;
-    private SummaryDTO currentSaleSumDTO;
+    private SaleDTO currentSaleDTO;
 
     public Controller(InventoryDBHandler invHandler, 
                         AccountingDBHandler accHandler, 
@@ -66,23 +66,23 @@ public class Controller {
      * Returns a summary of the sale (to be displayed in View).
      * @return summaryDTO that contains time of sale, total price, total VAT, total price inc VAT, list of purchased items
      */
-    public SummaryDTO endSale() {
-        SummaryDTO sumDTO = currentSale.endSale();
-        currentSaleSumDTO = sumDTO;
-        return currentSaleSumDTO;
+    public SaleDTO endSale() {
+        SaleDTO saleDTO = currentSale.endSale();
+        currentSaleDTO = saleDTO;
+        return currentSaleDTO;
     }
 
     /**
      * Takes a discount request from customer and passes to Discount DB handler
      * @param customerID customerID to check if customer is member
-     * @param currentSaleSumDTO summary of the ended sale
+     * @param currentSaleDTO summary of the ended sale
      * @param discTypes 
      * @return summaryDTO that contains the updated sale summary after discount
      */
-    public SummaryDTO requestDiscount(int customerID, SummaryDTO currentSaleSumDTO, int[] discTypes){
-            DiscountDTO discount = discHandler.fetchDiscount(discTypes, customerID, currentSaleSumDTO.itemList, currentSaleSumDTO.totalIncVat);
-            SummaryDTO updatedCurrentSaleSumDTO = currentSale.calculateDiscount(currentSaleSumDTO, discount);
-        return updatedCurrentSaleSumDTO;
+    public SaleDTO requestDiscount(int customerID, SaleDTO currentSaleDTO, int[] discTypes){
+            DiscountDTO discount = discHandler.fetchDiscount(discTypes, customerID, currentSaleDTO.itemList, currentSaleDTO.totalIncVat);
+            SaleDTO updatedCurrentSaleDTO = currentSale.calculateDiscount(currentSaleDTO, discount);
+        return updatedCurrentSaleDTO;
     }
 
     /**
@@ -90,18 +90,18 @@ public class Controller {
      * @param payment payment payed by customer
      */
     public Transaction registerPayment(Amount payment){
-        Transaction trans = new Transaction(payment, currentSaleSumDTO.totalIncVat);
+        Transaction trans = new Transaction(payment, currentSaleDTO.totalIncVat);
         return trans;
     }
 
     /**
      * Creates new receipt
-     * @param summaryDTO summary of the sale
+     * @param saleDTO summary of the sale
      * @param trans object that holds the transaction
      * @return new receipt of the sale
      */
-    public Receipt createReceipt(SummaryDTO summaryDTO, Transaction trans) {
-        Receipt receipt = new Receipt(summaryDTO, trans);
+    public Receipt createReceipt(SaleDTO saleDTO, Transaction trans) {
+        Receipt receipt = new Receipt(saleDTO, trans);
         return receipt;
     }
     

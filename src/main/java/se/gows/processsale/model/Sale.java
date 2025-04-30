@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import se.gows.processsale.DTO.DiscountDTO;
 import se.gows.processsale.DTO.ItemDTO;
-import se.gows.processsale.DTO.SummaryDTO;
+import se.gows.processsale.DTO.SaleDTO;
 import se.gows.processsale.DTO.ViewDTO;
 import se.gows.processsale.integration.InventoryDBHandler;
 
@@ -113,15 +113,15 @@ public class Sale {
      * @param itemID
      * @return
      */
-    public SummaryDTO endSale(){
+    public SaleDTO endSale(){
         RegisteredItem[] itemListArray = itemList.toArray(new RegisteredItem[0]);
         double totalIncVat = calculateRunningTotalIncVat();
-        SummaryDTO sumDTO = new SummaryDTO(timeOfSale, totalPrice, totalVAT, totalIncVat, itemListArray);
+        SaleDTO sumDTO = new SaleDTO(timeOfSale, totalPrice, totalVAT, totalIncVat, itemListArray);
         invHandler.updateInventoryDB(itemList);
         return sumDTO;
     }
 
-    public SummaryDTO calculateDiscount(SummaryDTO currentSaleSumDTO, DiscountDTO discount){
+    public SaleDTO calculateDiscount(SaleDTO currentSaleSumDTO, DiscountDTO discount){
         double discountSumTypeOne = discount.discountSumTypeOne;
         double discountRateTypeTwo = 1.0 - discount.discountRateTypeTwo;
         double discountRateTypeThree = 1.0 - discount.discountRateTypeThree;

@@ -1,5 +1,5 @@
 package se.gows.processsale.view;
-import se.gows.processsale.DTO.SummaryDTO;
+import se.gows.processsale.DTO.SaleDTO;
 import se.gows.processsale.DTO.ViewDTO;
 import se.gows.processsale.controller.*;
 import se.gows.processsale.model.Amount;
@@ -47,7 +47,7 @@ public class View {
         }
 
         // endSale
-        SummaryDTO currentSaleSumDTO = ctrl.endSale();
+        SaleDTO currentSaleSumDTO = ctrl.endSale();
         System.out.println("Sale ended.\n");
         System.out.println("Total: " + currentSaleSumDTO.totalPrice);
         System.out.println("Total (inc. VAT): " + currentSaleSumDTO.totalIncVat);
