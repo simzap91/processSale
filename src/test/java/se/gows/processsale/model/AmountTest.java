@@ -9,6 +9,7 @@ public class AmountTest {
     private double testValue;
     @Test
     void testGetValue() {
+        //test if getValue returns same value as its input
         testValue = 100;
         testAmount = new Amount(testValue);
         boolean expectedResult = true;
