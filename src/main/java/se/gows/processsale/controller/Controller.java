@@ -112,7 +112,6 @@ public class Controller {
     }
 
     public void printReceipt(){
-        Printer receiptPrinter = new Printer();
-        receiptPrinter.printReceipt(cashRegister.receipt);
+        cashRegister.printReceipt();
     }
 }
