@@ -3,12 +3,12 @@ package se.gows.processsale.integration;
 import se.gows.processsale.model.Receipt;
 
 public class AccountingDBHandler {
-    private double acountBalance = 100;
+    private double accountBalance = 100;
     
-    public void updateAccountingBalance(Receipt receipt) {
-        acountBalance += receipt.amountPaid.amount;
-        acountBalance -= receipt.amountChange.amount;
-        System.out.println("Acount Balace: " + acountBalance);
+    public void updateAccountBalance(Receipt receipt) {
+        accountBalance += receipt.amountPaid.amount;
+        accountBalance -= receipt.amountChange.amount;
         System.out.println("Acounting dataBase updated!");
+        System.out.println("New balance: " + accountBalance);
     }
 }

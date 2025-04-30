@@ -15,7 +15,7 @@ public class Controller {
     private AccountingDBHandler accHandler;
     private DiscountDBHandler discHandler;
     private Sale currentSale;
-    private SummaryDTO currentSaleSummaryDTO;
+    private SummaryDTO currentSaleSumDTO;
 
     public Controller(InventoryDBHandler invHandler, 
                         AccountingDBHandler accHandler, 
@@ -66,26 +66,22 @@ public class Controller {
      * @return summaryDTO that contains time of sale, total price, total VAT, total price inc VAT, list of purchased items
      */
     public SummaryDTO endSale() {
-
-        // End sale and create sumDTO
         SummaryDTO sumDTO = currentSale.endSale();
-
-        // Set local attribute
-        currentSaleSummaryDTO = sumDTO;
-
-        return currentSaleSummaryDTO;
+        currentSaleSumDTO = sumDTO;
+        return currentSaleSumDTO;
     }
 
     /**
      * Takes a discount request from customer and passes to Discount DB handler
      * @param customerID customerID to check if customer is member
-     * @param finalSale summary of the ended sale
+     * @param currentSaleSumDTO summary of the ended sale
+     * @param discTypes 
      * @return summaryDTO that contains the updated sale summary after discount
      */
-    public SummaryDTO requestDiscount(int customerID, SummaryDTO finalSale, int[] discTypes){
-            DiscountDTO discount = discHandler.fetchDiscount(discTypes, customerID, finalSale.itemList, finalSale.totalIncVat);
-            SummaryDTO updatedFinalSale = currentSale.calculateDiscount(finalSale, discount);
-        return updatedFinalSale;
+    public SummaryDTO requestDiscount(int customerID, SummaryDTO currentSaleSumDTO, int[] discTypes){
+            DiscountDTO discount = discHandler.fetchDiscount(discTypes, customerID, currentSaleSumDTO.itemList, currentSaleSumDTO.totalIncVat);
+            SummaryDTO updatedCurrentSaleSumDTO = currentSale.calculateDiscount(currentSaleSumDTO, discount);
+        return updatedCurrentSaleSumDTO;
     }
 
     /**
@@ -93,7 +89,7 @@ public class Controller {
      * @param payment payment payed by customer
      */
     public Transaction registerPayment(Amount payment){
-        Transaction trans = new Transaction(payment, currentSaleSummaryDTO.totalPrice);
+        Transaction trans = new Transaction(payment, currentSaleSumDTO.totalPrice);
         return trans;
     }
 
@@ -109,10 +105,8 @@ public class Controller {
     }
     
     public void updateAccountingDB(Receipt receipt) {
-        accHandler.updateAccountingBalance(receipt); 
+        accHandler.updateAccountBalance(receipt); 
     }
-    //skapa kvitto
-
 
      public Printer createPrinter() {
         Printer receiptPrinter = new Printer();
