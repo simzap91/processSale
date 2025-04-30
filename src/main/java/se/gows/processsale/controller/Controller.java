@@ -17,7 +17,7 @@ public class Controller {
     private DiscountDBHandler discHandler;
     private Sale currentSale;
     private SaleDTO currentSaleDTO;
-    public CashRegister cashRegister;
+    private CashRegister cashRegister;
 
     public Controller(InventoryDBHandler invHandler, 
                         AccountingDBHandler accHandler, 
