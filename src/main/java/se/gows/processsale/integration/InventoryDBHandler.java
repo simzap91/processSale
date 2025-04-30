@@ -31,14 +31,13 @@ public class InventoryDBHandler {
      * Updates the inventory status for each item after a sale.
      */
     public void updateInventoryDB(ArrayList<RegisteredItem> itemList) {
-        for (RegisteredItem item : itemList) {
+        for (RegisteredItem regItem : itemList) {
 
-            int itemID = item.item.itemID;
-            int itemCount = item.quantity;
-
+            int itemID = regItem.item.itemID;
+            int itemCount = regItem.quantity;
             updateItemInvStatus(itemID, itemCount);
-            System.out.println("Inventory updated.");
         }
+        System.out.println("Inventory updated.");
     }
 
     /* 
@@ -47,7 +46,7 @@ public class InventoryDBHandler {
     private void updateItemInvStatus(int itemID, int itemCount) {
         for (Item item : inventoryDB) {
             if (item.itemID == itemID) {
-                item.inventoryQuantity -= itemCount;
+                item.updateInventoryStatus(itemCount);
             }
         }
     }

@@ -21,4 +21,8 @@ public class Item {
         ItemDTO dto = new ItemDTO(this.itemID, this.description, this.price, this.vatRate);
         return dto;
     }
+
+    public void updateInventoryStatus(int quantity){
+        this.inventoryQuantity -= quantity;
+    }
 }
