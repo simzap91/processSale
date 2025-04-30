@@ -89,7 +89,7 @@ public class Controller {
      * @param payment payment payed by customer
      */
     public Transaction registerPayment(Amount payment){
-        Transaction trans = new Transaction(payment, currentSaleSumDTO.totalPrice);
+        Transaction trans = new Transaction(payment, currentSaleSumDTO.totalIncVat);
         return trans;
     }
 
@@ -112,5 +112,4 @@ public class Controller {
         Printer receiptPrinter = new Printer();
         return receiptPrinter;
     }
-
 }

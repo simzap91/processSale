@@ -4,9 +4,9 @@ public class Transaction {
     public Amount amountPaid;
     public Amount amountChange;
 
-    public Transaction(Amount amountPaid, double totalPrice){
+    public Transaction(Amount amountPaid, double totalPriceIncVat){
         this.amountPaid = amountPaid;
-        calculateChange(amountPaid, totalPrice);
+        calculateChange(amountPaid, totalPriceIncVat);
     }
 
     private void calculateChange(Amount amountPaid,double totalPrice){

@@ -23,7 +23,7 @@ public class Printer {
         System.out.println("Total (incl. VAT): " + String.format("%.2f", receipt.totalIncVat) + " kr");
         System.out.println("-------------------------------------");
         System.out.println("Amount paid: " + receipt.amountPaid.toString());
-        System.out.println("Amount paid: " + receipt.amountChange.toString());
+        System.out.println("Amount change: " + receipt.amountChange.toString());
         System.out.println("-------------------------------------");
     }
 }

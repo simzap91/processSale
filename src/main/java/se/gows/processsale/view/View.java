@@ -73,5 +73,9 @@ public class View {
 
         printer.printReceipt(receipt);
 
+        // Update accounting
+        System.out.println();
+        ctrl.updateAccountingDB(receipt);
+
     }
 }

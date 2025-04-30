@@ -149,15 +149,12 @@ public class InventoryDBHandler {
      */
     private ItemDTO createItemDTO(String[] parts){
 
-        // 1) Convert item attributes from invItem
         int itemID = Integer.parseInt(parts[0].trim());
         String itemDesc = parts[1].trim();
         double price = Double.parseDouble(parts[2].trim());
         double itemVat = Double.parseDouble(parts[3].trim());
 
-        // 2) Convert to ItemDTO
         ItemDTO newItemDTO = new ItemDTO(itemID, itemDesc, price, itemVat);
-
         return newItemDTO;
     }
 }

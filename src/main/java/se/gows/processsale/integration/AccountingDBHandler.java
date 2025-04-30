@@ -8,7 +8,7 @@ public class AccountingDBHandler {
     public void updateAccountBalance(Receipt receipt) {
         accountBalance += receipt.amountPaid.amount;
         accountBalance -= receipt.amountChange.amount;
-        System.out.println("Acounting dataBase updated!");
+        System.out.println("Accounting database updated!");
         System.out.println("New balance: " + accountBalance);
     }
 }
