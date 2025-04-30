@@ -20,8 +20,8 @@ public class Sale {
      * 
      */
     public Sale(InventoryDBHandler invHandler) {
-        timeOfSale = LocalTime.now(); //setTimeOfSale
-        this.invHandler = invHandler; // set invHandler
+        timeOfSale = LocalTime.now();
+        this.invHandler = invHandler;
     }
 
     /**
@@ -30,17 +30,12 @@ public class Sale {
      * @param itemID
      * @return
      */
-    public boolean checkItemList(int itemID)
-    {
-        // Step through items in itemList
+    public boolean checkItemList(int itemID){
         for (RegisteredItem regItem : itemList){
-
-            if (itemIdsAreEqual(regItem, itemID)) {
-                // ItemID found in itemList -> return true
+            if (regItem.idsAreEqual(itemID)){
                 return true;
             }
         }
-        // Else, itemID not in itemList -> return false
         return false;
     }
 
@@ -85,16 +80,9 @@ public class Sale {
      * @return
      */
     public ViewDTO createViewDTO(ItemDTO scannedItem) {
-
-        // calculate total inc VAT
         double runningTotIncVat = calculateRunningTotalIncVat();
-
-        // Fetch Registered item from list
         RegisteredItem regItem = getRegisteredItem(scannedItem);
-
-        // Create view DTO
         ViewDTO viewDTO = new ViewDTO(regItem, runningTotIncVat);
-
         return viewDTO;
     }
 
@@ -127,29 +115,21 @@ public class Sale {
      */
     public SummaryDTO endSale(){
         RegisteredItem[] itemListArray = itemList.toArray(new RegisteredItem[0]);
-
         double totalIncVat = calculateRunningTotalIncVat();
-
         SummaryDTO sumDTO = new SummaryDTO(timeOfSale, totalPrice, totalVAT, totalIncVat, itemListArray);
-
         invHandler.updateInventoryDB(itemList);
-
         return sumDTO;
     }
 
     public SummaryDTO calculateDiscount(SummaryDTO currentSaleSumDTO, DiscountDTO discount){
-
         double discountSumTypeOne = discount.discountSumTypeOne;
         double discountRateTypeTwo = 1.0 - discount.discountRateTypeTwo;
         double discountRateTypeThree = 1.0 - discount.discountRateTypeThree;
 
         if(currentSaleSumDTO.totalIncVat - discountSumTypeOne > 0){
-
             totalPrice = (currentSaleSumDTO.totalPrice - discountSumTypeOne) * discountRateTypeTwo * discountRateTypeThree;
             currentSaleSumDTO.totalPrice = totalPrice;
-            
             currentSaleSumDTO.totalIncVat = calculateRunningTotalIncVat();
-
         }
         return currentSaleSumDTO;
     }
