@@ -16,15 +16,18 @@ public class RegisteredItem {
     }
 
     public void setQuantity(int quantity) {
-        this.quantity = quantity;
+        this.quantity += quantity;
     }
 
-    public void setDiscountedPrice() {
+    public boolean idsAreEqual(int itemID){
+        return (itemID == this.item.itemID);
+    }
 
-        // Get discount rate as decimal number
-        this.discountRate = discountRate/100;
+    public double getPriceOfMultipleItems(int quantity){
+        return this.item.price * quantity;
+    }
 
-        // Calculate discounted price
-        this.discountedPrice = item.price * (1 - discountRate);
+    public double getVatOfMultipleItems(int quantity){
+        return this.item.price * this.item.vatRate * quantity;
     }
 }

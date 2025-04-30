@@ -50,38 +50,24 @@ public class Sale {
      * @return
      */
     public void addItem(ItemDTO item, int quantity) {
-            
-        // Create a new RegisteredItem
-        RegisteredItem registeredItem = new RegisteredItem(item, quantity);
-
-        // Add registered item to list
-        itemList.add(registeredItem);
-
-        // Update running total
-        totalPrice += item.price * quantity;
-        // Update total VAT
-        totalVAT += item.price * item.vatRate * quantity;
+        RegisteredItem scannedItem = new RegisteredItem(item, quantity);
+        itemList.add(scannedItem);
+        updateSalePriceAndVat(scannedItem.getPriceOfMultipleItems(quantity), scannedItem.getVatOfMultipleItems(quantity));
     }
 
     public void updateItem(int itemID, int quantity) {
-
-        // If item already in list, update item quantity
         for (RegisteredItem regItem : itemList) {
-
-            // Step thorugh the list until item is found
-            if (itemIdsAreEqual(regItem, itemID)) { // Eventuellt göra om till metod
-                // Update quantity
-                regItem.setQuantity(regItem.quantity + quantity);
-
-                // Update running total
-                totalPrice += regItem.item.price * quantity;
-                // Update total VAT
-                totalVAT += regItem.item.price * regItem.item.vatRate * quantity;
-
-                // Break loop
+            if (regItem.idsAreEqual(itemID)){
+                regItem.setQuantity(quantity);
+                updateSalePriceAndVat(regItem.getPriceOfMultipleItems(quantity), regItem.getVatOfMultipleItems(quantity));
                 break;
             }
         }
+    }
+
+    private void updateSalePriceAndVat(double sumPrice, double sumVat){
+        totalPrice += sumPrice;
+        totalVAT += sumVat;
     }
 
     /**
@@ -163,7 +149,7 @@ public class Sale {
             currentSaleSumDTO.totalPrice = totalPrice;
             
             currentSaleSumDTO.totalIncVat = calculateRunningTotalIncVat();
-            
+
         }
         return currentSaleSumDTO;
     }
