@@ -47,30 +47,27 @@ public class View {
         }
 
         // endSale
-        SummaryDTO sumDTO = ctrl.endSale();
+        SummaryDTO currentSaleSumDTO = ctrl.endSale();
         System.out.println("Sale ended.\n");
-        System.out.println("Total: " + sumDTO.totalPrice);
-        System.out.println("Total (inc. VAT): " + sumDTO.totalIncVat);
+        System.out.println("Total: " + currentSaleSumDTO.totalPrice);
+        System.out.println("Total (inc. VAT): " + currentSaleSumDTO.totalIncVat);
 
         // requestDiscount
-        
         int customerID = 1;
         int[] discTypes = {1,2,3};
 
-        sumDTO = ctrl.requestDiscount(customerID, sumDTO, discTypes);
+        currentSaleSumDTO = ctrl.requestDiscount(customerID, currentSaleSumDTO, discTypes);
         System.out.println("After discount:");
-        System.out.println("Total; " + sumDTO.totalPrice);
-        System.out.println("Total (inc. VAT); " + sumDTO.totalIncVat);
+        System.out.println("Total; " + currentSaleSumDTO.totalPrice);
+        System.out.println("Total (inc. VAT); " + currentSaleSumDTO.totalIncVat);
 
         // registerPayment
         Amount payment = new Amount(100);
         Transaction trans = ctrl.registerPayment(payment);
 
         // Receipt
-
-        Receipt receipt = ctrl.createReceipt(sumDTO, trans);
+        Receipt receipt = ctrl.createReceipt(currentSaleSumDTO, trans);
         Printer printer = ctrl.createPrinter();
-
         printer.printReceipt(receipt);
 
         // Update accounting

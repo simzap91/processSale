@@ -36,8 +36,9 @@ public class InventoryDBHandler {
             int itemID = item.item.itemID;
             int itemCount = item.quantity;
 
-            // Update item invStatus in DB
             updateItemInvStatus(itemID, itemCount);
+            System.out.println("Inventory updated.");
+
         }
     }
 
