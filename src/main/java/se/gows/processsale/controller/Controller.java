@@ -17,10 +17,11 @@ public class Controller {
     private DiscountDBHandler discHandler;
     private Sale currentSale;
     private SaleDTO currentSaleDTO;
+    public CashRegister cashRegister;
 
     public Controller(InventoryDBHandler invHandler, 
                         AccountingDBHandler accHandler, 
-                        DiscountDBHandler discHandler) 
+                        DiscountDBHandler discHandler)
     {
         this.invHandler = invHandler;
         this.accHandler = accHandler;
@@ -89,9 +90,10 @@ public class Controller {
      * Creates new transaction object from payed amount
      * @param payment payment payed by customer
      */
-    public Transaction registerPayment(Amount payment){
+    public void registerPayment(Amount payment){
         Transaction trans = new Transaction(payment, currentSaleDTO.saleSums.totalIncVat);
-        return trans;
+        Receipt receipt = createReceipt(currentSaleDTO, trans);
+        cashRegister = new CashRegister(trans, receipt);
     }
 
     /**
@@ -105,12 +107,12 @@ public class Controller {
         return receipt;
     }
     
-    public void updateAccountingDB(Receipt receipt) {
-        accHandler.updateAccountBalance(receipt); 
+    public void updateAccountingDB() {
+        accHandler.updateAccountBalance(cashRegister.receipt); 
     }
 
-     public Printer createPrinter() {
+    public void printReceipt(){
         Printer receiptPrinter = new Printer();
-        return receiptPrinter;
+        receiptPrinter.printReceipt(cashRegister.receipt);
     }
 }
