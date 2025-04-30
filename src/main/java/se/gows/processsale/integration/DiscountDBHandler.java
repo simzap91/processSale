@@ -9,9 +9,9 @@ public class DiscountDBHandler {
      * Data base with member customers and three discount types.
      */
     int[] memberCustomerIDs = {1,2,3,4,5}; // Format: {customerID}
-    double[][] discountDBTypeOne = {{1.0, 0.20},{2.0, 0.10}}; // Format: {itemID (as double), discountRate}
-    double[] discountDBTypeTwo = {200.0, 0.1}; // Total price limit (SEK) to reach discount status
-    double discountDBTypeThree = 0.15; // Discount rate on entire sale for member customers
+    double[][] discountDBTypeOne = {{1.0, 0.20},{2.0, 0.10}}; // Type 1, format: {itemID (as double), discountRate}
+    double[] discountDBTypeTwo = {200.0, 0.1}; // Type 2, format: {total price lower limit, disc rate}
+    double discountDBTypeThree = 0.15; // Type 3, format: disc rate
 
     /**
      * @param discountTypes
