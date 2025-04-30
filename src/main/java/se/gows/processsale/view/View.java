@@ -37,7 +37,7 @@ public class View {
             if (viewDTO.regItem == null)
                 System.out.println("Invalid identifier: " + itemId);
             else 
-                System.out.println(" * " +viewDTO.regItem.quantity + " " + viewDTO.regItem.item.itemDescription + " á " + viewDTO.regItem.item.price);
+                System.out.println(" * " + viewDTO.regItem.quantity + " " + viewDTO.regItem.item.itemDescription + " á " + viewDTO.regItem.item.price);
             System.out.println("Running total (inc. VAT): " + viewDTO.runningTotalIncVat);
 
             // Code that sets itemsLeft to false
@@ -61,16 +61,13 @@ public class View {
 
         // registerPayment
         Amount payment = new Amount(100);
-        Transaction trans = ctrl.registerPayment(payment);
+        ctrl.registerPayment(payment);
 
         // Receipt
-        Receipt receipt = ctrl.createReceipt(currentSaleDTO, trans);
-        Printer printer = ctrl.createPrinter();
-        printer.printReceipt(receipt);
+        ctrl.printReceipt();
 
         // Update accounting
         System.out.println();
-        ctrl.updateAccountingDB(receipt);
-
+        ctrl.updateAccountingDB();
     }
 }
