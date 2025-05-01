@@ -1,5 +1,7 @@
 package se.gows.processsale.integration;
 
+import java.util.Locale;
+
 import se.gows.processsale.model.Receipt;
 
 public class AccountingDBHandler {
@@ -9,6 +11,6 @@ public class AccountingDBHandler {
         accountBalance += receipt.amountPaid.amount;
         accountBalance -= receipt.amountChange.amount;
         System.out.println("Accounting database updated!");
-        System.out.println("New balance: " +  String.format("%.2f",accountBalance));
+        System.out.println("New balance: " +  String.format(Locale.US, "%.2f",accountBalance));
     }
 }

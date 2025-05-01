@@ -1,5 +1,7 @@
 package se.gows.processsale.model;
 
+import java.util.Locale;
+
 public class Printer {
 
     public void printReceipt(Receipt receipt) {
@@ -17,10 +19,10 @@ public class Printer {
             System.out.println("* " + regItem.quantity + " " + regItem.item.itemDescription + " á " + regItem.item.price + "kr -> " + (regItem.quantity * regItem.item.price + "kr"));
         }
         System.out.println();
-        System.out.println("Total price: " + String.format("%.2f",receipt.saleSums.totalPrice) + "kr");
+        System.out.println("Total price: " + String.format(Locale.US, "%.2f",receipt.saleSums.totalPrice) + "kr");
         System.out.println("Total VAT: " + receipt.saleSums.totalVAT + "kr");
         System.out.println("-------------------------------------");
-        System.out.println("Total (incl. VAT): " + String.format("%.2f", receipt.saleSums.totalIncVat) + " kr");
+        System.out.println("Total (incl. VAT): " + String.format(Locale.US, "%.2f", receipt.saleSums.totalIncVat) + " kr");
         System.out.println("-------------------------------------");
         System.out.println("Amount paid: " + receipt.amountPaid.toString());
         System.out.println("Amount change: " + receipt.amountChange.toString());
