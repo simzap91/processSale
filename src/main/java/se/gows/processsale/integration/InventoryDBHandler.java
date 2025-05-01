@@ -3,8 +3,6 @@ package se.gows.processsale.integration;
 import se.gows.processsale.DTO.ItemDTO;
 import se.gows.processsale.model.RegisteredItem;
 
-import java.util.ArrayList;
-
 public class InventoryDBHandler {
 
     Item mjölk = new Item(1, "Mjölk", 14.90, 0.25, 500);
