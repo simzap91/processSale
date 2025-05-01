@@ -119,12 +119,17 @@ public class ControllerTest {
     }
 
     class FakeInventoryDBHandler extends InventoryDBHandler {
+        public boolean updateCalled = false;
         @Override
         public ItemDTO fetchItemFromDB(int itemID) {
             if (itemID == 1001) {
                 return new ItemDTO(itemID, "TestItem", 1000, 0.2);
             }
             return null;
+        }
+        @Override
+        public void updateInventoryDB(RegisteredItem[] regItems) {
+            updateCalled = true;
         }
     }
     class FakeDiscountDBHandler extends DiscountDBHandler {

@@ -44,22 +44,30 @@ public class Sale {
     public void addItem(ItemDTO item, int quantity) {
         RegisteredItem scannedItem = new RegisteredItem(item, quantity);
         itemList.add(scannedItem);
-        updateSalePriceAndVat(scannedItem.getPriceOfMultipleItems(quantity), scannedItem.getVatOfMultipleItems(quantity));
+        updateSalePriceAndVat();
+    }
+
+    public void updateSale(int itemID, int itemQuantity) {
+        updateItem(itemID, itemQuantity);
+        updateSalePriceAndVat();
     }
 
     public void updateItem(int itemID, int quantity) {
         for (RegisteredItem regItem : itemList) {
             if (regItem.idsAreEqual(itemID)){
-                regItem.setQuantity(quantity);
-                updateSalePriceAndVat(regItem.getPriceOfMultipleItems(quantity), regItem.getVatOfMultipleItems(quantity));
+                regItem.setQuantity(regItem.quantity + quantity);
                 break;
             }
         }
     }
 
-    private void updateSalePriceAndVat(double sumPrice, double sumVat){
-        totalPrice += sumPrice;
-        totalVAT += sumVat;
+    private void updateSalePriceAndVat(){
+        totalPrice = 0;
+        totalVAT = 0;
+        for (RegisteredItem regItem : itemList) {
+            totalPrice += regItem.quantity * regItem.item.price;
+            totalVAT += regItem.quantity * regItem.item.vatRate * regItem.item.price;
+        }
     }
 
     /**

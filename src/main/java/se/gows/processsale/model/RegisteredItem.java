@@ -16,7 +16,7 @@ public class RegisteredItem {
     }
 
     public void setQuantity(int quantity) {
-        this.quantity += quantity;
+        this.quantity = quantity;
     }
 
     public boolean idsAreEqual(int itemID){
