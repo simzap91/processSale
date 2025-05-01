@@ -84,9 +84,9 @@ public class Sale {
      * @param itemID
      * @return
      */
-    public ViewDTO createViewDTO(ItemDTO scannedItem) {
+    public ViewDTO createViewDTO(int itemID) {
+        RegisteredItem regItem = fetchRegisteredItem(itemID);
         double runningTotIncVat = calculateRunningTotalIncVat();
-        RegisteredItem regItem = getRegisteredItem(scannedItem);
         ViewDTO viewDTO = new ViewDTO(regItem, runningTotIncVat);
         return viewDTO;
     }
@@ -96,21 +96,13 @@ public class Sale {
      * @param itemID
      * @return
      */
-    public RegisteredItem getRegisteredItem(ItemDTO scannedItem){
-        if (scannedItem != null)
-            for (RegisteredItem regItem : itemList){
-                if (itemIdsAreEqual(regItem, scannedItem.itemID)) {
-                    return regItem;
-                }
+    private RegisteredItem fetchRegisteredItem(int itemID){
+        for (RegisteredItem regItem : itemList){
+            if (regItem.idsAreEqual(itemID)){
+                return regItem;
             }
-        return null;
-    }
-
-    private boolean itemIdsAreEqual(RegisteredItem regItem, int itemID){
-        if (regItem.item.itemID == itemID) {
-            return true;
         }
-        return false;
+        return null;
     }
 
     /**
@@ -120,8 +112,7 @@ public class Sale {
      */
     public SaleDTO endSale(){
         RegisteredItem[] itemListArray = itemList.toArray(new RegisteredItem[0]);
-        double totalIncVat = calculateRunningTotalIncVat();
-        SaleDTO saleDTO = new SaleDTO(timeOfSale, totalPrice, totalVAT, totalIncVat, itemListArray);
+        SaleDTO saleDTO = new SaleDTO(timeOfSale, totalPrice, totalVAT, itemListArray);
         return saleDTO;
     }
 

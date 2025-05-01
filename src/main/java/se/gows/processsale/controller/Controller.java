@@ -44,7 +44,6 @@ public class Controller {
      */
     public ViewDTO scanItem(int itemID, int quantity) {
         boolean itemRegistered;
-        ViewDTO viewDTO;
         ItemDTO scannedItem = null;
 
         itemRegistered = currentSale.checkItemList(itemID);
@@ -58,7 +57,8 @@ public class Controller {
         } else {
             currentSale.updateSale(itemID, quantity);
         }
-        viewDTO = currentSale.createViewDTO(scannedItem);
+        
+        ViewDTO viewDTO = currentSale.createViewDTO(itemID);
         return viewDTO;
     }
 

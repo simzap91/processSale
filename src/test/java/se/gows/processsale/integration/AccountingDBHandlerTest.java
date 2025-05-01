@@ -21,7 +21,7 @@ public class AccountingDBHandlerTest {
 public void setUp(){
     testAmountPaid = new Amount(100);
     //double test
-    testSaleDTO  = new SaleDTO(null, 80, 20, 100, null);
+    testSaleDTO  = new SaleDTO(null, 80, 20, null);
     testTransaction = new Transaction(testAmountPaid, 100);
     testReceipt = new Receipt(testSaleDTO, testTransaction);
     accDBtest = new AccountingDBHandler();

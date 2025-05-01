@@ -9,7 +9,7 @@ public class SaleDTO {
     public SumDTO saleSums;
     public RegisteredItem[] itemList;
 
-    public SaleDTO (LocalTime timeOfSale, double totalPrice, double totalVAT, double totalIncVat, RegisteredItem[] itemList){
+    public SaleDTO (LocalTime timeOfSale, double totalPrice, double totalVAT, RegisteredItem[] itemList){
         this.timeOfSale = timeOfSale;
         this.saleSums = new SumDTO(totalPrice, totalVAT);
         this.itemList = itemList;

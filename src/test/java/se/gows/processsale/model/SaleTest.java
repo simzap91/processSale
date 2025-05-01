@@ -3,39 +3,25 @@ package se.gows.processsale.model;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-import java.util.ArrayList;
-
 import se.gows.processsale.DTO.*;
-import se.gows.processsale.integration.*;
-import se.gows.processsale.model.*;
 
 public class SaleTest {
 
     private Sale instanceToTest;
-    private ByteArrayOutputStream printoutBuffer;
-    private PrintStream originalSysOut;
 
     @BeforeEach
     public void setUp(){
         instanceToTest = new Sale();
-        printoutBuffer = new ByteArrayOutputStream();
-        PrintStream inMemSysOut = new PrintStream(printoutBuffer);
-        originalSysOut = System.out;
-        System.setOut(inMemSysOut);
     }
 
     @AfterEach
     public void tearDown() {
         instanceToTest = null;
-        printoutBuffer = null;
-        System.setOut(originalSysOut);
     }
 
     @Test
     public void testAddItemAndCheckItemList() {
-        ItemDTO testItemDTO = new ItemDTO(14, "TestItem", 10, 10);
+        ItemDTO testItemDTO = new ItemDTO(14, "TestItem", 10, 0.2);
         instanceToTest.addItem(testItemDTO, 2);
         boolean result = instanceToTest.checkItemList(14);
 
@@ -43,14 +29,45 @@ public class SaleTest {
     }
 
     @Test
-    public void testUpdateItem() {
-        ItemDTO testItemDTO = new ItemDTO(14, "TestItem", 10, 10);
+    public void testUpdateSaleAndCreateViewDTO() {
+        ItemDTO testItemDTO = new ItemDTO(14, "TestItem", 10, 0.2);
         instanceToTest.addItem(testItemDTO, 2);
-        instanceToTest.updateItem(14, 4);
+        instanceToTest.updateSale(14, 4);
+
+        ViewDTO testViewDTO = instanceToTest.createViewDTO(14);
+
+        int quantityAfterUpdate = testViewDTO.regItem.quantity;
         int expectedResult = 6;
 
-        
+        assertNotNull(testViewDTO, "ViewDTO not created as expected.");
+        assertEquals(quantityAfterUpdate, expectedResult, "Item quantity not updated as expected.");
     }
 
+    @Test
+    public void testEndSale() {
+        ItemDTO testItemDTO = new ItemDTO(14, "TestItem", 10, 0.2);
+        instanceToTest.addItem(testItemDTO, 2);
+        SaleDTO testSaleDTO = instanceToTest.endSale();
+        double expectedTotPrice = 2 * 10;
+        double expectedTotVat = 2 * 10 * 0.2;
+        double expectedTotIncVat = expectedTotPrice + expectedTotVat;
 
+        assertEquals(1, testSaleDTO.itemList.length, "Number of items in items list not as expected.");
+        assertEquals(expectedTotPrice, testSaleDTO.saleSums.totalPrice, "TotIncVat in SaleDTO not as expected.");
+        assertEquals(expectedTotVat, testSaleDTO.saleSums.totalVAT, "TotIncVat in SaleDTO not as expected.");
+        assertEquals(expectedTotIncVat, testSaleDTO.saleSums.totalIncVat, "TotIncVat in SaleDTO not as expected.");
+    }
+
+    @Test
+    public void testCalculateDiscount() {
+        ItemDTO testItemDTO = new ItemDTO(14, "TestItem", 10, 0.2);
+        instanceToTest.addItem(testItemDTO, 2);
+        SaleDTO testSaleDTO = instanceToTest.endSale();
+
+        DiscountDTO testDiscount = new DiscountDTO(10, 0.2, 0);
+        testSaleDTO = instanceToTest.calculateDiscount(testSaleDTO, testDiscount);
+        double expectedNewTotal = 10 - 10 * 0.2;
+
+        assertEquals(expectedNewTotal, testSaleDTO.saleSums.totalPrice, "Total price not reduced after discount as expected.");
+    }
 }
