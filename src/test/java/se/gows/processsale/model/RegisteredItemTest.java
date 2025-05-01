@@ -1,25 +1,18 @@
 package se.gows.processsale.model;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.*;
+import se.gows.processsale.DTO.ItemDTO;
 
 public class RegisteredItemTest {
-    @Test
-    void testGetPriceOfMultipleItems() {
 
-    }
-
-    @Test
-    void testGetVatOfMultipleItems() {
-
-    }
+    private RegisteredItem instanceToTest;
 
     @Test
     void testIdsAreEqual() {
-
-    }
-
-    @Test
-    void testSetQuantity() {
-
+        ItemDTO testItem = new ItemDTO(1001, "TestItem", 1000, 0.2);
+        instanceToTest = new RegisteredItem(testItem, 2);
+        assertTrue(instanceToTest.idsAreEqual(1001), "Operation is not true as expected.");
     }
 }
