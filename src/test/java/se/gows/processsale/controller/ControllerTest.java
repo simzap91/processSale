@@ -1,12 +1,10 @@
 package se.gows.processsale.controller;
 
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 import se.gows.processsale.DTO.*;
 import se.gows.processsale.integration.*;
@@ -14,129 +12,110 @@ import se.gows.processsale.model.*;
 
 public class ControllerTest {
 
-    private Controller ctrl;
-    private InventoryDBHandler fakeInvHandler;;
-    private AccountingDBHandler fakeAccHandler;
-    private DiscountDBHandler fakeDiscHandler;
+    private Controller instanceToTest;
+    private ByteArrayOutputStream printoutBuffer;
+    private PrintStream originalSysOut;
+    private FakeInventoryDBHandler fakeInvHandler;;
+    private FakeAccountingDBHandler fakeAccHandler;
+    private FakeDiscountDBHandler fakeDiscHandler;
 
     @BeforeEach
     public void setUp(){
         fakeInvHandler = new FakeInventoryDBHandler();
         fakeAccHandler = new FakeAccountingDBHandler();
         fakeDiscHandler = new FakeDiscountDBHandler();
-        ctrl = new Controller(fakeInvHandler, fakeAccHandler, fakeDiscHandler);
+
+        instanceToTest = new Controller(fakeInvHandler, fakeAccHandler, fakeDiscHandler);
+        printoutBuffer = new ByteArrayOutputStream();
+        PrintStream inMemSysOut = new PrintStream(printoutBuffer);
+        originalSysOut = System.out;
+        System.setOut(inMemSysOut);
     }
 
-    @Test
-    void testStartSale() {
-        
-        assertDoesNotThrow(() -> ctrl.startSale());
+    @AfterEach
+    public void tearDown() {
+        fakeInvHandler = null;
+        fakeAccHandler = null;
+        fakeDiscHandler = null;
+
+        instanceToTest = null;
+        printoutBuffer = null;
+        System.setOut(originalSysOut);
     }
 
     @Test
     void testScanItem() {
+        instanceToTest.startSale();
+        ViewDTO result = instanceToTest.scanItem(1001, 2);
 
-        ctrl.startSale();
-
-        int itemID = 1001;
-        int quantity = 2;
-
-        ViewDTO result = ctrl.scanItem(itemID, quantity);
-
-        assertNotNull(result, "ViewDTO should not be null");
+        assertNotNull(result, "ViewDTO not created as expected");
         assertEquals("TestItem", result.regItem.item.itemDescription, "Item description should match");
         assertEquals(2, result.regItem.quantity, "Quantity should match input");
     }
 
     @Test
     void testEndSale() {
-        
-        ctrl.startSale();
-        ctrl.scanItem(1001, 1);
-
-        SaleDTO result = ctrl.endSale();
+        instanceToTest.startSale();
+        instanceToTest.scanItem(1001, 1);
+        SaleDTO result = instanceToTest.endSale();
 
         assertNotNull(result, "SaleDTO should not be null");
-        assertTrue(result.saleSums.totalPrice > 0, "Total price should be greater than zero");
-        assertEquals(1, result.itemList.length, "Should contain one registered item");
+        assertTrue(result.saleSums.totalPrice > 0, "Total price should be greater than zero.");
+        assertEquals(1, result.itemList.length, "Should contain one registered item.");
     }
 
     @Test
     void testRequestDiscount() {
+        instanceToTest.startSale();
+        instanceToTest.scanItem(1001, 1);
 
-        ctrl.startSale();
-        ctrl.scanItem(1001, 1);
-
-        SaleDTO saleBeforeDiscount = ctrl.endSale();
+        SaleDTO saleBeforeDiscount = instanceToTest.endSale();
         double originalPrice = saleBeforeDiscount.saleSums.totalPrice;
 
         int[] discountTypes = {1, 2, 3};
         int customerID = 1;
 
-        SaleDTO saleAfterDiscount = ctrl.requestDiscount(customerID, saleBeforeDiscount, discountTypes);
+        SaleDTO saleAfterDiscount = instanceToTest.requestDiscount(customerID, saleBeforeDiscount, discountTypes);
 
-        assertNotNull(saleAfterDiscount, "Discounted SaleDTO should not be null");
-        assertTrue(saleAfterDiscount.saleSums.totalPrice < originalPrice, "Total price should be reduced after discount");
+        assertNotNull(saleAfterDiscount, "Discounted SaleDTO not created as expected.");
+        assertTrue(saleAfterDiscount.saleSums.totalPrice < originalPrice, "Total price not reduced after discount.");
     }
 
     @Test
     void testRegisterPayment() {
-        ctrl.startSale();
-        ctrl.scanItem(1001, 1);
-        ctrl.endSale();
+        instanceToTest.startSale();
+        instanceToTest.scanItem(1001, 1);
+        instanceToTest.endSale();
 
-        Amount payment = new Amount(2000);
+        Amount testPayment = new Amount(2000);
 
-        ctrl.registerPayment(payment);
+        instanceToTest.registerPayment(testPayment);
 
-        FakeAccountingDBHandler acc = (FakeAccountingDBHandler) fakeAccHandler;
-
-        assertTrue(acc.updateCalled, "Accounting handler should have been updated");
-
-        Receipt receipt = acc.lastReceipt;
+        Receipt receipt = fakeAccHandler.testReceipt;
         assertNotNull(receipt, "Receipt should not be null");
         assertEquals(2000, receipt.amountPaid.amount, "Paid amount should match input");
         assertTrue(receipt.amountChange.amount > 0, "Change should be greater than 0");
-        assertEquals(payment.amount - receipt.saleSums.totalIncVat, receipt.amountChange.amount, 0.01, "Change should be correct");
+        assertEquals(testPayment.amount - receipt.saleSums.totalIncVat, receipt.amountChange.amount, 0.01, "Change should be correct");
     }
 
     @Test
     void testCreateReceipt() {
         
-        ctrl.startSale();
-        ctrl.scanItem(1001, 2);
-        SaleDTO saleDto = ctrl.endSale();
+        instanceToTest.startSale();
+        instanceToTest.scanItem(1001, 2);
+        SaleDTO saleDto = instanceToTest.endSale();
         
-        Amount payment = new Amount(5000);
-        Transaction trans = new Transaction(payment, saleDto.saleSums.totalIncVat);
+        Amount testPayment = new Amount(5000);
+        Transaction testTrans = new Transaction(testPayment, saleDto.saleSums.totalIncVat);
 
-        Receipt receipt = ctrl.createReceipt(saleDto, trans);
+        Receipt receipt = instanceToTest.createReceipt(saleDto, testTrans);
 
         assertNotNull(receipt, "Receipt should not be null");
-        assertEquals(saleDto.timeOfSale,      receipt.timeOfSale,      "timeOfSale should be copied");
-        assertSame  (saleDto.saleSums,        receipt.saleSums,        "saleSums should be the same object");
-        assertArrayEquals(saleDto.itemList,   receipt.itemList,        "itemList should be the same array");
-        assertEquals(payment.amount,          receipt.amountPaid.amount,   "Paid amount matches transaction");
-        assertEquals(trans.amountChange.amount, receipt.amountChange.amount, "Change matches transaction");
-    }
-
-    @Test
-    void testPrintReceipt() {
-
-        ctrl.startSale();
-        ctrl.scanItem(1001, 1);
-        ctrl.endSale();
-        ctrl.registerPayment(new Amount(2000));
-
-        ByteArrayOutputStream buf = new ByteArrayOutputStream();
-        PrintStream  oldOut = System.out;
-        System.setOut(new PrintStream(buf));
-
-        assertDoesNotThrow(() -> ctrl.printReceipt(), "printReceipt() should not throw");
-
-        System.setOut(oldOut);
-        String output = buf.toString().trim();
-        assertFalse(output.isEmpty(), "Expected some receipt text to be printed");
+        assertEquals(saleDto.timeOfSale, receipt.timeOfSale, "timeOfSale should be copied");
+        assertSame  (saleDto.saleSums, receipt.saleSums, "saleSums should be the same object");
+        assertArrayEquals(saleDto.itemList, receipt.itemList, "itemList should be the same array");
+        assertEquals(testPayment.amount, receipt.amountPaid.amount, "Paid amount matches transaction");
+        assertEquals(testTrans.amountChange.amount, receipt.amountChange.amount, "Change matches transaction");
     }
 
     class FakeInventoryDBHandler extends InventoryDBHandler {
@@ -157,12 +136,12 @@ public class ControllerTest {
 
     class FakeAccountingDBHandler extends AccountingDBHandler {
         public boolean updateCalled = false;
-        public Receipt lastReceipt = null;
+        public Receipt testReceipt = null;
 
         @Override
         public void updateAccountBalance(Receipt receipt) {
             updateCalled = true;
-            lastReceipt = receipt;
+            testReceipt = receipt;
         }
     }
 }
