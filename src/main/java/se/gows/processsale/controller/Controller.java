@@ -109,6 +109,9 @@ public class Controller {
         return receipt;
     }
 
+    /**
+     * Prints receipt to console.
+     */
     public void printReceipt(){
         cashRegister.printReceipt();
     }
