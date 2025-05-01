@@ -1,12 +1,6 @@
 package se.gows.processsale.controller;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -14,15 +8,9 @@ import java.io.PrintStream;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import se.gows.processsale.DTO.DiscountDTO;
-import se.gows.processsale.DTO.ItemDTO;
-import se.gows.processsale.DTO.SaleDTO;
-import se.gows.processsale.DTO.ViewDTO;
+import se.gows.processsale.DTO.*;
 import se.gows.processsale.integration.*;
-import se.gows.processsale.model.Amount;
-import se.gows.processsale.model.Receipt;
-import se.gows.processsale.model.RegisteredItem;
-import se.gows.processsale.model.Transaction;
+import se.gows.processsale.model.*;
 
 public class ControllerTest {
 
