@@ -56,7 +56,7 @@ public class Controller {
                 currentSale.addItem(scannedItem, quantity);
             }
         } else {
-            currentSale.updateItem(itemID, quantity);
+            currentSale.updateSale(itemID, quantity);
         }
         viewDTO = currentSale.createViewDTO(scannedItem);
         return viewDTO;

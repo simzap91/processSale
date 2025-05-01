@@ -52,7 +52,7 @@ public class Sale {
         updateSalePriceAndVat();
     }
 
-    public void updateItem(int itemID, int quantity) {
+    private void updateItem(int itemID, int quantity) {
         for (RegisteredItem regItem : itemList) {
             if (regItem.idsAreEqual(itemID)){
                 regItem.setQuantity(regItem.quantity + quantity);
