@@ -7,21 +7,18 @@ import se.gows.processsale.DTO.DiscountDTO;
 import se.gows.processsale.DTO.ItemDTO;
 import se.gows.processsale.DTO.SaleDTO;
 import se.gows.processsale.DTO.ViewDTO;
-import se.gows.processsale.integration.InventoryDBHandler;
 
 public class Sale {
     private LocalTime timeOfSale;
     private ArrayList<RegisteredItem> itemList = new ArrayList<>();
     private double totalPrice;
     private double totalVAT;
-    public InventoryDBHandler invHandler;
 
     /**
      * 
      */
-    public Sale(InventoryDBHandler invHandler) {
+    public Sale() {
         timeOfSale = LocalTime.now();
-        this.invHandler = invHandler;
     }
 
     /**
@@ -117,7 +114,6 @@ public class Sale {
         RegisteredItem[] itemListArray = itemList.toArray(new RegisteredItem[0]);
         double totalIncVat = calculateRunningTotalIncVat();
         SaleDTO saleDTO = new SaleDTO(timeOfSale, totalPrice, totalVAT, totalIncVat, itemListArray);
-        invHandler.updateInventoryDB(itemList);
         return saleDTO;
     }
 

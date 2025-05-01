@@ -30,7 +30,7 @@ public class InventoryDBHandler {
     /* 
      * Updates the inventory status for each item after a sale.
      */
-    public void updateInventoryDB(ArrayList<RegisteredItem> itemList) {
+    public void updateInventoryDB(RegisteredItem[] itemList) {
         for (RegisteredItem regItem : itemList) {
 
             int itemID = regItem.item.itemID;

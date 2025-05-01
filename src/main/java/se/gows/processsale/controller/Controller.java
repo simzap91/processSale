@@ -32,7 +32,7 @@ public class Controller {
      * Starts a new sale. This method must be called first in the process.
      */
     public void startSale() {
-        currentSale = new Sale(invHandler);
+        currentSale = new Sale();
     }
 
     /**
@@ -70,6 +70,7 @@ public class Controller {
     public SaleDTO endSale() {
         SaleDTO saleDTO = currentSale.endSale();
         currentSaleDTO = saleDTO;
+        invHandler.updateInventoryDB(currentSaleDTO.itemList);
         return currentSaleDTO;
     }
 
