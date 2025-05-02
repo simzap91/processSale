@@ -29,9 +29,4 @@ public class InventoryDBHandlerTest {
         boolean result = resultPrice == resultVAT == resultDesc;
         assertEquals(expectedResult, result, "Wrong item fetched from DB");
     }
-
-    @Test
-    void testUpdateInventoryDB() {
-
-    }
 }
