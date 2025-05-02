@@ -1,5 +1,12 @@
 package se.gows.processsale.DTO;
 
+/**
+     * Item DTO. Holds information about item.
+     * @param itemID Unique item identifier
+     * @param itemDescription name of item, e.g. "Smör"
+     * @param price price of item (SEK)
+     * @param vatRate item VAT rate (decimal)
+     */
 public class ItemDTO {
     public int itemID;
     public String itemDescription;
