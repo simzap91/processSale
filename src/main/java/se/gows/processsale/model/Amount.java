@@ -10,7 +10,6 @@ public class Amount {
     }
         /**
      * Public method that returns the value within an Amount object
-     * @param 
      * @return amount
      */
     public double getValue() {

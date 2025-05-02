@@ -16,7 +16,7 @@ public class RegisteredItem {
     }
 /**
  * Public method that sets the quantity of a given RegisteredItem.
- * @param quantity
+ * @param quantity the new quantity for a item
  */
     public void setQuantity(int quantity) {
         this.quantity = quantity;
@@ -24,7 +24,7 @@ public class RegisteredItem {
 
 /**
  * Public method that check is a RegisteredItem is equal to a given itemID.
- * @param itemID
+ * @param itemID ID of an item
  * @return true or false
  */
     public boolean idsAreEqual(int itemID){
@@ -32,7 +32,7 @@ public class RegisteredItem {
     }
 /**
  * Public method that returns the price of a given item times its quantity
- * @param quantity
+ * @param quantity the quantity for a item
  * @return item price times quantity
  */
     public double getPriceOfMultipleItems(int quantity){
@@ -40,7 +40,7 @@ public class RegisteredItem {
     }
 /**
  * Public method that returns the total Vat of a given item times its quantity
- * @param quantity
+ * @param quantity the quantity for a item
  * @return total Vat of given item times its quantity
  */
     public double getVatOfMultipleItems(int quantity){

@@ -9,9 +9,9 @@ public class AccountingDBHandler {
     /**     
      * Public method that updates the internal accountbalance
      * Method uses receipt 
-     * @param amountPaid
-     * @param totalPriceIncVat
-     * @return
+     * @param amountPaid amount of cash received from customer
+     * @param totalPriceIncVat total price from the entire sale
+     * @return new account balance
      */
     public void updateAccountBalance(Receipt receipt) {
         accountBalance += receipt.amountPaid.amount;
