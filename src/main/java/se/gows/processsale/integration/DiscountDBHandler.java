@@ -37,7 +37,6 @@ public class DiscountDBHandler {
                 System.out.println("Invalid discount type");
             }
         }
-        System.out.println("disc tot price:" + discountedTotalPrice);
         return discountedTotalPrice;
     }
 
@@ -61,7 +60,6 @@ public class DiscountDBHandler {
                 }
             }
         }
-        System.out.println("disc sum:" + discountSum);
         return discountSum;
     }
 
