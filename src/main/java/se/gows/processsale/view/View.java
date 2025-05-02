@@ -52,7 +52,7 @@ public class View {
 
         // requestDiscount
         int customerID = 1;
-        int[] discTypes = {1,2,3};
+        int[] discTypes = {1,0,0};
 
         currentSaleDTO = ctrl.requestDiscount(customerID, currentSaleDTO, discTypes);
         System.out.println("After discount:");

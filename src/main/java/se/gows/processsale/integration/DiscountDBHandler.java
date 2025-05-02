@@ -21,21 +21,23 @@ public class DiscountDBHandler {
      *  
      */
     public double getDiscountedPrice(int[] discountTypes, int customerID, RegisteredItem[] purchasedItems, double totalPrice){
+        double discountedTotalPrice = totalPrice;
         for (int type : discountTypes) {
             if (type == 1) {
-                totalPrice -= calculateDiscountItemsSum(purchasedItems);
+                discountedTotalPrice -= calculateDiscountItemsSum(purchasedItems);
             }
             if (type == 2) {
-                totalPrice -= totalPrice*calculateDiscountSaleRate(totalPrice);
+                discountedTotalPrice -= totalPrice*calculateDiscountSaleRate(totalPrice);
             }
             if (type == 3) {
-                totalPrice -= totalPrice*calculateDiscountCustomerRate(customerID);
+                discountedTotalPrice -= totalPrice*calculateDiscountCustomerRate(customerID);
             }
             if (type > 3 || type < 0) {
                 System.out.println("Invalid discount type");
             }
         }
-        return totalPrice;
+        System.out.println("disc tot price:" + discountedTotalPrice);
+        return discountedTotalPrice;
     }
 
     /**
@@ -52,12 +54,13 @@ public class DiscountDBHandler {
                 if (discObjItemId == regItem.item.itemID){
 
                     double discItemRate = discObj[1];
-                    double discItemSum = regItem.item.price * discItemRate;
+                    double discItemSum = regItem.item.price * discItemRate * regItem.quantity;
 
                     discountSum += discItemSum;
                 }
             }
         }
+        System.out.println("disc sum:" + discountSum);
         return discountSum;
     }
 
