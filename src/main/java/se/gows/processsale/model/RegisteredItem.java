@@ -7,7 +7,12 @@ public class RegisteredItem {
     public int quantity;
     public double discountedPrice;
     public double discountRate;
-
+/**
+ * RegisteredItem object, containing information about an item, stored as a ItemDTO,
+ * combined with the quantity of the item.
+ * @param item information about the item as a DTO
+ * @param quantity quantity of the item
+ */
     public RegisteredItem(ItemDTO item, int quantity){
         this.item = item;
         this.quantity = quantity;
