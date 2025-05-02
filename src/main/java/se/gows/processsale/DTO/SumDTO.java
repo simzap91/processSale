@@ -16,4 +16,8 @@ public class SumDTO {
         this.totalVAT = totalVAT;
         this.totalIncVat = this.totalPrice + totalVAT;
     }
+
+    public void updateTotIncVat(){
+        this.totalIncVat = this.totalPrice + totalVAT;
+    }
 }

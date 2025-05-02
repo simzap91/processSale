@@ -5,14 +5,10 @@ import se.gows.processsale.DTO.ItemDTO;
 public class RegisteredItem {
     public ItemDTO item;
     public int quantity;
-    public double discountedPrice;
-    public double discountRate;
 
     public RegisteredItem(ItemDTO item, int quantity){
         this.item = item;
         this.quantity = quantity;
-        this.discountedPrice = 0;
-        this.discountRate = 0;
     }
 /**
  * Public method that sets the quantity of a given RegisteredItem.
