@@ -9,9 +9,9 @@ public class DiscountDBHandler {
      * Data base with member customers and three discount types.
      */
     int[] memberCustomerIDs = {1,2,3,4,5}; // Format: {customerID}
-    double[][] discountDBTypeOne = {{1.0, 0.20},{2.0, 0.10}}; // Type 1, format: {itemID (as double), discountRate}
-    double[] discountDBTypeTwo = {200.0, 0.1}; // Type 2, format: {total price lower limit, disc rate}
-    double discountDBTypeThree = 0.15; // Type 3, format: disc rate
+    double[][] discountDBItemsSum = {{1.0, 0.20},{2.0, 0.10}}; // Type 1, format: {itemID (as double), discountRate}
+    double[] discountDBSaleRate = {200.0, 0.1}; // Type 2, format: {total price lower limit, disc rate}
+    double discountDBCustomerRate = 0.15; // Type 3, format: disc rate
 
     /**
      * @param discountTypes
@@ -24,27 +24,30 @@ public class DiscountDBHandler {
     public DiscountDTO fetchDiscount(int[] discountTypes, int customerID, RegisteredItem[] purchasedItems, double totalPrice){
 
         DiscountDTO discountDTO = null;
-        double discountSumTypeOne = 0;
-        double discountRateTypeTwo = 1;
-        double discountRateTypeThree = 1;
+        double initialDiscountItemsSum = 0;
+        double discountItemsSum = initialDiscountItemsSum;
+        double initialDiscountSaleRate = 1;
+        double discountSaleRate = initialDiscountSaleRate;
+        double initialDiscountCustomerRate = 1;
+        double discountCustomerRate = initialDiscountCustomerRate;
 
         for (int type : discountTypes) {
 
             if (type == 1) {
-                discountSumTypeOne = calculateDiscountSumTypeOne(purchasedItems);
+                discountItemsSum = calculatediscountItmesSum(purchasedItems);
             }
             if (type == 2) {
-                discountRateTypeTwo = calculateDiscountRateTypeTwo(totalPrice);
+                discountSaleRate = calculateDiscountRateTypeTwo(totalPrice);
             }
             if (type == 3) {
-                discountRateTypeThree = calculateDiscountRateTypeThree(customerID);
+                discountCustomerRate = calculateDiscountRateTypeThree(customerID);
             }
             if (type > 3 || type < 0) {
                 System.out.println("Invalid discount type");
             }
         }
-        if (discountSumTypeOne > 0 || discountRateTypeTwo < 1 || discountRateTypeThree < 1)
-            discountDTO = new DiscountDTO(discountSumTypeOne, discountRateTypeTwo, discountRateTypeThree);
+        if (discountItemsSum > initialDiscountItemsSum || discountSaleRate < initialDiscountSaleRate || discountCustomerRate < initialDiscountCustomerRate)
+            discountDTO = new DiscountDTO(discountItemsSum, discountSaleRate, discountCustomerRate);
 
         return discountDTO;
     }
@@ -54,11 +57,11 @@ public class DiscountDBHandler {
      * @return 
      *  
      */
-    private double calculateDiscountSumTypeOne(RegisteredItem[] purchasedItems) {
+    private double calculatediscountItmesSum(RegisteredItem[] purchasedItems) {
 
         double discountSum = 0;
 
-        for (double[] discObj : discountDBTypeOne){
+        for (double[] discObj : discountDBItemsSum){
             for (RegisteredItem regItem : purchasedItems) {
 
                 int discObjItemId = (int) discObj[0];
@@ -86,8 +89,8 @@ public class DiscountDBHandler {
 
         double discountRate = 0;
         
-        if (totalPrice > discountDBTypeTwo[0]) {
-            discountRate = discountDBTypeTwo[1];
+        if (totalPrice > discountDBSaleRate[0]) {
+            discountRate = discountDBSaleRate[1];
         }
         return discountRate;
     }
@@ -103,7 +106,7 @@ public class DiscountDBHandler {
         
         for (int memberID : memberCustomerIDs) {
             if (memberID == customerID) {
-                discountRate = discountDBTypeThree;
+                discountRate = discountDBCustomerRate;
             }
         }
         return discountRate;

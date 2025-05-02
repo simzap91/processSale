@@ -117,12 +117,12 @@ public class Sale {
     }
 
     public SaleDTO calculateDiscount(SaleDTO currentSaleDTO, DiscountDTO discount){
-        double discountSumTypeOne = discount.discountSumTypeOne;
-        double discountRateTypeTwo = 1.0 - discount.discountRateTypeTwo;
-        double discountRateTypeThree = 1.0 - discount.discountRateTypeThree;
+        double discountItemsSum = discount.discountItemsSum;
+        double discountSaleRate = 1.0 - discount.discountSaleRate;
+        double discountCustomerRate = 1.0 - discount.discountCustomerRate;
 
-        if (currentSaleDTO.saleSums.totalIncVat - discountSumTypeOne > 0){
-            this.totalPrice = (currentSaleDTO.saleSums.totalPrice - discountSumTypeOne) * discountRateTypeTwo * discountRateTypeThree;
+        if (currentSaleDTO.saleSums.totalIncVat - discountItemsSum > 0){
+            this.totalPrice = (currentSaleDTO.saleSums.totalPrice - discountItemsSum) * discountSaleRate * discountCustomerRate;
             currentSaleDTO.saleSums.totalPrice = this.totalPrice;
             currentSaleDTO.saleSums.totalIncVat = calculateRunningTotalIncVat();
         }
