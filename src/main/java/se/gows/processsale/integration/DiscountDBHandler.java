@@ -13,11 +13,12 @@ public class DiscountDBHandler {
     double discountDBCustomerRate = 0.15; // Type 3, format: disc rate
 
     /**
-     * @param discountTypes
-     * @param customerID
-     * @param purchasedItems
-     * @param totalPrice
-     * @return 
+     * Public method that determines which type of discount should be applied on the sale and calculates the total discount.
+     * @param discountTypes The different types of discounts, stores as an array
+     * @param customerID the customers ID
+     * @param purchasedItems a list of all items that are present in the current sale
+     * @param totalPrice the total price of all items in the current sale
+     * @return updated totalprice
      *  
      */
     public double getDiscountedPrice(int[] discountTypes, int customerID, RegisteredItem[] purchasedItems, double totalPrice){
