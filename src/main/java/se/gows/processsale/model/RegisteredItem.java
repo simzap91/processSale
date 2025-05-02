@@ -5,8 +5,6 @@ import se.gows.processsale.DTO.ItemDTO;
 public class RegisteredItem {
     public ItemDTO item;
     public int quantity;
-    public double discountedPrice;
-    public double discountRate;
 /**
  * RegisteredItem object, containing information about an item, stored as a ItemDTO,
  * combined with the quantity of the item.
