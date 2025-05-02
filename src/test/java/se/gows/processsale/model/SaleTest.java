@@ -64,12 +64,20 @@ public class SaleTest {
     public void testCalculateDiscount() {
         ItemDTO testItemDTO = new ItemDTO(14, "TestItem", 10, 0.2);
         instanceToTest.addItem(testItemDTO, 2);
-        SaleDTO testSaleDTO = instanceToTest.endSale();
 
-        DiscountDTO testDiscount = new DiscountDTO(10, 0.2, 0);
-        testSaleDTO = instanceToTest.calculateDiscount(testSaleDTO, testDiscount);
-        double expectedNewTotal = 10 - 10 * 0.2;
+        SaleDTO testThatShouldReducePrice = instanceToTest.endSale();
+        SaleDTO testThatShouldNotReducePrice = instanceToTest.endSale();
 
-        assertEquals(expectedNewTotal, testSaleDTO.saleSums.totalPrice, "Total price not reduced after discount as expected.");
+        double totalPriceBeforeDiscount = testThatShouldReducePrice.saleSums.totalPrice;
+
+        DiscountDTO discountThatShouldReducePrice = new DiscountDTO(10, 0.2, 0);
+        DiscountDTO discountThatShouldNotReducePrice = new DiscountDTO(25, 0.2, 0);
+
+        double expectedNewDiscountedTotal = 10 - 10 * 0.2;
+        testThatShouldReducePrice = instanceToTest.calculateDiscount(testThatShouldReducePrice, discountThatShouldReducePrice);
+        testThatShouldNotReducePrice = instanceToTest.calculateDiscount(testThatShouldNotReducePrice, discountThatShouldNotReducePrice);
+
+        assertEquals(expectedNewDiscountedTotal, testThatShouldReducePrice.saleSums.totalPrice, "Discounted price not calculated as expected.");
+        assertEquals(totalPriceBeforeDiscount, testThatShouldNotReducePrice.saleSums.totalPrice, "Total price not unchanged as expected.");
     }
 }
