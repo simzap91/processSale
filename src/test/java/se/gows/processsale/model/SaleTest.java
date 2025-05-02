@@ -23,9 +23,11 @@ public class SaleTest {
     public void testAddItemAndCheckItemList() {
         ItemDTO testItemDTO = new ItemDTO(14, "TestItem", 10, 0.2);
         instanceToTest.addItem(testItemDTO, 2);
-        boolean result = instanceToTest.checkItemList(14);
+        boolean resultThatShouldBeTrue = instanceToTest.checkItemList(14);
+        boolean resultThatShouldBeFalse = instanceToTest.checkItemList(15);
 
-        assertTrue(result, "Test id not found in list as expected.");
+        assertTrue(resultThatShouldBeTrue, "Test id not found in list as expected.");
+        assertFalse(resultThatShouldBeFalse, "Test id found in list but it should not.");
     }
 
     @Test
