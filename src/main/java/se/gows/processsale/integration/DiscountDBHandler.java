@@ -1,7 +1,6 @@
 package se.gows.processsale.integration;
 
 import se.gows.processsale.model.RegisteredItem;
-import se.gows.processsale.DTO.DiscountDTO;
 
 public class DiscountDBHandler {
     
@@ -21,35 +20,22 @@ public class DiscountDBHandler {
      * @return 
      *  
      */
-    public DiscountDTO fetchDiscount(int[] discountTypes, int customerID, RegisteredItem[] purchasedItems, double totalPrice){
-
-        DiscountDTO discountDTO = null;
-        double initialDiscountItemsSum = 0;
-        double discountItemsSum = initialDiscountItemsSum;
-        double initialDiscountSaleRate = 1;
-        double discountSaleRate = initialDiscountSaleRate;
-        double initialDiscountCustomerRate = 1;
-        double discountCustomerRate = initialDiscountCustomerRate;
-
+    public double getDiscountedPrice(int[] discountTypes, int customerID, RegisteredItem[] purchasedItems, double totalPrice){
         for (int type : discountTypes) {
-
             if (type == 1) {
-                discountItemsSum = calculatediscountItmesSum(purchasedItems);
+                totalPrice -= calculateDiscountItemsSum(purchasedItems);
             }
             if (type == 2) {
-                discountSaleRate = calculateDiscountRateTypeTwo(totalPrice);
+                totalPrice -= totalPrice*calculateDiscountSaleRate(totalPrice);
             }
             if (type == 3) {
-                discountCustomerRate = calculateDiscountRateTypeThree(customerID);
+                totalPrice -= totalPrice*calculateDiscountCustomerRate(customerID);
             }
             if (type > 3 || type < 0) {
                 System.out.println("Invalid discount type");
             }
         }
-        if (discountItemsSum > initialDiscountItemsSum || discountSaleRate < initialDiscountSaleRate || discountCustomerRate < initialDiscountCustomerRate)
-            discountDTO = new DiscountDTO(discountItemsSum, discountSaleRate, discountCustomerRate);
-
-        return discountDTO;
+        return totalPrice;
     }
 
     /**
@@ -57,7 +43,7 @@ public class DiscountDBHandler {
      * @return 
      *  
      */
-    private double calculatediscountItmesSum(RegisteredItem[] purchasedItems) {
+    private double calculateDiscountItemsSum(RegisteredItem[] purchasedItems) {
 
         double discountSum = 0;
 
@@ -69,9 +55,6 @@ public class DiscountDBHandler {
 
                     double discItemRate = discObj[1];
                     double discItemSum = regItem.item.price * discItemRate;
-
-                    regItem.discountRate = discItemRate;
-                    regItem.discountedPrice = regItem.item.price - discItemSum;
 
                     discountSum += discItemSum;
                 }
@@ -85,7 +68,7 @@ public class DiscountDBHandler {
      * @return 
      *  
      */
-    private double calculateDiscountRateTypeTwo(double totalPrice){
+    private double calculateDiscountSaleRate(double totalPrice){
 
         double discountRate = 0;
         
@@ -100,7 +83,7 @@ public class DiscountDBHandler {
      * @return 
      *  
      */
-    private double calculateDiscountRateTypeThree(int customerID){
+    private double calculateDiscountCustomerRate(int customerID){
 
         double discountRate = 0;
         

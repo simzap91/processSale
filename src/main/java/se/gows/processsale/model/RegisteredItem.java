@@ -16,8 +16,6 @@ public class RegisteredItem {
     public RegisteredItem(ItemDTO item, int quantity){
         this.item = item;
         this.quantity = quantity;
-        this.discountedPrice = 0;
-        this.discountRate = 0;
     }
 /**
  * Public method that sets the quantity of a given RegisteredItem.
