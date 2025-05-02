@@ -3,7 +3,6 @@ package se.gows.processsale.model;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import se.gows.processsale.DTO.DiscountDTO;
 import se.gows.processsale.DTO.ItemDTO;
 import se.gows.processsale.DTO.SaleDTO;
 import se.gows.processsale.DTO.ViewDTO;
@@ -116,23 +115,5 @@ public class Sale {
         RegisteredItem[] itemListArray = itemList.toArray(new RegisteredItem[0]);
         SaleDTO saleDTO = new SaleDTO(timeOfSale, totalPrice, totalVAT, itemListArray);
         return saleDTO;
-    }
-    /**
-     * Public method that calculates all discounts that should be applied on the given sale, and changing its total price and Vat-rate accordningly
-     * @param currentSaleDTO All information about the current sale
-     * @param discount All information about which discounts should be applied and thier values.
-     * @return updated SaleDTO containing the new total price and Vat.
-     */
-    public SaleDTO calculateDiscount(SaleDTO currentSaleDTO, DiscountDTO discount){
-        double discountItemsSum = discount.discountItemsSum;
-        double discountSaleRate = 1.0 - discount.discountSaleRate;
-        double discountCustomerRate = 1.0 - discount.discountCustomerRate;
-
-        if (currentSaleDTO.saleSums.totalIncVat - discountItemsSum > 0){
-            this.totalPrice = (currentSaleDTO.saleSums.totalPrice - discountItemsSum) * discountSaleRate * discountCustomerRate;
-            currentSaleDTO.saleSums.totalPrice = this.totalPrice;
-            currentSaleDTO.saleSums.totalIncVat = calculateRunningTotalIncVat();
-        }
-        return currentSaleDTO;
     }
 }

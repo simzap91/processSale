@@ -44,9 +44,7 @@ public class DiscountDBHandler {
      *  
      */
     private double calculateDiscountItemsSum(RegisteredItem[] purchasedItems) {
-
         double discountSum = 0;
-
         for (double[] discObj : discountDBItemsSum){
             for (RegisteredItem regItem : purchasedItems) {
 
@@ -69,9 +67,7 @@ public class DiscountDBHandler {
      *  
      */
     private double calculateDiscountSaleRate(double totalPrice){
-
         double discountRate = 0;
-        
         if (totalPrice > discountDBSaleRate[0]) {
             discountRate = discountDBSaleRate[1];
         }
@@ -84,9 +80,7 @@ public class DiscountDBHandler {
      *  
      */
     private double calculateDiscountCustomerRate(int customerID){
-
         double discountRate = 0;
-        
         for (int memberID : memberCustomerIDs) {
             if (memberID == customerID) {
                 discountRate = discountDBCustomerRate;
