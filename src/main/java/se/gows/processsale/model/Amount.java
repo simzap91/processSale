@@ -8,7 +8,11 @@ public class Amount {
     public Amount (double amount) {
         this.amount = amount;
     }
-
+        /**
+     * Public method that returns the value within an Amount object
+     * @param 
+     * @return amount
+     */
     public double getValue() {
         return amount;
     }

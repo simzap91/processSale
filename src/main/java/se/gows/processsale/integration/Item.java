@@ -16,12 +16,18 @@ public class Item {
         this.vatRate = vatRate;
         this.inventoryQuantity = inventoryQuantity;
     }
-
+    /**
+     * Public method that creates a ItemDTO 
+     * @return ItemDTO
+     */
     public ItemDTO createItemDTO() {
         ItemDTO dto = new ItemDTO(this.itemID, this.description, this.price, this.vatRate);
         return dto;
     }
-
+    /**
+     * Updates the quantity of a given item within the inventoryDB.
+     * @param quantity
+     */
     public void updateInventoryStatus(int quantity){
         this.inventoryQuantity -= quantity;
     }
