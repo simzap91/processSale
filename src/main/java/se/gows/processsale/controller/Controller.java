@@ -1,6 +1,5 @@
 package se.gows.processsale.controller;
 
-import se.gows.processsale.DTO.DiscountDTO;
 import se.gows.processsale.DTO.ItemDTO;
 import se.gows.processsale.DTO.SaleDTO;
 import se.gows.processsale.DTO.ViewDTO;
@@ -87,8 +86,8 @@ public class Controller {
      * @return SaleDTO with updated information about the sale (after the discount)
      */
     public SaleDTO requestDiscount(int customerID, SaleDTO currentSaleDTO, int[] discTypes){
-            DiscountDTO discount = discHandler.fetchDiscount(discTypes, customerID, currentSaleDTO.itemList, currentSaleDTO.saleSums.totalIncVat);
-            currentSaleDTO = currentSale.calculateDiscount(currentSaleDTO, discount);
+            currentSaleDTO.saleSums.totalPrice = discHandler.getDiscountedPrice(discTypes, customerID, currentSaleDTO.itemList, currentSaleDTO.saleSums.totalIncVat);
+            currentSaleDTO.saleSums.updateTotIncVat();
         return currentSaleDTO;
     }
 
