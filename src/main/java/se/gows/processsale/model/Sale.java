@@ -105,17 +105,21 @@ public class Sale {
         return null;
     }
 
-    /**
-     * public method that end sale and update InventoryDB
-     * @param itemID
-     * @return
-     */
+/**
+ * Public method that ends the current sale and returns a SaleDTO containing the final information about the registered items and their total price plus Vat
+ * @return SaleDTO
+ */
     public SaleDTO endSale(){
         RegisteredItem[] itemListArray = itemList.toArray(new RegisteredItem[0]);
         SaleDTO saleDTO = new SaleDTO(timeOfSale, totalPrice, totalVAT, itemListArray);
         return saleDTO;
     }
-
+    /**
+     * 
+     * @param currentSaleDTO
+     * @param discount
+     * @return
+     */
     public SaleDTO calculateDiscount(SaleDTO currentSaleDTO, DiscountDTO discount){
         double discountSumTypeOne = discount.discountSumTypeOne;
         double discountRateTypeTwo = 1.0 - discount.discountRateTypeTwo;

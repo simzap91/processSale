@@ -13,6 +13,7 @@ public class InventoryDBHandlerTest {
     private ItemDTO testItemDTO;
     @BeforeEach
     void setUp(){
+        
         testInvHandler = new InventoryDBHandler();
         testItemDTO = new ItemDTO(1, "Mjölk", 14.90, 0.25);
     }

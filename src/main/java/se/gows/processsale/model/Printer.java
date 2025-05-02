@@ -3,7 +3,10 @@ package se.gows.processsale.model;
 import java.util.Locale;
 
 public class Printer {
-
+/**
+ * Public method that receives a reciept object and prints its attributes 
+ * @param receipt
+ */
     public void printReceipt(Receipt receipt) {
         System.out.println("\r\n" + //
                         " __   ___  __   ___    __  ___ \r\n" + //
