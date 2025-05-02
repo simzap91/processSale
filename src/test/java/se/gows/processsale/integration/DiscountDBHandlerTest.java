@@ -30,4 +30,21 @@ public class DiscountDBHandlerTest {
         double discountedPrice = discHandler.getDiscountedPrice(discountTypes, customerID, purchasedItems, totalPrice);
         assertEquals(175.95, discountedPrice, 0.01);
     }
+
+    @Test
+    void testGetDiscountedPriceNoDiscountApplied() {
+        DiscountDBHandler discHandler = new DiscountDBHandler();
+
+        ItemDTO item = new ItemDTO(99, "Non-discounted Item", 100.0, 0.25);
+        RegisteredItem regItem = new RegisteredItem(item, 1);
+
+        RegisteredItem[] purchasedItems = { regItem };
+        int[] discountTypes = {}; // No discount types
+        int customerID = 99; // Not a member
+        double totalPrice = 100.0;
+
+        double discountedPrice = discHandler.getDiscountedPrice(discountTypes, customerID, purchasedItems, totalPrice);
+
+        assertEquals(100.0, discountedPrice, 0.01);
+    }
 }
