@@ -52,12 +52,12 @@ public class View {
 
         // requestDiscount
         int customerID = 1;
-        int[] discTypes = {1,0,0};
+        int[] discTypes = {1,2,3};
 
         currentSaleDTO = ctrl.requestDiscount(customerID, currentSaleDTO, discTypes);
         System.out.println("After discount:");
-        System.out.println("Total; " + currentSaleDTO.saleSums.totalPrice);
-        System.out.println("Total (inc. VAT); " + currentSaleDTO.saleSums.totalIncVat);
+        System.out.println("Total: " + currentSaleDTO.saleSums.totalPrice);
+        System.out.println("Total (inc. VAT): " + currentSaleDTO.saleSums.totalIncVat);
 
         // registerPayment
         Amount payment = new Amount(100);
