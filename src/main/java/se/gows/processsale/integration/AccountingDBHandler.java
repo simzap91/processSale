@@ -5,8 +5,14 @@ import java.util.Locale;
 import se.gows.processsale.model.Receipt;
 
 public class AccountingDBHandler {
-    private double accountBalance = 100;
-    
+    private double accountBalance = 100; 
+    /**     
+     * Public method that updates the internal accountbalance
+     * Method uses receipt 
+     * @param amountPaid
+     * @param totalPriceIncVat
+     * @return
+     */
     public void updateAccountBalance(Receipt receipt) {
         accountBalance += receipt.amountPaid.amount;
         accountBalance -= receipt.amountChange.amount;

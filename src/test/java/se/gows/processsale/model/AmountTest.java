@@ -14,6 +14,6 @@ public class AmountTest {
         testAmount = new Amount(testValue);
         boolean expectedResult = true;
         boolean result = testValue == testAmount.getValue();
-        assertEquals(expectedResult, result, "Result should be equal");
+        assertEquals(expectedResult, result, "Wrong value is returned");
     }
 }
