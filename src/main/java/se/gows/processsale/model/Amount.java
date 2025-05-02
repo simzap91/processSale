@@ -4,7 +4,10 @@ import java.util.Locale;
 
 public class Amount {
     public double amount;
-
+/**
+ * Amount object cotaining a stored value as a double.
+ * @param amount
+ */
     public Amount (double amount) {
         this.amount = amount;
     }
