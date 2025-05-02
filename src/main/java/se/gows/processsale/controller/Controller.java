@@ -35,8 +35,7 @@ public class Controller {
     }
 
     /**
-     * This method first checks if item is registered in the sale. If not, it passes it to inventory handler and receives a new ItemDTO.
-     * It then passes the ItemDTO to the Sale object.
+     * This method first checks if item is registered in the sale. If not, it creates a new ItemDTO and sends to the Sale object.
      * If item already in the Sale object, it updates the sale with new item quantity and total price/Vat.
      * @param itemID item identifier of scanned item
      * @param quantity quantity of scanned item
@@ -57,6 +56,11 @@ public class Controller {
         return viewDTO;
     }
 
+    /**
+     * This method fetch a new ItemDTO from Inventory handler. Then it sends it to the Sale object.
+     * @param itemID item identifier of scanned item
+     * @param quantity quantity of scanned item
+     */
     private void fetchNewItemDTOAndSendToSale(int itemID, int quantity){
         ItemDTO scannedItem = invHandler.fetchItemFromDB(itemID);
         if (scannedItem != null) {
