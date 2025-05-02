@@ -44,22 +44,24 @@ public class Controller {
      */
     public ViewDTO scanItem(int itemID, int quantity) {
         boolean itemRegistered;
-        ItemDTO scannedItem = null;
 
         itemRegistered = currentSale.checkItemList(itemID);
 
         if (!itemRegistered) {
-            scannedItem = invHandler.fetchItemFromDB(itemID);
-
-            if (scannedItem != null) {
-                currentSale.addItem(scannedItem, quantity);
-            }
+            fetchNewItemDTOAndSendToSale(itemID, quantity);
         } else {
             currentSale.updateSale(itemID, quantity);
         }
         
         ViewDTO viewDTO = currentSale.createViewDTO(itemID);
         return viewDTO;
+    }
+
+    private void fetchNewItemDTOAndSendToSale(int itemID, int quantity){
+        ItemDTO scannedItem = invHandler.fetchItemFromDB(itemID);
+        if (scannedItem != null) {
+            currentSale.addItem(scannedItem, quantity);
+        }
     }
 
     /**
