@@ -46,11 +46,14 @@ public class ControllerTest {
     @Test
     void testScanItem() {
         instanceToTest.startSale();
-        ViewDTO result = instanceToTest.scanItem(2, 2);
+        ViewDTO resultItemNotRegistered = instanceToTest.scanItem(2, 2);
 
-        assertNotNull(result, "ViewDTO not created as expected");
-        assertEquals("Smör", result.regItem.item.itemDescription, "Item description not as expected.");
-        assertEquals(2, result.regItem.quantity, "Not correct item quantity.");
+        assertNotNull(resultItemNotRegistered, "ViewDTO not created as expected");
+        assertEquals("Smör", resultItemNotRegistered.regItem.item.itemDescription, "Item description not as expected.");
+        assertEquals(2, resultItemNotRegistered.regItem.quantity, "Not correct item quantity.");
+
+        ViewDTO resultItemAlreadyRegistered = instanceToTest.scanItem(2, 2);
+        assertEquals(4, resultItemAlreadyRegistered.regItem.quantity, "Item quantity not updated correctly.");
     }
 
     @Test
