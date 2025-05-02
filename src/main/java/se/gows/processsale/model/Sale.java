@@ -14,9 +14,6 @@ public class Sale {
     private double totalPrice;
     private double totalVAT;
 
-    /**
-     * 
-     */
     public Sale() {
         timeOfSale = LocalTime.now();
     }
@@ -36,17 +33,23 @@ public class Sale {
         return false;
     }
 
-    /**
-     * Private method that adds a new item to itemList
-     * @param
-     * @return
-     */
+/**
+ * Public method that adds a new item to itemList and its quantity
+ * @param item itemDTO contain information about the item
+ * @param quantity quantity of a given item
+ */
     public void addItem(ItemDTO item, int quantity) {
         RegisteredItem scannedItem = new RegisteredItem(item, quantity);
         itemList.add(scannedItem);
         updateSalePriceAndVat();
     }
-
+/**
+ * Public method that updates the sale, with a given item ID and the quantity of the item. 
+ * Internal methods check if item is already present in the current sale and updates the quantity,
+ * or creates a new itemDTO contain information about the given item ID
+ * @param itemID ID of a given item
+ * @param itemQuantity amount of the given item
+ */
     public void updateSale(int itemID, int itemQuantity) {
         updateItem(itemID, itemQuantity);
         updateSalePriceAndVat();
@@ -80,7 +83,7 @@ public class Sale {
     }
 
     /**
-     * Private method that create new ViewDTO
+     * Public method that creates a new ViewDTO
      * @param itemID
      * @return
      */
@@ -92,7 +95,7 @@ public class Sale {
     }
 
     /**
-     * public method that fetch an RegisteredItem from itemList
+     * public method that fetches an RegisteredItem from itemList
      * @param itemID
      * @return
      */
@@ -115,10 +118,10 @@ public class Sale {
         return saleDTO;
     }
     /**
-     * 
-     * @param currentSaleDTO
-     * @param discount
-     * @return
+     * Public method that calculates all discounts that should be applied on the given sale, and changing its total price and Vat-rate accordningly
+     * @param currentSaleDTO All information about the current sale
+     * @param discount All information about which discounts should be applied and thier values.
+     * @return updated SaleDTO containing the new total price and Vat.
      */
     public SaleDTO calculateDiscount(SaleDTO currentSaleDTO, DiscountDTO discount){
         double discountItemsSum = discount.discountItemsSum;
