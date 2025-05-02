@@ -12,6 +12,12 @@ public class Receipt {
     public Amount amountPaid;
     public Amount amountChange;
 
+    /**
+    * Public method that initializes a receipt object by copying sale details from a saleDTO object that it receives, 
+    * and payment details from a Transaction object named trans.
+    * @param saleDTO
+    * @param trans
+    */
     public Receipt(SaleDTO saleDTO, Transaction trans) {
         this.timeOfSale = saleDTO.timeOfSale;
         this.saleSums = saleDTO.saleSums;
