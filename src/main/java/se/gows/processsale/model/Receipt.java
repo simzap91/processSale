@@ -1,12 +1,12 @@
 package se.gows.processsale.model;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 import se.gows.processsale.DTO.SaleDTO;
 import se.gows.processsale.DTO.SumDTO;
 
 public class Receipt {
-    public LocalTime timeOfSale;
+    public LocalDateTime timeOfSale;
     public SumDTO saleSums;
     public RegisteredItem[] itemList;
     public Amount amountPaid;

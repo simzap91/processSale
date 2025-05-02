@@ -1,6 +1,6 @@
 package se.gows.processsale.DTO;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 import se.gows.processsale.model.RegisteredItem;
 
@@ -11,11 +11,11 @@ import se.gows.processsale.model.RegisteredItem;
      * @param itemList list with purchased items
      */
 public class SaleDTO {
-    public LocalTime timeOfSale;
+    public LocalDateTime timeOfSale;
     public SumDTO saleSums;
     public RegisteredItem[] itemList;
 
-    public SaleDTO (LocalTime timeOfSale, double totalPrice, double totalVAT, RegisteredItem[] itemList){
+    public SaleDTO (LocalDateTime timeOfSale, double totalPrice, double totalVAT, RegisteredItem[] itemList){
         this.timeOfSale = timeOfSale;
         this.saleSums = new SumDTO(totalPrice, totalVAT);
         this.itemList = itemList;

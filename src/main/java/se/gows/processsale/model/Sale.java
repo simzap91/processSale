@@ -1,6 +1,6 @@
 package se.gows.processsale.model;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import se.gows.processsale.DTO.DiscountDTO;
@@ -9,13 +9,13 @@ import se.gows.processsale.DTO.SaleDTO;
 import se.gows.processsale.DTO.ViewDTO;
 
 public class Sale {
-    private LocalTime timeOfSale;
+    private LocalDateTime timeOfSale;
     private ArrayList<RegisteredItem> itemList = new ArrayList<>();
     private double totalPrice;
     private double totalVAT;
 
     public Sale() {
-        timeOfSale = LocalTime.now();
+        timeOfSale = LocalDateTime.now();
     }
 
     /**

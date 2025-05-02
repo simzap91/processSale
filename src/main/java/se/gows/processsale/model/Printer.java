@@ -1,5 +1,6 @@
 package se.gows.processsale.model;
 
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 public class Printer {
@@ -15,7 +16,7 @@ public class Printer {
                         "                               \r\n" + //
                         "");
         System.out.println();
-        System.out.println("Time of Sale " + receipt.timeOfSale);
+        System.out.println("Time of Sale " + receipt.timeOfSale.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
         System.out.println();
         System.out.println("Item list:");
         for(RegisteredItem regItem : receipt.itemList ) {
