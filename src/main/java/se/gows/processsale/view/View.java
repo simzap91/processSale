@@ -29,13 +29,14 @@ public class View {
 
         // scanItem
         while (itemsLeft){
-            int itemId = 2;
+            int itemId1 = 2;
+            int itemId2 = 1;
             int quantity = 2;
             // Create ViewDTO from scanned item
-            ViewDTO viewDTO = ctrl.scanItem(itemId, quantity);
-
+            ViewDTO viewDTO = ctrl.scanItem(itemId1, quantity);
+            viewDTO = ctrl.scanItem(itemId2, quantity);
             if (viewDTO.regItem == null)
-                System.out.println("Invalid identifier: " + itemId);
+                System.out.println("Invalid identifier: " + itemId1);
             else 
                 System.out.println(" * " + viewDTO.regItem.quantity + " " + viewDTO.regItem.item.itemDescription + " á " + viewDTO.regItem.item.price);
             System.out.println("Running total (inc. VAT): " + viewDTO.runningTotalIncVat);
@@ -60,7 +61,7 @@ public class View {
         System.out.println("Total (inc. VAT): " + currentSaleDTO.saleSums.totalIncVat);
 
         // registerPayment
-        Amount payment = new Amount(100);
+        Amount payment = new Amount(120);
         ctrl.registerPayment(payment);
 
         // Receipt
