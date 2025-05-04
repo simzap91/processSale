@@ -28,10 +28,10 @@ public class DiscountDBHandler {
                 discountedTotalPrice -= calculateDiscountItemsSum(purchasedItems);
             }
             if (type == 2) {
-                discountedTotalPrice -= totalPrice*calculateDiscountSaleRate(totalPrice);
+                discountedTotalPrice -= discountedTotalPrice*calculateDiscountSaleRate(totalPrice);
             }
             if (type == 3) {
-                discountedTotalPrice -= totalPrice*calculateDiscountCustomerRate(customerID);
+                discountedTotalPrice -= discountedTotalPrice*calculateDiscountCustomerRate(customerID);
             }
             if (type > 3 || type < 0) {
                 System.out.println("Invalid discount type");
