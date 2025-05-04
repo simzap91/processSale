@@ -5,8 +5,8 @@ import java.util.Locale;
 
 public class Printer {
 /**
- * Public method that receives a receipt object and prints its attributes 
- * @param receipt Holds information about the receipt, which is a mix of transaction and sale
+ * Public method that receives a reciept object and prints its attributes 
+ * @param receipt
  */
     public void printReceipt(Receipt receipt) {
         System.out.println("\r\n" + //
@@ -20,7 +20,7 @@ public class Printer {
         System.out.println();
         System.out.println("Item list:");
         for(RegisteredItem regItem : receipt.itemList ) {
-            System.out.println("* " + regItem.quantity + "st " + regItem.item.itemDescription + " á " + regItem.item.price + "kr -> " + (regItem.quantity * regItem.item.price + "kr"));
+            System.out.println("* " + regItem.quantity + " " + regItem.item.itemDescription + " á " + regItem.item.price + "kr -> " + (regItem.getTotalPriceOfItemQuantity() + "kr"));
         }
         System.out.println();
         System.out.println("Total price: " + String.format(Locale.US, "%.2f",receipt.saleSums.totalPrice) + "kr");

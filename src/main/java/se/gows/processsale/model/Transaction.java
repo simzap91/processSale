@@ -6,8 +6,8 @@ public class Transaction {
     /**
      * Transaction object contain information about a customers payment and the price for the entire sale.
      * Method uses amountPaid from Payment method and totalPriceIncVat from currentSaleDTO
-     * @param amountPaid
-     * @param totalPriceIncVat
+     * @param amountPaid amount paid by customer
+     * @param totalPriceIncVat total price (inc Vat) of the sale
      * @return Transaction
      */
     public Transaction(Amount amountPaid, double totalPriceIncVat){
