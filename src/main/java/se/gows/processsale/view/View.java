@@ -61,8 +61,8 @@ public class View {
         SaleDTO currentSaleDTO = ctrl.endSale();
         System.out.println("Sale ended");
         System.out.println();
-        System.out.println("Total: " + currentSaleDTO.saleSums.totalPrice);
-        System.out.println("Total (inc. VAT): " + currentSaleDTO.saleSums.totalIncVat);
+        System.out.println("Total: " + currentSaleDTO.saleSums.totalPrice + "kr");
+        System.out.println("Total (inc. VAT): " + currentSaleDTO.saleSums.totalIncVat + "kr");
 
         // requestDiscount
         int customerID = 1;
@@ -70,7 +70,8 @@ public class View {
  
         currentSaleDTO = ctrl.requestDiscount(customerID, currentSaleDTO, discTypes);
        
-        System.out.println("Total (inc. VAT) after discount: " + currentSaleDTO.saleSums.totalIncVat);
+        System.out.println("Total (inc. VAT) after discount: " + currentSaleDTO.saleSums.totalIncVat + "kr");
+        System.out.println();
 
         // registerPayment
         Amount payment = new Amount(100);
