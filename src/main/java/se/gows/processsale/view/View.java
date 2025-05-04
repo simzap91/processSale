@@ -26,8 +26,9 @@ public class View {
      */
     public void runFakeExecution() {
 
-        // startSale
+   
         ctrl.startSale();
+        
         System.out.println();
         System.out.println("-------------------------------------");
         System.out.println("A new sale has been started.");
