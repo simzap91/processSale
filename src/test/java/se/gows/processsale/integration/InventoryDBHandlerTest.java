@@ -20,12 +20,14 @@ public class InventoryDBHandlerTest {
         testItemDTO = new ItemDTO(1, "Mjölk", 14.90, 0.25);
         fakeItemDTO = null;
     }
+    
     @AfterEach
     void tearDown(){
         
         testInvHandler = null;
         testItemDTO = null;
     }
+    
     @Test
     void testFetchItemFromDB() {
         testID = 1;
