@@ -43,7 +43,7 @@ public class InventoryDBHandler {
             int itemCount = regItem.quantity;
             updateItemInvStatus(itemID, itemCount);
         }
-        System.out.println("Inventory updated.");
+        //System.out.println("Inventory updated.");
     }
 
     private void updateItemInvStatus(int itemID, int itemCount) {

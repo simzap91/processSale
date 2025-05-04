@@ -33,17 +33,17 @@ public class View {
         System.out.println("A new sale has been started.");
         System.out.println();
 
-        // scanItem
-        while (itemsLeft){
-            int[][] arrItemsToBeScanned = {{1,2},{2,1}}; // 2 möljk, 1 smör
-            for(int i = 0; i < arrItemsToBeScanned.length;i++){
-            int itemId = arrItemsToBeScanned[i][0];
-            int quantity = arrItemsToBeScanned[i][1];
-            // Create ViewDTO from scanned item
+        int[][] arrItemsToBeScanned = {{1,2},{2,1}};
+        int itemsScannedCount = 0;
+        while (itemsScannedCount < arrItemsToBeScanned.length){
+            
+            int itemId = arrItemsToBeScanned[itemsScannedCount][0];
+            int quantity = arrItemsToBeScanned[itemsScannedCount][1];
+
             ViewDTO viewDTO = ctrl.scanItem(itemId, quantity);
-            if (viewDTO.regItem == null)
+            if (viewDTO.regItem == null) {
                 System.out.println("Invalid identifier: " + itemId);
-            else
+            } else {
                 System.out.println("Add " + quantity + " item with itemId: " + itemId);
                 System.out.println("Item ID: " + viewDTO.regItem.item.itemID);
                 System.out.println("Item name: " + viewDTO.regItem.item.itemDescription);
@@ -53,32 +53,37 @@ public class View {
                 System.out.println("Running total (inc. VAT): " + viewDTO.runningTotalIncVat + "kr");
                 System.out.println();
             }
-            // Code that sets itemsLeft to false
-            itemsLeft = false;
+            itemsScannedCount ++;
         }
 
-        // endSale
         SaleDTO currentSaleDTO = ctrl.endSale();
+        System.out.println("-------------------------------------");
         System.out.println("Sale ended");
         System.out.println();
-        System.out.println("Total: " + currentSaleDTO.saleSums.totalPrice + "kr");
         System.out.println("Total (inc. VAT): " + currentSaleDTO.saleSums.totalIncVat + "kr");
+        System.out.println();
 
-        // requestDiscount
         int customerID = 1;
         int[] discTypes = {1,2,3};
+        System.out.println("-------------------------------------");
+        System.out.println("Discount requested.");
+        System.out.println("Customer ID: " + customerID);
+        System.out.print("Discount types: ");
+        for (int type : discTypes) {
+            System.out.print(type + ", ");
+        }
+        System.out.println();
  
         currentSaleDTO = ctrl.requestDiscount(customerID, currentSaleDTO, discTypes);
        
+        System.out.println("-------------------------------------");
+        System.out.println();
         System.out.println("Total (inc. VAT) after discount: " + currentSaleDTO.saleSums.totalIncVat + "kr");
         System.out.println("-------------------------------------");
         System.out.println();
 
-        // registerPayment
         Amount payment = new Amount(100);
         ctrl.registerPayment(payment);
-
-        // Receipt
         ctrl.printReceipt();
     }
 }
