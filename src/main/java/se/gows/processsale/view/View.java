@@ -71,6 +71,7 @@ public class View {
         currentSaleDTO = ctrl.requestDiscount(customerID, currentSaleDTO, discTypes);
        
         System.out.println("Total (inc. VAT) after discount: " + currentSaleDTO.saleSums.totalIncVat + "kr");
+        System.out.println("-------------------------------------");
         System.out.println();
 
         // registerPayment
