@@ -26,9 +26,8 @@ public class Sale {
 
     /**
      * Public method that checks if a scanned item is in itemList
-     * Method uses the itemID provided by the controller
-     * @param itemID
-     * @return
+     * @param itemID Unique item identifier
+     * @return true if item is present in itemList, else false
      */
     public boolean checkItemList(int itemID){
         for (RegisteredItem regItem : itemList){
@@ -39,23 +38,22 @@ public class Sale {
         return false;
     }
 
-/**
- * Public method that adds a new item to itemList and its quantity
- * @param item itemDTO contain information about the item
- * @param quantity quantity of a given item
- */
+    /**
+     * Public method that adds a new item to itemList and its quantity
+     * @param item itemDTO contain information about the item
+     * @param quantity quantity of a given item
+     */
     public void addItem(ItemDTO item, int quantity) {
         RegisteredItem scannedItem = new RegisteredItem(item, quantity);
         itemList.add(scannedItem);
         updateSalePriceAndVat();
     }
-/**
- * Public method that updates the sale, with a given item ID and the quantity of the item. 
- * Internal methods check if item is already present in the current sale and updates the quantity,
- * or creates a new itemDTO contain information about the given item ID
- * @param itemID ID of a given item
- * @param itemQuantity amount of the given item
- */
+    /**
+     * Public method that updates the sale when an already registered item is scanned.
+     * The method first updates the item quantity and then the total price and vat of sale.
+     * @param itemID ID of a given item
+     * @param itemQuantity amount of the given item
+     */
     public void updateSale(int itemID, int itemQuantity) {
         updateItem(itemID, itemQuantity);
         updateSalePriceAndVat();
@@ -79,19 +77,14 @@ public class Sale {
         }
     }
 
-    /**
-     * Private method that calculate runningTotalIncVat
-     * @param itemID
-     * @return
-     */
     private double calculateRunningTotalIncVat() {
         return this.totalPrice + this.totalVAT;
     }
 
     /**
      * Public method that creates a new ViewDTO
-     * @param itemID
-     * @return
+     * @param itemID identifier of the item that the returned ViewDTO will hold
+     * @return a ViewDTO holding the provided item and running total (inc. vat)
      */
     public ViewDTO createViewDTO(int itemID) {
         RegisteredItem regItem = fetchRegisteredItem(itemID);
@@ -100,11 +93,6 @@ public class Sale {
         return viewDTO;
     }
 
-    /**
-     * public method that fetches an RegisteredItem from itemList
-     * @param itemID
-     * @return
-     */
     private RegisteredItem fetchRegisteredItem(int itemID){
         for (RegisteredItem regItem : itemList){
             if (regItem.idsAreEqual(itemID)){
@@ -114,10 +102,10 @@ public class Sale {
         return null;
     }
 
-/**
- * Public method that ends the current sale and returns a SaleDTO containing the final information about the registered items and their total price plus Vat
- * @return SaleDTO
- */
+    /**
+     * Public method that ends the current sale and returns a SaleDTO containing the final information about the registered items and their total price plus Vat
+     * @return SaleDTO
+     */
     public SaleDTO endSale(){
         RegisteredItem[] itemListArray = itemList.toArray(new RegisteredItem[0]);
         SaleDTO saleDTO = new SaleDTO(timeOfSale, totalPrice, totalVAT, itemListArray);
