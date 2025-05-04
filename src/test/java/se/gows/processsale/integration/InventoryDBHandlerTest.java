@@ -13,6 +13,7 @@ public class InventoryDBHandlerTest {
     private int testID;
     private ItemDTO testItemDTO;
     private ItemDTO fakeItemDTO;
+    
     @BeforeEach
     void setUp(){
         
@@ -32,7 +33,6 @@ public class InventoryDBHandlerTest {
     void testFetchItemFromDB() {
         testID = 1;
         boolean expectedResult = true;
-        //test to see if fetched item equals the expected item
         ItemDTO testItem = testInvHandler.fetchItemFromDB(testID);
         boolean resultPrice = testItemDTO.price==testItem.price;
         boolean resultVAT = testItemDTO.vatRate==testItem.vatRate;
@@ -41,10 +41,10 @@ public class InventoryDBHandlerTest {
         assertEquals(expectedResult, result, "Wrong item fetched from DB");
     }
 
-@Test
-void testFetchUnknownItemFromDB() {
-    testID = -99;
-    ItemDTO testItem = testInvHandler.fetchItemFromDB(testID); 
-    assertEquals(testItem, fakeItemDTO, "Does not return null");
-}
+    @Test
+    void testFetchUnknownItemFromDB() {
+        testID = -99;
+        ItemDTO testItem = testInvHandler.fetchItemFromDB(testID); 
+        assertEquals(testItem, fakeItemDTO, "Does not return null");
+    }
 }
