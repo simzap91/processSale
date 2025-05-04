@@ -5,8 +5,8 @@ import java.util.Locale;
 
 public class Printer {
 /**
- * Public method that receives a reciept object and prints its attributes 
- * @param receipt Holds information about the receipt, witch is a mix of transaction and sale
+ * Public method that receives a receipt object and prints its attributes 
+ * @param receipt Holds information about the receipt, which is a mix of transaction and sale
  */
     public void printReceipt(Receipt receipt) {
         System.out.println("\r\n" + //
