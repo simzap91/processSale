@@ -41,12 +41,17 @@ public class View {
             int quantity = arrItemsToBeScanned[i][1];
             // Create ViewDTO from scanned item
             ViewDTO viewDTO = ctrl.scanItem(itemId, quantity);
-
             if (viewDTO.regItem == null)
                 System.out.println("Invalid identifier: " + itemId);
-            else 
-                System.out.println(" * " + viewDTO.regItem.quantity + "st " + viewDTO.regItem.item.itemDescription +" (itemID: "+itemId+ ")" +" á " + viewDTO.regItem.item.price);
-                System.out.println("Running total (inc. VAT): " + viewDTO.runningTotalIncVat);
+            else
+                System.out.println("Add " + quantity + " item with itemId: " + itemId);
+                System.out.println("Item ID: " + viewDTO.regItem.item.itemID);
+                System.out.println("Item name: " + viewDTO.regItem.item.itemDescription);
+                System.out.println("Item cost: " + viewDTO.regItem.item.price + "kr");
+                System.out.println("VAT: " + (int)(100 * viewDTO.regItem.item.vatRate) + "%");
+                System.out.println();
+                System.out.println("Running total (inc. VAT): " + viewDTO.runningTotalIncVat + "kr");
+                System.out.println();
             }
             // Code that sets itemsLeft to false
             itemsLeft = false;
@@ -54,18 +59,18 @@ public class View {
 
         // endSale
         SaleDTO currentSaleDTO = ctrl.endSale();
-        System.out.println("Sale ended.\n");
+        System.out.println("Sale ended");
+        System.out.println();
         System.out.println("Total: " + currentSaleDTO.saleSums.totalPrice);
         System.out.println("Total (inc. VAT): " + currentSaleDTO.saleSums.totalIncVat);
 
         // requestDiscount
         int customerID = 1;
         int[] discTypes = {1,2,3};
-
+ 
         currentSaleDTO = ctrl.requestDiscount(customerID, currentSaleDTO, discTypes);
-        System.out.println("After discount:");
-        System.out.println("Total: " + currentSaleDTO.saleSums.totalPrice);
-        System.out.println("Total (inc. VAT): " + currentSaleDTO.saleSums.totalIncVat);
+       
+        System.out.println("Total (inc. VAT) after discount: " + currentSaleDTO.saleSums.totalIncVat);
 
         // registerPayment
         Amount payment = new Amount(100);
