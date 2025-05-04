@@ -20,6 +20,9 @@ public class Sale {
     private double totalPrice;
     private double totalVAT;
 
+    /**
+     * Sets date and time for sale.
+     */
     public Sale() {
         timeOfSale = LocalDateTime.now();
     }
