@@ -15,8 +15,8 @@ public class Receipt {
     /**
     * Public method that initializes a receipt object by copying sale details from a saleDTO object that it receives, 
     * and payment details from a Transaction object named trans.
-    * @param saleDTO
-    * @param trans
+    * @param saleDTO Holds sale information
+    * @param trans Holds transaction information
     */
     public Receipt(SaleDTO saleDTO, Transaction trans) {
         this.timeOfSale = saleDTO.timeOfSale;
