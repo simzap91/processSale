@@ -6,8 +6,9 @@ import se.gows.processsale.model.Receipt;
 
 /**     
      * Public handler that communicates with external accounting data base. 
-     * In this case the data base consists of the variable accountBalance which is declared internally and updated by this class.
-     * */
+     * In this case the data base consists of the variable accountBalance which holds an example value of the store account balance. 
+     * accountBalance is declared internally and updated by this class.
+     */
 public class AccountingDBHandler {
     private double accountBalance = 100;
     /**     
