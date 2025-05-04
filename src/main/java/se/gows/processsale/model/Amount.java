@@ -11,7 +11,8 @@ public class Amount {
     public Amount (double amount) {
         this.amount = amount;
     }
-        /**
+
+    /**
      * Public method that returns the value within an Amount object
      * @return amount
      */
@@ -19,6 +20,10 @@ public class Amount {
         return amount;
     }
 
+    /**
+     * Method that formats the default toString-method to use dots instead of commas in decimal numbers
+     * @return amount as string
+     */
     @Override
     public String toString() {
         return String.format(Locale.US, "%.2f kr", getValue());

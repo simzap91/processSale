@@ -5,14 +5,17 @@ import se.gows.processsale.model.RegisteredItem;
 
 public class InventoryDBHandler {
 
+    /**
+     * Inventory data base with two test items.
+     */
     Item mjölk = new Item(1, "Mjölk", 14.90, 0.25, 500);
     Item smör = new Item(2, "Smör", 39.90, 0.25, 500);
     Item[] inventoryDB = {mjölk, smör};
     
-    /* 
-     * Fetches item from inventoryDB.
-     * Fetches item with ID that matches passed itemID.
-     * If no item ID matches the methods returns null.
+    /**
+     * Public method that fetches item from inventoryDB.
+     * @param itemID unique identifier used to find item in DB
+     * @return fetched item as ItemDTO. If no item ID matches the methods returns null.
      */
     public ItemDTO fetchItemFromDB(int itemID) {
         ItemDTO scannedItem = null;
@@ -25,8 +28,9 @@ public class InventoryDBHandler {
         return scannedItem;
     }
 
-    /* 
-     * Updates the inventory status for each item after a sale.
+    /**
+     * Public method that updates the inventory status for each item after a sale.
+     * @param itemList list containing all registered items in sale.
      */
     public void updateInventoryDB(RegisteredItem[] itemList) {
         for (RegisteredItem regItem : itemList) {
@@ -38,9 +42,6 @@ public class InventoryDBHandler {
         System.out.println("Inventory updated.");
     }
 
-    /* 
-     * Calculate and updates the inventory status for a specific item in inventoryDB.
-     */
     private void updateItemInvStatus(int itemID, int itemCount) {
         for (Item item : inventoryDB) {
             if (item.itemID == itemID) {

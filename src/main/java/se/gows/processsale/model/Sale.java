@@ -7,6 +7,13 @@ import se.gows.processsale.DTO.ItemDTO;
 import se.gows.processsale.DTO.SaleDTO;
 import se.gows.processsale.DTO.ViewDTO;
 
+/**
+     * Sale class that represent the sale. A new instance of this class is created every time a new customer enters the checkout.
+     * @param timeOfSale start time of sale (including date)
+     * @param itemList list with all scanned items
+     * @param totalPrice running total price of the sale
+     * @param totalPrice running total vat (sum) of the sale
+     */
 public class Sale {
     private LocalDateTime timeOfSale;
     private ArrayList<RegisteredItem> itemList = new ArrayList<>();
@@ -19,7 +26,7 @@ public class Sale {
 
     /**
      * Public method that checks if a scanned item is in itemList
-     * Method uses the itemID (int) provided by the controller
+     * Method uses the itemID provided by the controller
      * @param itemID
      * @return
      */
@@ -67,8 +74,8 @@ public class Sale {
         totalPrice = 0;
         totalVAT = 0;
         for (RegisteredItem regItem : itemList) {
-            totalPrice += regItem.quantity * regItem.item.price;
-            totalVAT += regItem.quantity * regItem.item.vatRate * regItem.item.price;
+            totalPrice += regItem.getTotalPriceOfItemQuantity();
+            totalVAT += regItem.getTotalVatOfItemQuantity();
         }
     }
 

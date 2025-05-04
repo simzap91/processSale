@@ -36,15 +36,15 @@ public class RegisteredItem {
  * @param quantity the quantity for a item
  * @return item price times quantity
  */
-    public double getPriceOfMultipleItems(int quantity){
-        return this.item.price * quantity;
+    public double getTotalPriceOfItemQuantity(){
+        return this.item.price * this.quantity;
     }
 /**
  * Public method that returns the total Vat of a given item times its quantity
  * @param quantity the quantity for a item
  * @return total Vat of given item times its quantity
  */
-    public double getVatOfMultipleItems(int quantity){
-        return this.item.price * this.item.vatRate * quantity;
+    public double getTotalVatOfItemQuantity(){
+        return this.item.price * this.item.vatRate * this.quantity;
     }
 }

@@ -8,16 +8,16 @@ public class DiscountDBHandler {
      * Data base with member customers and three discount types.
      */
     int[] memberCustomerIDs = {1,2,3,4,5}; // Format: {customerID}
-    double[][] discountDBItemsSum = {{1.0, 0.20},{2.0, 0.10}}; // Type 1, format: {itemID (as double), discountRate}
-    double[] discountDBSaleRate = {200.0, 0.1}; // Type 2, format: {total price lower limit, disc rate}
-    double discountDBCustomerRate = 0.15; // Type 3, format: disc rate
+    double[][] discountDBItemsSum = {{1.0, 0.20},{2.0, 0.10}}; // Type 1 (discount on separate items), format: {itemID (as double), discountRate}
+    double[] discountDBSaleRate = {200.0, 0.1}; // Type 2 (discount on entire sale if totalPrice > limit), format: {totalPriceLowLimit, discountRate}
+    double discountDBCustomerRate = 0.15; // Type 3 (discount on totalPrice if member), format: discountRate
 
     /**
      * Public method that determines which type of discount should be applied on the sale and calculates the total discount.
      * @param discountTypes The different types of discounts, stores as an array
      * @param customerID the customers ID
      * @param purchasedItems a list of all items that are present in the current sale
-     * @param totalPrice the total price of all items in the current sale
+     * @param totalPrice the total price (excl. Vat) of all items in the current sale
      * @return updated totalprice
      *  
      */
@@ -42,7 +42,7 @@ public class DiscountDBHandler {
 
     /**
      * @param purchasedItems
-     * @return 
+     * @return discountSum
      *  
      */
     private double calculateDiscountItemsSum(RegisteredItem[] purchasedItems) {
@@ -65,7 +65,7 @@ public class DiscountDBHandler {
 
     /**
      * @param totalPrice
-     * @return 
+     * @return discountRate (decimal)
      *  
      */
     private double calculateDiscountSaleRate(double totalPrice){
@@ -78,7 +78,7 @@ public class DiscountDBHandler {
 
     /**
      * @param customerID
-     * @return 
+     * @return discountRate (decimal)
      *  
      */
     private double calculateDiscountCustomerRate(int customerID){

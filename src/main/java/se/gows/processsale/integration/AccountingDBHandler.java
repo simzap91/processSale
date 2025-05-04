@@ -7,11 +7,10 @@ import se.gows.processsale.model.Receipt;
 public class AccountingDBHandler {
     private double accountBalance = 100; 
     /**     
-     * Public method that updates the internal accountbalance
+     * Public method that updates the internal accountbalance and prints the updated balance to console
      * Method uses receipt 
      * @param amountPaid amount of cash received from customer
      * @param totalPriceIncVat total price from the entire sale
-     * @return new account balance
      */
     public void updateAccountBalance(Receipt receipt) {
         accountBalance += receipt.amountPaid.amount;
