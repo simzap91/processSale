@@ -2,10 +2,14 @@ package se.gows.processsale.integration;
 
 import se.gows.processsale.model.RegisteredItem;
 
+/**     
+     * Public handler that communicates with external discount data base.
+     * In this case the data base is declared internally and consists of a list with member IDs and lists/variables for three different discount types.
+     */
 public class DiscountDBHandler {
     
     /**
-     * Data base with member customers and three discount types.
+     * Discount data base.
      */
     int[] memberCustomerIDs = {1,2,3,4,5}; // Format: {customerID}
     double[][] discountDBItemsSum = {{1.0, 0.20},{2.0, 0.10}}; // Type 1 (discount on separate items), format: {itemID (as double), discountRate}
@@ -54,7 +58,7 @@ public class DiscountDBHandler {
                 if (discObjItemId == regItem.item.itemID){
 
                     double discItemRate = discObj[1];
-                    double discItemSum = regItem.item.price * discItemRate * regItem.quantity;
+                    double discItemSum = regItem.getTotalPriceOfItemQuantity() * discItemRate;
 
                     discountSum += discItemSum;
                 }

@@ -4,8 +4,12 @@ import java.util.Locale;
 
 import se.gows.processsale.model.Receipt;
 
+/**     
+     * Public handler that communicates with external accounting data base. 
+     * In this case the data base consists of the variable accountBalance which is declared internally and updated by this class.
+     * */
 public class AccountingDBHandler {
-    private double accountBalance = 100; 
+    private double accountBalance = 100;
     /**     
      * Public method that updates the internal accountbalance and prints the updated balance to console
      * Method uses receipt 

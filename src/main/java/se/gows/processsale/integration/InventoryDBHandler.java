@@ -3,10 +3,14 @@ package se.gows.processsale.integration;
 import se.gows.processsale.DTO.ItemDTO;
 import se.gows.processsale.model.RegisteredItem;
 
+/**     
+     * Public handler that communicates with external inventory data base.
+     * In this case the data base is declared internally and contains two test items, mjölk and smör, of the type Item.
+     */
 public class InventoryDBHandler {
 
     /**
-     * Inventory data base with two test items.
+     * Inventory data base.
      */
     Item mjölk = new Item(1, "Mjölk", 14.90, 0.25, 500);
     Item smör = new Item(2, "Smör", 39.90, 0.25, 500);
