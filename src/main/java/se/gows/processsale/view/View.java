@@ -28,22 +28,26 @@ public class View {
 
         // startSale
         ctrl.startSale();
+        System.out.println();
+        System.out.println("-------------------------------------");
         System.out.println("A new sale has been started.");
         System.out.println();
 
         // scanItem
         while (itemsLeft){
-            int itemId = 2;
-            int quantity = 2;
+            int[][] arrItemsToBeScanned = {{1,2},{2,1}}; // 2 möljk, 1 smör
+            for(int i = 0; i < arrItemsToBeScanned.length;i++){
+            int itemId = arrItemsToBeScanned[i][0];
+            int quantity = arrItemsToBeScanned[i][1];
             // Create ViewDTO from scanned item
             ViewDTO viewDTO = ctrl.scanItem(itemId, quantity);
 
             if (viewDTO.regItem == null)
                 System.out.println("Invalid identifier: " + itemId);
             else 
-                System.out.println(" * " + viewDTO.regItem.quantity + " " + viewDTO.regItem.item.itemDescription + " á " + viewDTO.regItem.item.price);
-            System.out.println("Running total (inc. VAT): " + viewDTO.runningTotalIncVat);
-
+                System.out.println(" * " + viewDTO.regItem.quantity + "st " + viewDTO.regItem.item.itemDescription +" (itemID: "+itemId+ ")" +" á " + viewDTO.regItem.item.price);
+                System.out.println("Running total (inc. VAT): " + viewDTO.runningTotalIncVat);
+            }
             // Code that sets itemsLeft to false
             itemsLeft = false;
         }
