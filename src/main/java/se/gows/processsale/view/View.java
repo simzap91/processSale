@@ -33,8 +33,10 @@ public class View {
 
         // scanItem
         while (itemsLeft){
-            int itemId = 2;
-            int quantity = 2;
+            int[][] arrItems = {{1,2},{2,1}}; // 2 möljk, 1 smör
+            for(int i = 0; i < arrItems.length;i++){
+            int itemId = arrItems[i][0];
+            int quantity = arrItems[i][1];
             // Create ViewDTO from scanned item
             ViewDTO viewDTO = ctrl.scanItem(itemId, quantity);
 
@@ -43,7 +45,7 @@ public class View {
             else 
                 System.out.println(" * " + viewDTO.regItem.quantity + " " + viewDTO.regItem.item.itemDescription + " á " + viewDTO.regItem.item.price);
             System.out.println("Running total (inc. VAT): " + viewDTO.runningTotalIncVat);
-
+            }
             // Code that sets itemsLeft to false
             itemsLeft = false;
         }
