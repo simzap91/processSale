@@ -26,8 +26,6 @@ public class DiscountDBHandlerTest {
 
         double discountedPrice = discHandler.getDiscountedPrice(discountTypes, customerID, purchasedItems, totalPrice);
 
-        // Asserts that the total discounted price is calculated correctly when all discounts are applied
-
         assertEquals(175.95, discountedPrice, 0.01, "Discount is not calculated as expected");
     }
 
@@ -45,7 +43,6 @@ public class DiscountDBHandlerTest {
 
         double discountedPrice = discHandler.getDiscountedPrice(discountTypes, customerID, purchasedItems, totalPrice);
 
-        // Asserts that the price does not change if there are no dicounts applied.
         assertEquals(100.0, discountedPrice, 0.01, "Discount is not calculated as expected");
     }
 }
