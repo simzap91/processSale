@@ -41,16 +41,16 @@ public class View {
             int quantity = arrItemsToBeScanned[itemsScannedCount][1];
 
             ViewDTO viewDTO = ctrl.scanItem(itemId, quantity);
-            if (viewDTO.regItem == null) {
+            if (viewDTO.getRegItem() == null) {
                 System.out.println("Invalid identifier: " + itemId);
             } else {
                 System.out.println("Add " + quantity + " item with itemId: " + itemId);
-                System.out.println("Item ID: " + viewDTO.regItem.item.getItemID());
-                System.out.println("Item name: " + viewDTO.regItem.item.getItemDescription());
-                System.out.println("Item cost: " + viewDTO.regItem.item.getPrice() + "kr");
-                System.out.println("VAT: " + (int)(100 * viewDTO.regItem.item.getVatRate()) + "%");
+                System.out.println("Item ID: " + viewDTO.getRegItem().item.getItemID());
+                System.out.println("Item name: " + viewDTO.getRegItem().item.getItemDescription());
+                System.out.println("Item cost: " + viewDTO.getRegItem().item.getPrice() + "kr");
+                System.out.println("VAT: " + (int)(100 * viewDTO.getRegItem().item.getVatRate()) + "%");
                 System.out.println();
-                System.out.println("Running total (inc. VAT): " + viewDTO.runningTotalIncVat + "kr");
+                System.out.println("Running total (inc. VAT): " + viewDTO.getRunningTotalIncVat() + "kr");
                 System.out.println();
             }
             itemsScannedCount ++;

@@ -8,11 +8,17 @@ import se.gows.processsale.model.RegisteredItem;
  * @param runningTotalIncVat current running total inc vat
  */
 public class ViewDTO {
-    public RegisteredItem regItem;
-    public double runningTotalIncVat;
+    private RegisteredItem regItem;
+    private double runningTotalIncVat;
 
     public ViewDTO(RegisteredItem regItem, double runningTotIncVat) {
         this.regItem = regItem;
         this.runningTotalIncVat = runningTotIncVat;
+    }
+    public RegisteredItem getRegItem() {
+        return regItem;
+    }
+    public double getRunningTotalIncVat() {
+        return runningTotalIncVat;
     }
 }
