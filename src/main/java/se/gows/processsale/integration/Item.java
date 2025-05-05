@@ -15,14 +15,12 @@ public class Item {
     private String description;
     private double price;
     private double vatRate;
-    private int inventoryQuantity;
     
-    public Item (int itemID, String description, double price, double vatRate, int inventoryQuantity){
+    public Item (int itemID, String description, double price, double vatRate){
         this.itemID = itemID;
         this.description = description;
         this.price = price;
         this.vatRate = vatRate;
-        this.inventoryQuantity = inventoryQuantity;
     }
     /**
      * Public method that creates a ItemDTO 
@@ -34,11 +32,9 @@ public class Item {
     }
     /**
      * Updates the quantity of a given item within the inventoryDB.
-     * @param quantity scanned quantity of item
      */
-    public void updateInventoryStatus(int quantity){
-        this.inventoryQuantity -= quantity;
-    }
+    public void updateInventoryStatus(){};
+
     public int getID(){
         return this.itemID;
     }
