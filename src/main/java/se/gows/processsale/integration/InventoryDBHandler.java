@@ -39,7 +39,7 @@ public class InventoryDBHandler {
     public void updateInventoryDB(RegisteredItem[] itemList) {
         for (RegisteredItem regItem : itemList) {
 
-            int itemID = regItem.item.itemID;
+            int itemID = regItem.item.getItemID();
             int itemCount = regItem.quantity;
             updateItemInvStatus(itemID, itemCount);
         }

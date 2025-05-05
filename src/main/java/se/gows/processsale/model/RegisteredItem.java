@@ -30,7 +30,7 @@ public class RegisteredItem {
      * @return true or false
      */
     public boolean idsAreEqual(int itemID){
-        return (itemID == this.item.itemID);
+        return (itemID == this.item.getItemID());
     }
     /**
      * Public method that returns the price of a given item times its quantity
@@ -38,7 +38,7 @@ public class RegisteredItem {
      * @return item price times quantity
      */
     public double getTotalPriceOfItemQuantity(){
-        return this.item.price * this.quantity;
+        return this.item.getPrice() * this.quantity;
     }
     /**
      * Public method that returns the total Vat of a given item times its quantity
@@ -46,6 +46,6 @@ public class RegisteredItem {
      * @return total Vat of given item times its quantity
      */
     public double getTotalVatOfItemQuantity(){
-        return this.item.price * this.item.vatRate * this.quantity;
+        return this.item.getPrice() * this.item.getVatRate() * this.quantity;
     }
 }

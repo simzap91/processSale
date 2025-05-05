@@ -46,10 +46,10 @@ public class View {
                 System.out.println("Invalid identifier: " + itemId);
             } else {
                 System.out.println("Add " + quantity + " item with itemId: " + itemId);
-                System.out.println("Item ID: " + viewDTO.regItem.item.itemID);
-                System.out.println("Item name: " + viewDTO.regItem.item.itemDescription);
-                System.out.println("Item cost: " + viewDTO.regItem.item.price + "kr");
-                System.out.println("VAT: " + (int)(100 * viewDTO.regItem.item.vatRate) + "%");
+                System.out.println("Item ID: " + viewDTO.regItem.item.getItemID());
+                System.out.println("Item name: " + viewDTO.regItem.item.getItemDescription());
+                System.out.println("Item cost: " + viewDTO.regItem.item.getPrice() + "kr");
+                System.out.println("VAT: " + (int)(100 * viewDTO.regItem.item.getVatRate()) + "%");
                 System.out.println();
                 System.out.println("Running total (inc. VAT): " + viewDTO.runningTotalIncVat + "kr");
                 System.out.println();

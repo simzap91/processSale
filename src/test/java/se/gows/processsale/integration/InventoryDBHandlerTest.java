@@ -34,9 +34,9 @@ public class InventoryDBHandlerTest {
         testID = 1;
         boolean expectedResult = true;
         ItemDTO testItem = testInvHandler.fetchItemFromDB(testID);
-        boolean resultPrice = testItemDTO.price==testItem.price;
-        boolean resultVAT = testItemDTO.vatRate==testItem.vatRate;
-        boolean resultDesc = testItem.itemDescription.equals(testItemDTO.itemDescription);
+        boolean resultPrice = testItemDTO.getPrice() == testItem.getPrice();
+        boolean resultVAT = testItemDTO.getVatRate() == testItem.getVatRate();
+        boolean resultDesc = testItem.getItemDescription().equals(testItemDTO.getItemDescription());
         boolean result = resultPrice == resultVAT == resultDesc;
         assertEquals(expectedResult, result, "Wrong item fetched from DB");
     }

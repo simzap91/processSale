@@ -21,7 +21,7 @@ public class Printer {
         System.out.println();
         System.out.println("Item list:");
         for(RegisteredItem regItem : receipt.itemList ) {
-            System.out.println("* " + regItem.quantity + "st " + regItem.item.itemDescription + " á " + regItem.item.price + "kr -> " + (regItem.getTotalPriceOfItemQuantity() + "kr"));
+            System.out.println("* " + regItem.quantity + "st " + regItem.item.getItemDescription() + " á " + regItem.item.getPrice() + "kr -> " + (regItem.getTotalPriceOfItemQuantity() + "kr"));
         }
         System.out.println();
         System.out.println("Total price: " + String.format(Locale.US, "%.2f",receipt.saleSums.totalPrice) + "kr");
