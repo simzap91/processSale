@@ -23,6 +23,6 @@ public class Transaction {
     * @return
     */
     private void calculateChange(Amount amountPaid, double totalPriceIncVat){
-        this.amountChange = new Amount(amountPaid.amount - totalPriceIncVat);
+        this.amountChange = new Amount(amountPaid.getValue() - totalPriceIncVat);
     }
 }
