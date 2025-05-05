@@ -6,18 +6,19 @@ package se.gows.processsale.model;
  * @param receipt All information about the current sale, including a updated total price from dicounts.
  */
 public class CashRegister {
-    public Transaction trans;
-    public Receipt receipt;
-    public Printer printer;
+    private Receipt receipt;
+    private Printer printer;
 
-    public CashRegister (Transaction trans, Receipt receipt) {
-        this.trans = trans;
+    public CashRegister (Receipt receipt) {
         this.receipt = receipt;
         this.printer = new Printer();
     }
-/**
- * Public method that prints the receipt
- */
+
+    public Receipt getReceipt(){return this.receipt;}
+
+    /**
+     * Public method that prints the receipt
+     */
     public void printReceipt(){
         this.printer.printReceipt(receipt);
     }
