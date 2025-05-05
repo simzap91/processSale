@@ -14,11 +14,11 @@ public class SumDTO {
     public SumDTO(double totalPrice, double totalVAT){
         this.totalPrice = totalPrice;
         this.totalVAT = totalVAT;
-        this.totalIncVat = this.totalPrice + totalVAT;
+        this.totalIncVat = totalPrice + totalVAT;
     }
 
     public void updateTotIncVat(){
-        this.totalIncVat = this.totalPrice + totalVAT;
+        this.totalIncVat = this.totalPrice + this.totalVAT;
     }
     public double getTotalPrice(){return this.totalPrice;}
     public double getTotalVAT(){return this.totalVAT;}

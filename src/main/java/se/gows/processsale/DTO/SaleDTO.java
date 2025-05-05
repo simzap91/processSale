@@ -21,7 +21,7 @@ public class SaleDTO {
         this.itemList = itemList;
     }
 
-    public LocalDateTime getTimeOfSale() {return this.timeOfSale;};
-    public SumDTO getSaleSums() {return this.saleSums;};
-    public RegisteredItem[] getItemList() {return this.itemList;};
+    public LocalDateTime getTimeOfSale() {return this.timeOfSale;}
+    public SumDTO getSaleSums() {return this.saleSums;}
+    public RegisteredItem[] getItemList() {return this.itemList;}
 }
