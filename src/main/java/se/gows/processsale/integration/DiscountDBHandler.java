@@ -55,7 +55,7 @@ public class DiscountDBHandler {
             for (RegisteredItem regItem : purchasedItems) {
 
                 int discObjItemId = (int) discObj[0];
-                if (discObjItemId == regItem.item.getItemID()){
+                if (discObjItemId == regItem.getItem().getItemID()){
 
                     double discItemRate = discObj[1];
                     double discItemSum = regItem.getTotalPriceOfItemQuantity() * discItemRate;
