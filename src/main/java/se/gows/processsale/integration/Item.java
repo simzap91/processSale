@@ -11,11 +11,11 @@ import se.gows.processsale.DTO.ItemDTO;
  * @param inventoryQuantity the current quantity of the item in stock
  */
 public class Item {
-    public int itemID;
-    public String description;
-    public double price;
-    public double vatRate;
-    public int inventoryQuantity;
+    private int itemID;
+    private String description;
+    private double price;
+    private double vatRate;
+    private int inventoryQuantity;
     
     public Item (int itemID, String description, double price, double vatRate, int inventoryQuantity){
         this.itemID = itemID;
@@ -38,5 +38,8 @@ public class Item {
      */
     public void updateInventoryStatus(int quantity){
         this.inventoryQuantity -= quantity;
+    }
+    public int getID(){
+        return this.itemID;
     }
 }
