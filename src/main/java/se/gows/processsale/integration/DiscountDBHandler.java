@@ -11,10 +11,10 @@ public class DiscountDBHandler {
     /**
      * Discount data base.
      */
-    int[] memberCustomerIDs = {1,2,3,4,5}; // Format: {customerID}
-    double[][] discountDBItemsSum = {{1.0, 0.20},{2.0, 0.10}}; // Type 1 (discount on separate items), format: {itemID (as double), discountRate}
-    double[] discountDBSaleRate = {200.0, 0.1}; // Type 2 (discount on entire sale if totalPrice > limit), format: {totalPriceLowLimit, discountRate}
-    double discountDBCustomerRate = 0.15; // Type 3 (discount on totalPrice if member), format: discountRate
+    private int[] memberCustomerIDs = {1,2,3,4,5}; // Format: {customerID}
+    private double[][] discountDBItemsSum = {{1.0, 0.20},{2.0, 0.10}}; // Type 1 (discount on separate items), format: {itemID (as double), discountRate}
+    private double[] discountDBSaleRate = {200.0, 0.1}; // Type 2 (discount on entire sale if totalPrice > limit), format: {totalPriceLowLimit, discountRate}
+    private double discountDBCustomerRate = 0.15; // Type 3 (discount on totalPrice if member), format: discountRate
 
     /**
      * Public method that determines which type of discount should be applied on the sale and calculates the total discount.

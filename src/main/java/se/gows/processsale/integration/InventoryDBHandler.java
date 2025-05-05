@@ -12,9 +12,9 @@ public class InventoryDBHandler {
     /**
      * Inventory data base.
      */
-    Item mjölk = new Item(1, "Mjölk", 14.90, 0.25, 500);
-    Item smör = new Item(2, "Smör", 39.90, 0.25, 500);
-    Item[] inventoryDB = {mjölk, smör};
+    private Item mjölk = new Item(1, "Mjölk", 14.90, 0.25, 500);
+    private Item smör = new Item(2, "Smör", 39.90, 0.25, 500);
+    private Item[] inventoryDB = {mjölk, smör};
     
     /**
      * Public method that fetches item from inventoryDB.
