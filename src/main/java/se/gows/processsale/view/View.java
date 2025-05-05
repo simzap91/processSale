@@ -4,11 +4,10 @@ import se.gows.processsale.DTO.ViewDTO;
 import se.gows.processsale.controller.*;
 import se.gows.processsale.model.*;
 
-
 /**
-     * View class that represents the user (cashier) display. 
-     * This class also declares test items, a test customerId and a test discount request to the sale simulation.
-     */
+ * View class that represents the user (cashier) display. 
+ * This class also declares test items, a test customerId and a test discount request to the sale simulation.
+ */
 public class View {
     private Controller ctrl;
     boolean itemsLeft = true;
@@ -61,7 +60,7 @@ public class View {
         System.out.println("-------------------------------------");
         System.out.println("Sale ended");
         System.out.println();
-        System.out.println("Total (inc. VAT): " + currentSaleDTO.saleSums.totalIncVat + "kr");
+        System.out.println("Total (inc. VAT): " + currentSaleDTO.getSaleSums().totalIncVat + "kr");
         System.out.println();
 
         int customerID = 1;
@@ -79,7 +78,7 @@ public class View {
        
         System.out.println("-------------------------------------");
         System.out.println();
-        System.out.println("Total (inc. VAT) after discount: " + currentSaleDTO.saleSums.totalIncVat + "kr");
+        System.out.println("Total (inc. VAT) after discount: " + currentSaleDTO.getSaleSums().totalIncVat + "kr");
         System.out.println("-------------------------------------");
         System.out.println();
 

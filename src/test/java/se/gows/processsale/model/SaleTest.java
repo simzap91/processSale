@@ -54,9 +54,9 @@ public class SaleTest {
         double expectedTotVat = 2 * 10 * 0.2;
         double expectedTotIncVat = expectedTotPrice + expectedTotVat;
 
-        assertEquals(1, testSaleDTO.itemList.length, "Number of items in items list not as expected.");
-        assertEquals(expectedTotPrice, testSaleDTO.saleSums.totalPrice, "TotIncVat in SaleDTO not as expected.");
-        assertEquals(expectedTotVat, testSaleDTO.saleSums.totalVAT, "TotIncVat in SaleDTO not as expected.");
-        assertEquals(expectedTotIncVat, testSaleDTO.saleSums.totalIncVat, "TotIncVat in SaleDTO not as expected.");
+        assertEquals(1, testSaleDTO.getItemList().length, "Number of items in items list not as expected.");
+        assertEquals(expectedTotPrice, testSaleDTO.getSaleSums().totalPrice, "TotIncVat in SaleDTO not as expected.");
+        assertEquals(expectedTotVat, testSaleDTO.getSaleSums().totalVAT, "TotIncVat in SaleDTO not as expected.");
+        assertEquals(expectedTotIncVat, testSaleDTO.getSaleSums().totalIncVat, "TotIncVat in SaleDTO not as expected.");
     }
 }

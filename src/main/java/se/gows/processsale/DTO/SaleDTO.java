@@ -11,13 +11,17 @@ import se.gows.processsale.model.RegisteredItem;
      * @param itemList list with purchased items
      */
 public class SaleDTO {
-    public LocalDateTime timeOfSale;
-    public SumDTO saleSums;
-    public RegisteredItem[] itemList;
+    private LocalDateTime timeOfSale;
+    private SumDTO saleSums;
+    private RegisteredItem[] itemList;
 
     public SaleDTO (LocalDateTime timeOfSale, double totalPrice, double totalVAT, RegisteredItem[] itemList){
         this.timeOfSale = timeOfSale;
         this.saleSums = new SumDTO(totalPrice, totalVAT);
         this.itemList = itemList;
     }
+
+    public LocalDateTime getTimeOfSale() {return this.timeOfSale;};
+    public SumDTO getSaleSums() {return this.saleSums;};
+    public RegisteredItem[] getItemList() {return this.itemList;};
 }
