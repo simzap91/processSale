@@ -18,8 +18,8 @@ public class AccountingDBHandler {
      * @param totalPriceIncVat total price from the entire sale
      */
     public void updateAccountBalance(Receipt receipt) {
-        accountBalance += receipt.amountPaid.amount;
-        accountBalance -= receipt.amountChange.amount;
+        accountBalance += receipt.amountPaid.getValue();
+        accountBalance -= receipt.amountChange.getValue();
         System.out.println("Accounting database updated!");
         System.out.println("New balance: " +  String.format(Locale.US, "%.2f",accountBalance) + "kr");
     }
