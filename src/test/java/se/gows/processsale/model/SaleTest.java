@@ -38,7 +38,7 @@ public class SaleTest {
 
         ViewDTO testViewDTO = instanceToTest.createViewDTO(14);
 
-        int quantityAfterUpdate = testViewDTO.regItem.quantity;
+        int quantityAfterUpdate = testViewDTO.getRegItem().quantity;
         int expectedResult = 6;
 
         assertNotNull(testViewDTO, "ViewDTO not created as expected.");
