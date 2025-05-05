@@ -25,7 +25,7 @@ public class InventoryDBHandler {
         ItemDTO scannedItem = null;
 
         for (Item item : inventoryDB) {
-            if (item.getID() == itemID) {
+            if (idsAreEqual(itemID,item.getID())) {
                 scannedItem = item.createItemDTO();
             }
         }
@@ -48,9 +48,12 @@ public class InventoryDBHandler {
 
     private void updateItemInvStatus(int itemID, int itemCount) {
         for (Item item : inventoryDB) {
-            if (item.getID() == itemID) {
+            if (idsAreEqual(itemID,item.getID())) {
                 item.updateInventoryStatus();
             }
         }
+    }
+    public boolean idsAreEqual(int itemID, int comparedID){
+        return (itemID == comparedID);
     }
 }
