@@ -8,8 +8,8 @@ package se.gows.processsale.model;
  * @return Transaction
  */
 public class Transaction {
-    public Amount amountPaid;
-    public Amount amountChange;
+    private Amount amountPaid;
+    private Amount amountChange;
     
     public Transaction(Amount amountPaid, double totalPriceIncVat){
         this.amountPaid = amountPaid;
@@ -24,5 +24,33 @@ public class Transaction {
     */
     private void calculateChange(Amount amountPaid, double totalPriceIncVat){
         this.amountChange = new Amount(amountPaid.getValue() - totalPriceIncVat);
+    }
+
+    /**
+     * @return The amount paid by the customer
+     */
+    public Amount getAmountPaid() {
+        return amountPaid;
+    }
+
+    /**
+     * @param amountPaid The amount paid by the customer
+     */
+    public void setAmountPaid(Amount amountPaid) {
+        this.amountPaid = amountPaid;
+    }
+
+    /**
+     * @return The amount of change to return to the customer
+     */
+    public Amount getAmountChange() {
+        return amountChange;
+    }
+
+    /**
+     * @param amountChange The amount of change to return to the customer
+     */
+    public void setAmountChange(Amount amountChange) {
+        this.amountChange = amountChange;
     }
 }

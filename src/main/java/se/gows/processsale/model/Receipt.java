@@ -25,8 +25,8 @@ public class Receipt {
         this.timeOfSale = saleDTO.getTimeOfSale();
         this.saleSums = saleDTO.getSaleSums();
         this.itemList = saleDTO.getItemList();
-        this.amountPaid = trans.amountPaid;
-        this.amountChange = trans.amountChange;
+        this.amountPaid = trans.getAmountPaid();
+        this.amountChange = trans.getAmountChange();
     }
 
     /**
