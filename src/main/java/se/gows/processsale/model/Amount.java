@@ -7,7 +7,7 @@ import java.util.Locale;
  * @param amount
  */
 public class Amount {
-    public double amount;
+    private double amount;
 
     public Amount (double amount) {
         this.amount = amount;
@@ -17,9 +17,7 @@ public class Amount {
      * Public method that returns the value within an Amount object
      * @return amount
      */
-    public double getValue() {
-        return amount;
-    }
+    public double getValue() {return amount;}
 
     /**
      * Method that formats the default toString-method to use dots instead of commas in decimal numbers
