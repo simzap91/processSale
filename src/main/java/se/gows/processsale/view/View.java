@@ -24,7 +24,6 @@ public class View {
      * Runs simulation of sale process.
      */
     public void runFakeExecution() {
-
    
         ctrl.startSale();
         

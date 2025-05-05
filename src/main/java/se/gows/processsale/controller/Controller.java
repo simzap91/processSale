@@ -87,8 +87,8 @@ public class Controller {
      */
     public SaleDTO requestDiscount(int customerID, SaleDTO currentSaleDTO, int[] discTypes){
         double discountedTotalPrice = discHandler.getDiscountedPrice(discTypes, customerID, currentSaleDTO.getItemList(), currentSaleDTO.getSaleSums().getTotalPrice());
-        SaleDTO updatedCurrentSaleDTO = new SaleDTO(currentSaleDTO.getTimeOfSale(), discountedTotalPrice, currentSaleDTO.getSaleSums().getTotalVAT(), currentSaleDTO.getItemList());
-        return updatedCurrentSaleDTO;
+        currentSaleDTO = new SaleDTO(currentSaleDTO.getTimeOfSale(), discountedTotalPrice, currentSaleDTO.getSaleSums().getTotalVAT(), currentSaleDTO.getItemList());
+        return currentSaleDTO;
     }
 
     /**
