@@ -5,6 +5,9 @@ import java.time.LocalDateTime;
 import se.gows.processsale.DTO.SaleDTO;
 import se.gows.processsale.DTO.SumDTO;
 
+/**
+    * Public class for receipt.
+    */
 public class Receipt {
     public LocalDateTime timeOfSale;
     public SumDTO saleSums;
