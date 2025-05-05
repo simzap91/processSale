@@ -14,6 +14,6 @@ public class TransactionTest {
         instanceToTest = new Transaction(testPayment, 50);
         double expectedChange = 200 - 50;
 
-        assertEquals(expectedChange, instanceToTest.amountChange.amount, "Change not correctly calculated.");
+        assertEquals(expectedChange, instanceToTest.amountChange.getValue(), "Change not correctly calculated.");
     }
 }
