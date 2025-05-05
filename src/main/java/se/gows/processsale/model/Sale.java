@@ -8,12 +8,12 @@ import se.gows.processsale.DTO.SaleDTO;
 import se.gows.processsale.DTO.ViewDTO;
 
 /**
-     * Sale class that represent the sale. A new instance of this class is created every time a new customer enters the checkout.
-     * @param timeOfSale start time of sale (including date)
-     * @param itemList list with all scanned items
-     * @param totalPrice running total price of the sale
-     * @param totalPrice running total vat (sum) of the sale
-     */
+ * Sale class that represent the sale. A new instance of this class is created every time a new customer enters the checkout.
+ * @param timeOfSale start time of sale (including date)
+ * @param itemList list with all scanned items
+ * @param totalPrice running total price of the sale
+ * @param totalPrice running total vat (sum) of the sale
+ */
 public class Sale {
     private LocalDateTime timeOfSale;
     private ArrayList<RegisteredItem> itemList = new ArrayList<>();

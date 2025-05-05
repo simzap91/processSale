@@ -1,11 +1,11 @@
 package se.gows.processsale.DTO;
 
 /**
-     * Sum DTO. Holds the sales total sums.
-     * @param totalPrice total price of the sale
-     * @param totalVAT total VAT sum of the sale
-     * @param totalIncVat total price including VAT sum
-     */
+ * Sum DTO. Holds the sales total sums.
+ * @param totalPrice total price of the sale
+ * @param totalVAT total VAT sum of the sale
+ * @param totalIncVat total price including VAT sum
+ */
 public class SumDTO {
     private double totalPrice;
     private double totalVAT;
