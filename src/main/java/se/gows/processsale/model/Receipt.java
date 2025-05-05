@@ -22,9 +22,9 @@ public class Receipt {
     * @param trans Holds transaction information
     */
     public Receipt(SaleDTO saleDTO, Transaction trans) {
-        this.timeOfSale = saleDTO.timeOfSale;
-        this.saleSums = saleDTO.saleSums;
-        this.itemList = saleDTO.itemList;
+        this.timeOfSale = saleDTO.getTimeOfSale();
+        this.saleSums = saleDTO.getSaleSums();
+        this.itemList = saleDTO.getItemList();
         this.amountPaid = trans.amountPaid;
         this.amountChange = trans.amountChange;
     }

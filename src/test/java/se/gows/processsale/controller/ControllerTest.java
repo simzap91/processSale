@@ -49,7 +49,7 @@ public class ControllerTest {
         ViewDTO resultItemNotRegistered = instanceToTest.scanItem(2, 2);
 
         assertNotNull(resultItemNotRegistered, "ViewDTO not created as expected");
-        assertEquals("Smör", resultItemNotRegistered.regItem.item.itemDescription, "Item description not as expected.");
+        assertEquals("Smör", resultItemNotRegistered.regItem.item.getItemDescription(), "Item description not as expected.");
         assertEquals(2, resultItemNotRegistered.regItem.quantity, "Not correct item quantity.");
 
         ViewDTO resultItemAlreadyRegistered = instanceToTest.scanItem(2, 2);
@@ -63,8 +63,8 @@ public class ControllerTest {
         SaleDTO result = instanceToTest.endSale();
 
         assertNotNull(result, "SaleDTO not created as expected.");
-        assertTrue(result.saleSums.totalPrice > 0, "Total price not greater than zero as expected.");
-        assertEquals(1, result.itemList.length, "Number of items in items list not as expected.");
+        assertTrue(result.getSaleSums().totalPrice > 0, "Total price not greater than zero as expected.");
+        assertEquals(1, result.getItemList().length, "Number of items in items list not as expected.");
     }
 
     @Test
@@ -73,7 +73,7 @@ public class ControllerTest {
         instanceToTest.scanItem(2, 2);
 
         SaleDTO saleBeforeDiscount = instanceToTest.endSale();
-        double originalPrice = saleBeforeDiscount.saleSums.totalPrice;
+        double originalPrice = saleBeforeDiscount.getSaleSums().totalPrice;
 
         int[] discountTypes = {1, 2, 3};
         int customerID = 1;
@@ -81,7 +81,7 @@ public class ControllerTest {
         SaleDTO saleAfterDiscount = instanceToTest.requestDiscount(customerID, saleBeforeDiscount, discountTypes);
 
         assertNotNull(saleAfterDiscount, "Discounted SaleDTO not created as expected.");
-        assertTrue(saleAfterDiscount.saleSums.totalPrice < originalPrice, "Total price not reduced after discount.");
+        assertTrue(saleAfterDiscount.getSaleSums().totalPrice < originalPrice, "Total price not reduced after discount.");
     }
 
     @Test
@@ -96,7 +96,7 @@ public class ControllerTest {
         instanceToTest.printReceipt();
         String printout = printoutBuffer.toString();
         String expectedOutput = "Time of Sale";
-        String expectedChange = "Amount change: " + (testPayment.amount - testSaleDTO.saleSums.totalIncVat);
+        String expectedChange = "Amount change: " + (testPayment.amount - testSaleDTO.getSaleSums().totalIncVat);
 
         assertTrue(printout.contains(expectedOutput), "Receipt not printed as expected.");
         assertTrue(printout.contains(expectedChange), "Change not calculated as expected.");
