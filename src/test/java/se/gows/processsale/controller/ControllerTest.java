@@ -96,7 +96,7 @@ public class ControllerTest {
         instanceToTest.printReceipt();
         String printout = printoutBuffer.toString();
         String expectedOutput = "Time of Sale";
-        String expectedChange = "Amount change: " + (testPayment.amount - testSaleDTO.getSaleSums().getTotalIncVat());
+        String expectedChange = "Amount change: " + (testPayment.getValue() - testSaleDTO.getSaleSums().getTotalIncVat());
 
         assertTrue(printout.contains(expectedOutput), "Receipt not printed as expected.");
         assertTrue(printout.contains(expectedChange), "Change not calculated as expected.");
