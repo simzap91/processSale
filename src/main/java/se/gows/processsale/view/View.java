@@ -61,7 +61,7 @@ public class View {
         System.out.println("-------------------------------------");
         System.out.println("Sale ended");
         System.out.println();
-        System.out.println("Total (inc. VAT): " + currentSaleDTO.saleSums.totalIncVat + "kr");
+        System.out.println("Total (inc. VAT): " + currentSaleDTO.saleSums.getTotalIncVat() + "kr");
         System.out.println();
 
         int customerID = 1;
@@ -79,7 +79,7 @@ public class View {
        
         System.out.println("-------------------------------------");
         System.out.println();
-        System.out.println("Total (inc. VAT) after discount: " + currentSaleDTO.saleSums.totalIncVat + "kr");
+        System.out.println("Total (inc. VAT) after discount: " + currentSaleDTO.saleSums.getTotalIncVat() + "kr");
         System.out.println("-------------------------------------");
         System.out.println();
 

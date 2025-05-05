@@ -24,10 +24,10 @@ public class Printer {
             System.out.println("* " + regItem.quantity + "st " + regItem.item.getItemDescription() + " á " + regItem.item.getPrice() + "kr -> " + (regItem.getTotalPriceOfItemQuantity() + "kr"));
         }
         System.out.println();
-        System.out.println("Total price: " + String.format(Locale.US, "%.2f",receipt.saleSums.totalPrice) + "kr");
-        System.out.println("Total VAT: " + receipt.saleSums.totalVAT + "kr");
+        System.out.println("Total price: " + String.format(Locale.US, "%.2f",receipt.saleSums.getTotalPrice()) + "kr");
+        System.out.println("Total VAT: " + receipt.saleSums.getTotalVAT() + "kr");
         System.out.println("-------------------------------------");
-        System.out.println("Total (incl. VAT): " + String.format(Locale.US, "%.2f", receipt.saleSums.totalIncVat) + " kr");
+        System.out.println("Total (incl. VAT): " + String.format(Locale.US, "%.2f", receipt.saleSums.getTotalIncVat()) + " kr");
         System.out.println("-------------------------------------");
         System.out.println("Amount paid: " + receipt.amountPaid.toString());
         System.out.println("Amount change: " + receipt.amountChange.toString());

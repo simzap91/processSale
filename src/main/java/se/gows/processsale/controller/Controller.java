@@ -86,8 +86,8 @@ public class Controller {
      * @return SaleDTO with updated information about the sale (after the discount)
      */
     public SaleDTO requestDiscount(int customerID, SaleDTO currentSaleDTO, int[] discTypes){
-        double discountedTotalPrice = discHandler.getDiscountedPrice(discTypes, customerID, currentSaleDTO.itemList, currentSaleDTO.saleSums.totalPrice);
-        currentSaleDTO.saleSums.totalPrice = discountedTotalPrice;
+        double discountedTotalPrice = discHandler.getDiscountedPrice(discTypes, customerID, currentSaleDTO.itemList, currentSaleDTO.saleSums.getTotalPrice());
+        currentSaleDTO.saleSums.setTotalPrice(discountedTotalPrice);
         currentSaleDTO.saleSums.updateTotIncVat();
         return currentSaleDTO;
     }
@@ -98,7 +98,7 @@ public class Controller {
      * @param payment sale payment
      */
     public void registerPayment(Amount payment){
-        Transaction trans = new Transaction(payment, currentSaleDTO.saleSums.totalIncVat);
+        Transaction trans = new Transaction(payment, currentSaleDTO.saleSums.getTotalIncVat());
         Receipt receipt = createReceipt(currentSaleDTO, trans);
         cashRegister = new CashRegister(trans, receipt);
         accHandler.updateAccountBalance(cashRegister.receipt);
