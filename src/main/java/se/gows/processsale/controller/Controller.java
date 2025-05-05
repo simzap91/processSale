@@ -100,8 +100,8 @@ public class Controller {
     public void registerPayment(Amount payment){
         Transaction trans = new Transaction(payment, this.currentSaleDTO.getSaleSums().getTotalIncVat());
         Receipt receipt = createReceipt(this.currentSaleDTO, trans);
-        cashRegister = new CashRegister(trans, receipt);
-        accHandler.updateAccountBalance(cashRegister.receipt);
+        cashRegister = new CashRegister(receipt);
+        accHandler.updateAccountBalance(cashRegister.getReceipt());
     }
 
     /**
