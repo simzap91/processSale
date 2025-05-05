@@ -9,8 +9,8 @@ import se.gows.processsale.DTO.ItemDTO;
  * @param quantity quantity of the item
  */
 public class RegisteredItem {
-    public ItemDTO item;
-    public int quantity;
+    private ItemDTO item;
+    private int quantity;
 
     public RegisteredItem(ItemDTO item, int quantity){
         this.item = item;
@@ -23,6 +23,17 @@ public class RegisteredItem {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+    /**
+     * Public method that gets the quantity of a given RegisteredItem.
+     * @param quantity the current quantity for a item
+     */
+    public int getQuantity() {
+       return this.quantity;
+    }
+
+    public ItemDTO getItem() {
+        return this.item;
+     }
 
     /**
      * Public method that check is a RegisteredItem is equal to a given itemID.

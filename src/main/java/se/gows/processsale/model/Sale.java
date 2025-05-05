@@ -65,7 +65,7 @@ public class Sale {
     private void updateItem(int itemID, int quantity) {
         for (RegisteredItem regItem : itemList) {
             if (regItem.idsAreEqual(itemID)){
-                regItem.setQuantity(regItem.quantity + quantity);
+                regItem.setQuantity(regItem.getQuantity() + quantity);
                 break;
             }
         }
