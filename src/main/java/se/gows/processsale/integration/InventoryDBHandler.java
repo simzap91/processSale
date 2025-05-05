@@ -12,8 +12,8 @@ public class InventoryDBHandler {
     /**
      * Inventory data base.
      */
-    private Item mjölk = new Item(1, "Mjölk", 14.90, 0.25, 500);
-    private Item smör = new Item(2, "Smör", 39.90, 0.25, 500);
+    private Item mjölk = new Item(1, "Mjölk", 14.90, 0.25);
+    private Item smör = new Item(2, "Smör", 39.90, 0.25);
     private Item[] inventoryDB = {mjölk, smör};
     
     /**
@@ -49,7 +49,7 @@ public class InventoryDBHandler {
     private void updateItemInvStatus(int itemID, int itemCount) {
         for (Item item : inventoryDB) {
             if (idsAreEqual(itemID,item.getID())) {
-                item.updateInventoryStatus(itemCount);
+                item.updateInventoryStatus();
             }
         }
     }
