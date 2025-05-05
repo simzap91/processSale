@@ -3,9 +3,9 @@ package se.gows.processsale.integration;
 import se.gows.processsale.model.RegisteredItem;
 
 /**     
-     * Public handler that communicates with external discount data base.
-     * In this case the data base is declared internally and consists of a list with member IDs and lists/variables for three different discount types.
-     */
+ * Public handler that communicates with external discount data base.
+ * In this case the data base is declared internally and consists of a list with member IDs and lists/variables for three different discount types.
+ */
 public class DiscountDBHandler {
     
     /**

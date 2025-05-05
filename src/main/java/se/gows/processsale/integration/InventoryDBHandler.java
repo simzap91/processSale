@@ -4,9 +4,9 @@ import se.gows.processsale.DTO.ItemDTO;
 import se.gows.processsale.model.RegisteredItem;
 
 /**     
-     * Public handler that communicates with external inventory data base.
-     * In this case the data base is declared internally and contains two test items, mjölk and smör, of the type Item.
-     */
+ * Public handler that communicates with external inventory data base.
+ * In this case the data base is declared internally and contains two test items, mjölk and smör, of the type Item.
+ */
 public class InventoryDBHandler {
 
     /**
