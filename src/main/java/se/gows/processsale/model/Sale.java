@@ -29,6 +29,9 @@ public class Sale {
         return false;
     }
 
+    /**
+     * Method that compares two itemIDs.
+     */
     private boolean idsAreEqual(int itemID1, int itemID2){return itemID1 == itemID2;}
 
     /**
@@ -42,6 +45,7 @@ public class Sale {
         itemList.add(newItem);
         updateSalePriceAndVat();
     }
+
     /**
      * Public method that updates the sale when an already registered item is scanned.
      * The method first updates the item quantity and then the total price and vat of sale.
@@ -59,6 +63,9 @@ public class Sale {
         updateSalePriceAndVat();
     }
 
+    /**
+     * Method that updates the local attributes totalPrice and totalVAT.
+     */
     private void updateSalePriceAndVat(){
         totalPrice = 0;
         totalVAT = 0;
@@ -68,6 +75,9 @@ public class Sale {
         }
     }
 
+    /**
+     * Method that calculates running total including VAT.
+     */
     private double calculateRunningTotalIncVat() {
         return this.totalPrice + this.totalVAT;
     }
@@ -84,7 +94,9 @@ public class Sale {
         return viewDTO;
     }
 
-
+    /**
+     * Method that fetches item from itemList.
+     */
     private RegisteredItemDTO fetchRegisteredItem(int itemID){
         for (RegisteredItemDTO regItem : itemList){
             if (idsAreEqual(regItem.getItemID(), itemID)){
