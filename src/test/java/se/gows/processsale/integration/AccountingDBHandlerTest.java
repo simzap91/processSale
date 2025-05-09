@@ -35,7 +35,7 @@ public class AccountingDBHandlerTest {
     void testUpdateAccountBalance() {
 
         Amount testAmountPaid = new Amount(100);   
-        SaleDTO testSaleDTO  = new SaleDTO(null, 80, 20, null);
+        SaleDTO testSaleDTO  = new SaleDTO(80, 20, null);
         Transaction testTransaction = new Transaction(testAmountPaid, 100);
         Receipt testReceipt = new Receipt(testSaleDTO, testTransaction);
         accDBtest = new AccountingDBHandler();
