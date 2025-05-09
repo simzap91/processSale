@@ -22,7 +22,6 @@ public class Sale {
      * Sets date and time for sale.
      */
     public Sale() {
-        timeOfSale = LocalDateTime.now();
     }
 
     /**

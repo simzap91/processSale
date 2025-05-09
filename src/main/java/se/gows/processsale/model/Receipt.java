@@ -21,7 +21,7 @@ public class Receipt {
     * @param trans Holds transaction information
     */
     public Receipt(SaleDTO saleDTO, Transaction trans) {
-        this.timeOfSale = saleDTO.getTimeOfSale();
+        this.timeOfSale = LocalDateTime.now();
         this.saleSums = saleDTO.getSaleSums();
         this.itemList = saleDTO.getItemList();
         this.amountPaid = trans.getAmountPaid();

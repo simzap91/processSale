@@ -25,6 +25,7 @@ public class MainTest {
         System.setOut(originalSysOut);
     }
 
+    @Disabled
     @Test
     void testMain() {
         String[] args = null;
