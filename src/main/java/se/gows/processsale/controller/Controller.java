@@ -41,7 +41,7 @@ public class Controller {
      * @return  ViewDTO, which contains the last scanned item and running total (inc VAT)
      */
     public ViewDTO scanItem(int itemID, int quantity) {
-        boolean itemIsRegistered = currentSale.checkItemList(itemID);
+        boolean itemIsRegistered = currentSale.isItemInItemList(itemID);
 
         if (!itemIsRegistered) {
             ItemDTO newItem = invHandler.fetchItemFromInventory(itemID);

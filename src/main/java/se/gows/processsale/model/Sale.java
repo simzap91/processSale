@@ -20,7 +20,7 @@ public class Sale {
      * @param itemID Unique item identifier
      * @return true if item is present in itemList, else false
      */
-    public boolean checkItemList(int itemID){
+    public boolean isItemInItemList(int itemID){
         for (RegisteredItemDTO regItem : itemList){
             if (idsAreEqual(regItem.getItemID(), itemID)){
                 return true;
