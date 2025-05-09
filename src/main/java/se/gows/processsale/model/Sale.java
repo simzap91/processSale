@@ -1,28 +1,19 @@
 package se.gows.processsale.model;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import se.gows.processsale.DTO.*;
 
 /**
  * Sale class that represent the sale. A new instance of this class is created every time a new customer enters the checkout.
- * @param timeOfSale start time of sale (including date)
  * @param itemList list with all scanned items
  * @param totalPrice running total price of the sale
  * @param totalPrice running total vat (sum) of the sale
  */
 public class Sale {
-    private LocalDateTime timeOfSale;
     private ArrayList<RegisteredItemDTO> itemList = new ArrayList<>();
     private double totalPrice;
     private double totalVAT;
-
-    /**
-     * Sets date and time for sale.
-     */
-    public Sale() {
-    }
 
     /**
      * Public method that checks if a scanned item is in itemList
@@ -46,9 +37,9 @@ public class Sale {
      * @param quantity quantity of a given item
      */
     public void addNewItem(ItemDTO item, int quantity) {
-        RegisteredItemDTO scannedItem = new RegisteredItemDTO(
+        RegisteredItemDTO newItem = new RegisteredItemDTO(
             item.getItemID(), item.getItemDescription(), item.getPrice(), item.getVatRate(), quantity);
-        itemList.add(scannedItem);
+        itemList.add(newItem);
         updateSalePriceAndVat();
     }
     /**
@@ -93,6 +84,7 @@ public class Sale {
         return viewDTO;
     }
 
+
     private RegisteredItemDTO fetchRegisteredItem(int itemID){
         for (RegisteredItemDTO regItem : itemList){
             if (idsAreEqual(regItem.getItemID(), itemID)){
@@ -108,7 +100,7 @@ public class Sale {
      */
     public SaleDTO endSale(){
         RegisteredItemDTO[] itemListArray = itemList.toArray(new RegisteredItemDTO[0]);
-        SaleDTO saleDTO = new SaleDTO(timeOfSale, totalPrice, totalVAT, itemListArray);
+        SaleDTO saleDTO = new SaleDTO(totalPrice, totalVAT, itemListArray);
         return saleDTO;
     }
 }
