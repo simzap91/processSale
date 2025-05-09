@@ -1,35 +1,30 @@
 package se.gows.processsale.model;
 
-import java.util.ArrayList;
-
 import se.gows.processsale.DTO.*;
 
 /**
  * Sale class that represent the sale. A new instance of this class is created every time a new customer enters the checkout.
  * @param itemList list with all scanned items
  * @param totalPrice running total price of the sale
- * @param totalPrice running total vat (sum) of the sale
+ * @param totalVAT running total vat (sum) of the sale
  */
 public class Sale {
-    private ArrayList<RegisteredItemDTO> itemList = new ArrayList<>();
+    private ItemList itemList;
     private double totalPrice;
     private double totalVAT;
+
+    public Sale(){
+        this.itemList = new ItemList();
+    }
 
     /**
      * Public method that checks if a scanned item is in itemList
      * @param itemID Unique item identifier
      * @return true if item is present in itemList, else false
      */
-    public boolean checkItemList(int itemID){
-        for (RegisteredItemDTO regItem : itemList){
-            if (idsAreEqual(regItem.getItemID(), itemID)){
-                return true;
-            }
-        }
-        return false;
+    public boolean isItemInItemList(int itemID){
+        return itemList.isItemInList(itemID);
     }
-
-    private boolean idsAreEqual(int itemID1, int itemID2){return itemID1 == itemID2;}
 
     /**
      * Public method that adds a new item to itemList and its quantity
@@ -39,9 +34,10 @@ public class Sale {
     public void addNewItem(ItemDTO item, int quantity) {
         RegisteredItemDTO newItem = new RegisteredItemDTO(
             item.getItemID(), item.getItemDescription(), item.getPrice(), item.getVatRate(), quantity);
-        itemList.add(newItem);
+        itemList.addItem(newItem);
         updateSalePriceAndVat();
     }
+
     /**
      * Public method that updates the sale when an already registered item is scanned.
      * The method first updates the item quantity and then the total price and vat of sale.
@@ -49,23 +45,13 @@ public class Sale {
      * @param itemQuantity amount of the given item
      */
     public void updateExistingItem(int itemID, int quantity) {
-        for (RegisteredItemDTO regItem : itemList) {
-            if (idsAreEqual(regItem.getItemID(), itemID)){
-                regItem = new RegisteredItemDTO(
-                    itemID, regItem.getItemDescription(), regItem.getPrice(), regItem.getVatRate(), regItem.getQuantity() + quantity);
-                break;
-            }
-        }
+        itemList.updateItem(itemID, quantity);
         updateSalePriceAndVat();
     }
 
     private void updateSalePriceAndVat(){
-        totalPrice = 0;
-        totalVAT = 0;
-        for (RegisteredItemDTO regItem : itemList) {
-            totalPrice += regItem.getTotalPriceOfItemQuantity();
-            totalVAT += regItem.getTotalVatOfItemQuantity();
-        }
+        this.totalPrice = itemList.getTotalPriceOfItemsInList();
+        this.totalVAT = itemList.getTotalVatOfItemsInList();
     }
 
     private double calculateRunningTotalIncVat() {
@@ -78,20 +64,10 @@ public class Sale {
      * @return a ViewDTO holding the provided item and running total (inc. vat)
      */
     public ViewDTO createViewDTO(int itemID) {
-        RegisteredItemDTO regItem = fetchRegisteredItem(itemID);
+        RegisteredItemDTO regItem = itemList.getItemFromList(itemID);
         double runningTotIncVat = calculateRunningTotalIncVat();
         ViewDTO viewDTO = new ViewDTO(regItem, runningTotIncVat);
         return viewDTO;
-    }
-
-
-    private RegisteredItemDTO fetchRegisteredItem(int itemID){
-        for (RegisteredItemDTO regItem : itemList){
-            if (idsAreEqual(regItem.getItemID(), itemID)){
-                return regItem;
-            }
-        }
-        return null;
     }
 
     /**
@@ -99,7 +75,7 @@ public class Sale {
      * @return SaleDTO
      */
     public SaleDTO endSale(){
-        RegisteredItemDTO[] itemListArray = itemList.toArray(new RegisteredItemDTO[0]);
+        RegisteredItemDTO[] itemListArray = itemList.getListAsArray();
         SaleDTO saleDTO = new SaleDTO(totalPrice, totalVAT, itemListArray);
         return saleDTO;
     }
