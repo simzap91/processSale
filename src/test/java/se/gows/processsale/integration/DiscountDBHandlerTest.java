@@ -4,8 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import se.gows.processsale.DTO.ItemDTO;
-import se.gows.processsale.model.RegisteredItem;
+import se.gows.processsale.DTO.*;
 
 public class DiscountDBHandlerTest {
     /*
@@ -16,12 +15,14 @@ public class DiscountDBHandlerTest {
         DiscountDBHandler discHandler = new DiscountDBHandler();
         
         ItemDTO item1 = new ItemDTO(1, "Test Item", 100.0, 0.25);
-        RegisteredItem regItem1 = new RegisteredItem(item1, 1);
+        RegisteredItemDTO regItem1 = new RegisteredItemDTO(
+            item1.getItemID(), item1.getItemDescription(), item1.getPrice(), item1.getVatRate(), 1);
         
         ItemDTO item2 = new ItemDTO(99, "Non-discounted Item", 150.0, 0.25);
-        RegisteredItem regItem2 = new RegisteredItem(item2, 1);
+        RegisteredItemDTO regItem2 = new RegisteredItemDTO(
+            item2.getItemID(), item2.getItemDescription(), item2.getPrice(), item2.getVatRate(), 1);
         
-        RegisteredItem[] purchasedItems = { regItem1, regItem2 };
+        RegisteredItemDTO[] purchasedItems = { regItem1, regItem2 };
         int[] discountTypes = {1, 2, 3}; 
         int customerID = 1; 
         double totalPrice = 250.0;
@@ -39,9 +40,10 @@ public class DiscountDBHandlerTest {
         DiscountDBHandler discHandler = new DiscountDBHandler();
 
         ItemDTO item = new ItemDTO(99, "Non-discounted Item", 100.0, 0.25);
-        RegisteredItem regItem = new RegisteredItem(item, 1);
+        RegisteredItemDTO regItem = new RegisteredItemDTO(
+            item.getItemID(), item.getItemDescription(), item.getPrice(), item.getVatRate(), 1);
 
-        RegisteredItem[] purchasedItems = { regItem };
+        RegisteredItemDTO[] purchasedItems = { regItem };
         int[] discountTypes = {}; 
         int customerID = 99; 
         double totalPrice = 100.0;
@@ -59,9 +61,10 @@ public class DiscountDBHandlerTest {
         DiscountDBHandler discHandler = new DiscountDBHandler();
 
         ItemDTO item = new ItemDTO(1, "Discounted Item", 100.0, 0.25);
-        RegisteredItem regItem = new RegisteredItem(item, 1);
+        RegisteredItemDTO regItem = new RegisteredItemDTO(
+            item.getItemID(), item.getItemDescription(), item.getPrice(), item.getVatRate(), 1);
 
-        RegisteredItem[] purchasedItems = { regItem };
+        RegisteredItemDTO[] purchasedItems = { regItem };
         int[] discountTypes = { 1 }; 
         int customerID = 99; 
         double totalPrice = 100.0;
@@ -79,9 +82,10 @@ public class DiscountDBHandlerTest {
         DiscountDBHandler discHandler = new DiscountDBHandler();
 
         ItemDTO item = new ItemDTO(99, "Non-discounted Item", 300.0, 0.25);
-        RegisteredItem regItem = new RegisteredItem(item, 1);
+        RegisteredItemDTO regItem = new RegisteredItemDTO(
+            item.getItemID(), item.getItemDescription(), item.getPrice(), item.getVatRate(), 1);
 
-        RegisteredItem[] purchasedItems = { regItem };
+        RegisteredItemDTO[] purchasedItems = { regItem };
         int[] discountTypes = { 2 }; 
         int customerID = 1; 
         double totalPrice = 300.0;
@@ -99,9 +103,10 @@ public class DiscountDBHandlerTest {
         DiscountDBHandler discHandler = new DiscountDBHandler();
 
         ItemDTO item = new ItemDTO(99, "Non-discounted Item", 100.0, 0.25);
-        RegisteredItem regItem = new RegisteredItem(item, 1);
+        RegisteredItemDTO regItem = new RegisteredItemDTO(
+            item.getItemID(), item.getItemDescription(), item.getPrice(), item.getVatRate(), 1);
 
-        RegisteredItem[] purchasedItems = { regItem };
+        RegisteredItemDTO[] purchasedItems = { regItem };
         int[] discountTypes = {3}; 
         int customerID = 1; 
         double totalPrice = 100.0;
