@@ -1,7 +1,6 @@
 package se.gows.processsale.integration;
 
-import se.gows.processsale.DTO.ItemDTO;
-import se.gows.processsale.model.RegisteredItem;
+import se.gows.processsale.DTO.*;
 
 /**     
  * Public handler that communicates with external inventory data base.
@@ -21,25 +20,25 @@ public class InventoryDBHandler {
      * @param itemID unique identifier used to find item in DB
      * @return fetched item as ItemDTO. If no item ID matches the methods returns null.
      */
-    public ItemDTO fetchItemFromDB(int itemID) {
-        ItemDTO scannedItem = null;
+    public ItemDTO fetchItemFromInventory(int itemID) {
+        ItemDTO newItem = null;
 
         for (Item item : inventoryDB) {
             if (idsAreEqual(itemID,item.getID())) {
-                scannedItem = item.createItemDTO();
+                newItem = item.createItemDTO();
             }
         }
-        return scannedItem;
+        return newItem;
     }
 
     /**
      * Public method that updates the inventory status for each item after a sale.
      * @param itemList list containing all registered items in sale.
      */
-    public void updateInventoryDB(RegisteredItem[] itemList) {
-        for (RegisteredItem regItem : itemList) {
+    public void updateInventory(RegisteredItemDTO[] itemList) {
+        for (RegisteredItemDTO regItem : itemList) {
 
-            int itemID = regItem.getItem().getItemID();
+            int itemID = regItem.getItemID();
             int itemCount = regItem.getQuantity();
             updateItemInvStatus(itemID, itemCount);
         }

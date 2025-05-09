@@ -2,8 +2,7 @@ package se.gows.processsale.model;
 
 import java.time.LocalDateTime;
 
-import se.gows.processsale.DTO.SaleDTO;
-import se.gows.processsale.DTO.SumDTO;
+import se.gows.processsale.DTO.*;
 
 /**
  * Public class for receipt.
@@ -11,7 +10,7 @@ import se.gows.processsale.DTO.SumDTO;
 public class Receipt {
     private LocalDateTime timeOfSale;
     private SumDTO saleSums;
-    private RegisteredItem[] itemList;
+    private RegisteredItemDTO[] itemList;
     private Amount amountPaid;
     private Amount amountChange;
 
@@ -60,14 +59,14 @@ public class Receipt {
     /**
      * @return An array of items included in the sale
      */
-    public RegisteredItem[] getItemList() {
+    public RegisteredItemDTO[] getItemList() {
         return itemList;
     }
 
     /**
      * @param itemList The array of items included in the sale
      */
-    public void setItemList(RegisteredItem[] itemList) {
+    public void setItemList(RegisteredItemDTO[] itemList) {
         this.itemList = itemList;
     }
 

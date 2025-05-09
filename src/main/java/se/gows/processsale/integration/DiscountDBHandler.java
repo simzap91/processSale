@@ -1,6 +1,6 @@
 package se.gows.processsale.integration;
 
-import se.gows.processsale.model.RegisteredItem;
+import se.gows.processsale.DTO.RegisteredItemDTO;
 
 /**     
  * Public handler that communicates with external discount data base.
@@ -25,7 +25,7 @@ public class DiscountDBHandler {
      * @return updated totalprice
      *  
      */
-    public double getDiscountedPrice(int[] discountTypes, int customerID, RegisteredItem[] purchasedItems, double totalPrice){
+    public double getDiscountedPrice(int[] discountTypes, int customerID, RegisteredItemDTO[] purchasedItems, double totalPrice){
         double discountedTotalPrice = totalPrice;
         for (int type : discountTypes) {
             if (type == 1) {
@@ -49,13 +49,13 @@ public class DiscountDBHandler {
      * @return discountSum
      *  
      */
-    private double calculateDiscountItemsSum(RegisteredItem[] purchasedItems) {
+    private double calculateDiscountItemsSum(RegisteredItemDTO[] purchasedItems) {
         double discountSum = 0;
         for (double[] discObj : discountDBItemsSum){
-            for (RegisteredItem regItem : purchasedItems) {
+            for (RegisteredItemDTO regItem : purchasedItems) {
 
                 int discObjItemId = (int) discObj[0];
-                if (discObjItemId == regItem.getItem().getItemID()){
+                if (discObjItemId == regItem.getItemID()){
 
                     double discItemRate = discObj[1];
                     double discItemSum = regItem.getTotalPriceOfItemQuantity() * discItemRate;

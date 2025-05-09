@@ -3,9 +3,7 @@ package se.gows.processsale.model;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import se.gows.processsale.DTO.ItemDTO;
-import se.gows.processsale.DTO.SaleDTO;
-import se.gows.processsale.DTO.ViewDTO;
+import se.gows.processsale.DTO.*;
 
 /**
  * Sale class that represent the sale. A new instance of this class is created every time a new customer enters the checkout.
@@ -16,7 +14,7 @@ import se.gows.processsale.DTO.ViewDTO;
  */
 public class Sale {
     private LocalDateTime timeOfSale;
-    private ArrayList<RegisteredItem> itemList = new ArrayList<>();
+    private ArrayList<RegisteredItemDTO> itemList = new ArrayList<>();
     private double totalPrice;
     private double totalVAT;
 
@@ -33,21 +31,24 @@ public class Sale {
      * @return true if item is present in itemList, else false
      */
     public boolean checkItemList(int itemID){
-        for (RegisteredItem regItem : itemList){
-            if (regItem.idsAreEqual(itemID)){
+        for (RegisteredItemDTO regItem : itemList){
+            if (idsAreEqual(regItem.getItemID(), itemID)){
                 return true;
             }
         }
         return false;
     }
 
+    private boolean idsAreEqual(int itemID1, int itemID2){return itemID1 == itemID2;}
+
     /**
      * Public method that adds a new item to itemList and its quantity
      * @param item itemDTO contain information about the item
      * @param quantity quantity of a given item
      */
-    public void addItem(ItemDTO item, int quantity) {
-        RegisteredItem scannedItem = new RegisteredItem(item, quantity);
+    public void addNewItem(ItemDTO item, int quantity) {
+        RegisteredItemDTO scannedItem = new RegisteredItemDTO(
+            item.getItemID(), item.getItemDescription(), item.getPrice(), item.getVatRate(), quantity);
         itemList.add(scannedItem);
         updateSalePriceAndVat();
     }
@@ -57,24 +58,21 @@ public class Sale {
      * @param itemID ID of a given item
      * @param itemQuantity amount of the given item
      */
-    public void updateSale(int itemID, int itemQuantity) {
-        updateItem(itemID, itemQuantity);
-        updateSalePriceAndVat();
-    }
-
-    private void updateItem(int itemID, int quantity) {
-        for (RegisteredItem regItem : itemList) {
-            if (regItem.idsAreEqual(itemID)){
-                regItem.setQuantity(regItem.getQuantity() + quantity);
+    public void updateExistingItem(int itemID, int quantity) {
+        for (RegisteredItemDTO regItem : itemList) {
+            if (idsAreEqual(regItem.getItemID(), itemID)){
+                regItem = new RegisteredItemDTO(
+                    itemID, regItem.getItemDescription(), regItem.getPrice(), regItem.getVatRate(), regItem.getQuantity() + quantity);
                 break;
             }
         }
+        updateSalePriceAndVat();
     }
 
     private void updateSalePriceAndVat(){
         totalPrice = 0;
         totalVAT = 0;
-        for (RegisteredItem regItem : itemList) {
+        for (RegisteredItemDTO regItem : itemList) {
             totalPrice += regItem.getTotalPriceOfItemQuantity();
             totalVAT += regItem.getTotalVatOfItemQuantity();
         }
@@ -90,15 +88,15 @@ public class Sale {
      * @return a ViewDTO holding the provided item and running total (inc. vat)
      */
     public ViewDTO createViewDTO(int itemID) {
-        RegisteredItem regItem = fetchRegisteredItem(itemID);
+        RegisteredItemDTO regItem = fetchRegisteredItem(itemID);
         double runningTotIncVat = calculateRunningTotalIncVat();
         ViewDTO viewDTO = new ViewDTO(regItem, runningTotIncVat);
         return viewDTO;
     }
 
-    private RegisteredItem fetchRegisteredItem(int itemID){
-        for (RegisteredItem regItem : itemList){
-            if (regItem.idsAreEqual(itemID)){
+    private RegisteredItemDTO fetchRegisteredItem(int itemID){
+        for (RegisteredItemDTO regItem : itemList){
+            if (idsAreEqual(regItem.getItemID(), itemID)){
                 return regItem;
             }
         }
@@ -110,7 +108,7 @@ public class Sale {
      * @return SaleDTO
      */
     public SaleDTO endSale(){
-        RegisteredItem[] itemListArray = itemList.toArray(new RegisteredItem[0]);
+        RegisteredItemDTO[] itemListArray = itemList.toArray(new RegisteredItemDTO[0]);
         SaleDTO saleDTO = new SaleDTO(timeOfSale, totalPrice, totalVAT, itemListArray);
         return saleDTO;
     }

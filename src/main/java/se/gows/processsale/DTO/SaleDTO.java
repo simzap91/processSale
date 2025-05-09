@@ -2,8 +2,6 @@ package se.gows.processsale.DTO;
 
 import java.time.LocalDateTime;
 
-import se.gows.processsale.model.RegisteredItem;
-
 /**
  * Sale DTO. Holds information about a sale.
  * @param timeOfSale time when sale started
@@ -13,9 +11,9 @@ import se.gows.processsale.model.RegisteredItem;
 public class SaleDTO {
     private LocalDateTime timeOfSale;
     private SumDTO saleSums;
-    private RegisteredItem[] itemList;
+    private RegisteredItemDTO[] itemList;
 
-    public SaleDTO (LocalDateTime timeOfSale, double totalPrice, double totalVAT, RegisteredItem[] itemList){
+    public SaleDTO (LocalDateTime timeOfSale, double totalPrice, double totalVAT, RegisteredItemDTO[] itemList){
         this.timeOfSale = timeOfSale;
         this.saleSums = new SumDTO(totalPrice, totalVAT);
         this.itemList = itemList;
@@ -23,5 +21,5 @@ public class SaleDTO {
 
     public LocalDateTime getTimeOfSale() {return this.timeOfSale;}
     public SumDTO getSaleSums() {return this.saleSums;}
-    public RegisteredItem[] getItemList() {return this.itemList;}
+    public RegisteredItemDTO[] getItemList() {return this.itemList;}
 }

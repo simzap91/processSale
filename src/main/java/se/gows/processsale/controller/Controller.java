@@ -41,30 +41,17 @@ public class Controller {
      * @return  ViewDTO, which contains the last scanned item and running total (inc VAT)
      */
     public ViewDTO scanItem(int itemID, int quantity) {
-        boolean itemRegistered;
+        boolean itemIsRegistered = currentSale.checkItemList(itemID);
 
-        itemRegistered = currentSale.checkItemList(itemID);
-
-        if (!itemRegistered) {
-            fetchNewItemDTOAndSendToSale(itemID, quantity);
+        if (!itemIsRegistered) {
+            ItemDTO newItem = invHandler.fetchItemFromInventory(itemID);
+            currentSale.addNewItem(newItem, quantity);
         } else {
-            currentSale.updateSale(itemID, quantity);
+            currentSale.updateExistingItem(itemID, quantity);
         }
         
         ViewDTO viewDTO = currentSale.createViewDTO(itemID);
         return viewDTO;
-    }
-
-    /**
-     * This method fetch a new ItemDTO from Inventory handler. Then it sends it to the Sale object.
-     * @param itemID item identifier of scanned item
-     * @param quantity quantity of scanned item
-     */
-    private void fetchNewItemDTOAndSendToSale(int itemID, int quantity){
-        ItemDTO scannedItem = invHandler.fetchItemFromDB(itemID);
-        if (scannedItem != null) {
-            currentSale.addItem(scannedItem, quantity);
-        }
     }
 
     /**
@@ -74,7 +61,7 @@ public class Controller {
     public SaleDTO endSale() {
         SaleDTO saleDTO = currentSale.endSale();
         currentSaleDTO = saleDTO;
-        invHandler.updateInventoryDB(currentSaleDTO.getItemList());
+        invHandler.updateInventory(currentSaleDTO.getItemList());
         return currentSaleDTO;
     }
 
