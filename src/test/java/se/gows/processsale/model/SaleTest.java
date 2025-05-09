@@ -22,7 +22,7 @@ public class SaleTest {
     @Test
     public void testAddItemAndCheckItemList() {
         ItemDTO testItemDTO = new ItemDTO(14, "TestItem", 10, 0.2);
-        instanceToTest.addItem(testItemDTO, 2);
+        instanceToTest.addNewItem(testItemDTO, 2);
         boolean resultThatShouldBeTrue = instanceToTest.checkItemList(14);
         boolean resultThatShouldBeFalse = instanceToTest.checkItemList(15);
 
@@ -33,8 +33,8 @@ public class SaleTest {
     @Test
     public void testUpdateSaleAndCreateViewDTO() {
         ItemDTO testItemDTO = new ItemDTO(14, "TestItem", 10, 0.2);
-        instanceToTest.addItem(testItemDTO, 2);
-        instanceToTest.updateSale(14, 4);
+        instanceToTest.addNewItem(testItemDTO, 2);
+        instanceToTest.updateExistingItem(14, 4);
 
         ViewDTO testViewDTO = instanceToTest.createViewDTO(14);
 
@@ -48,7 +48,7 @@ public class SaleTest {
     @Test
     public void testEndSale() {
         ItemDTO testItemDTO = new ItemDTO(14, "TestItem", 10, 0.2);
-        instanceToTest.addItem(testItemDTO, 2);
+        instanceToTest.addNewItem(testItemDTO, 2);
         SaleDTO testSaleDTO = instanceToTest.endSale();
         double expectedTotPrice = 2 * 10;
         double expectedTotVat = 2 * 10 * 0.2;

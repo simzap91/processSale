@@ -32,7 +32,7 @@ public class InventoryDBHandlerTest {
     void testFetchItemFromDB() {
         testID = 1;
         boolean expectedResult = true;
-        ItemDTO testItem = testInvHandler.fetchItemFromDB(testID);
+        ItemDTO testItem = testInvHandler.fetchItemFromInventory(testID);
         boolean resultPrice = testItemDTO.getPrice() == testItem.getPrice();
         boolean resultVAT = testItemDTO.getVatRate() == testItem.getVatRate();
         boolean resultDesc = testItem.getItemDescription().equals(testItemDTO.getItemDescription());
@@ -43,7 +43,7 @@ public class InventoryDBHandlerTest {
     @Test
     void testFetchUnknownItemFromDB() {
         testID = -99;
-        ItemDTO testItem = testInvHandler.fetchItemFromDB(testID); 
+        ItemDTO testItem = testInvHandler.fetchItemFromInventory(testID); 
         assertEquals(testItem, fakeItemDTO, "Does not return null");
     }
 }
