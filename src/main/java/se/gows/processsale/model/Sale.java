@@ -8,7 +8,7 @@ import se.gows.processsale.DTO.*;
  * Sale class that represent the sale. A new instance of this class is created every time a new customer enters the checkout.
  * @param itemList list with all scanned items
  * @param totalPrice running total price of the sale
- * @param totalPrice running total vat (sum) of the sale
+ * @param totalVAT running total vat (sum) of the sale
  */
 public class Sale {
     private ArrayList<RegisteredItemDTO> itemList = new ArrayList<>();
