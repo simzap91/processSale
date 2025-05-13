@@ -1,7 +1,10 @@
 package se.gows.processsale.view;
+import java.util.Locale;
+
 import se.gows.processsale.DTO.SaleDTO;
 import se.gows.processsale.DTO.ViewDTO;
 import se.gows.processsale.controller.*;
+import se.gows.processsale.integration.ItemIdNotFoundException;
 import se.gows.processsale.model.*;
 
 /**
@@ -32,34 +35,38 @@ public class View {
         System.out.println("A new sale has been started.");
         System.out.println();
 
-        int[][] arrItemsToBeScanned = {{1,2},{2,1}};
-        int itemsScannedCount = 0;
-        while (itemsScannedCount < arrItemsToBeScanned.length){
-            
-            int itemId = arrItemsToBeScanned[itemsScannedCount][0];
-            int quantity = arrItemsToBeScanned[itemsScannedCount][1];
+            int[][] arrItemsToBeScanned = {{753753959,1},{404,2},{1,3}};
+            int itemsScannedCount = 0;
+            while (itemsScannedCount < arrItemsToBeScanned.length){
 
-            ViewDTO viewDTO = ctrl.scanItem(itemId, quantity);
-            if (viewDTO.getRegItem() == null) {
-                System.out.println("Invalid identifier: " + itemId);
-            } else {
-                System.out.println("Add " + quantity + " item with itemId: " + itemId);
-                System.out.println("Item ID: " + viewDTO.getRegItem().getItemID());
-                System.out.println("Item name: " + viewDTO.getRegItem().getItemDescription());
-                System.out.println("Item cost: " + viewDTO.getRegItem().getPrice() + "kr");
-                System.out.println("VAT: " + (int)(100 * viewDTO.getRegItem().getVatRate()) + "%");
-                System.out.println();
-                System.out.println("Running total (inc. VAT): " + viewDTO.getRunningTotalIncVat() + "kr");
-                System.out.println();
+                int itemId = arrItemsToBeScanned[itemsScannedCount][0];
+                int quantity = arrItemsToBeScanned[itemsScannedCount][1];
+
+                try {
+                    ViewDTO viewDTO = ctrl.scanItem(itemId, quantity);
+                    if (viewDTO.getErrorMessage() != null) {
+                        System.out.println(viewDTO.getErrorMessage());
+                    } else {
+                        System.out.println("Add " + quantity + " item with itemId: " + itemId);
+                        System.out.println("Item ID: " + viewDTO.getRegItem().getItemID());
+                        System.out.println("Item name: " + viewDTO.getRegItem().getItemDescription());
+                        System.out.println("Item cost: " + viewDTO.getRegItem().getPrice() + "kr");
+                        System.out.println("VAT: " + (int)(100 * viewDTO.getRegItem().getVatRate()) + "%");
+                        System.out.println();
+                        System.out.println("Running total (inc. VAT): " + String.format(Locale.US, "%.2f",viewDTO.getRunningTotalIncVat()) + "kr");
+                        System.out.println();
+                    }
+                } catch (ItemIdNotFoundException exc) {
+                    System.out.println("Error: " + exc.getMessage());
+                }
+                itemsScannedCount ++;
             }
-            itemsScannedCount ++;
-        }
 
         SaleDTO currentSaleDTO = ctrl.endSale();
         System.out.println("-------------------------------------");
         System.out.println("Sale ended");
         System.out.println();
-        System.out.println("Total (inc. VAT): " + currentSaleDTO.getSaleSums().getTotalIncVat() + "kr");
+        System.out.println("Total (inc. VAT): " + String.format(Locale.US, "%.2f",currentSaleDTO.getSaleSums().getTotalIncVat()) + "kr");
         System.out.println();
 
         int customerID = 1;
@@ -77,7 +84,7 @@ public class View {
        
         System.out.println("-------------------------------------");
         System.out.println();
-        System.out.println("Total (inc. VAT) after discount: " + currentSaleDTO.getSaleSums().getTotalIncVat() + "kr");
+        System.out.println("Total (inc. VAT) after discount: " + String.format(Locale.US, "%.2f",currentSaleDTO.getSaleSums().getTotalIncVat()) + "kr");
         System.out.println("-------------------------------------");
         System.out.println();
 

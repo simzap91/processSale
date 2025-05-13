@@ -9,13 +9,13 @@ import se.gows.processsale.DTO.ItemDTO;
  * @param price the price for the item
  * @param vatRate the Vat-rate for the item
  */
-public class Item {
+public class InventoryItem {
     private int itemID;
     private String description;
     private double price;
     private double vatRate;
     
-    public Item (int itemID, String description, double price, double vatRate){
+    public InventoryItem (int itemID, String description, double price, double vatRate){
         this.itemID = itemID;
         this.description = description;
         this.price = price;

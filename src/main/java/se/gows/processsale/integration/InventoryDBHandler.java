@@ -11,24 +11,25 @@ public class InventoryDBHandler {
     /**
      * Inventory data base.
      */
-    private Item mjölk = new Item(1, "Mjölk", 14.90, 0.25);
-    private Item smör = new Item(2, "Smör", 39.90, 0.25);
-    private Item[] inventoryDB = {mjölk, smör};
+    private InventoryItem mjölk = new InventoryItem(1, "Mjölk", 14.90, 0.25);
+    private InventoryItem smör = new InventoryItem(2, "Smör", 39.90, 0.25);
+    private InventoryItem[] inventoryDB = {mjölk, smör};
     
     /**
      * Public method that fetches item from inventoryDB.
      * @param itemID unique identifier used to find item in DB
      * @return fetched item as ItemDTO. If no item ID matches the methods returns null.
      */
-    public ItemDTO fetchItemFromInventory(int itemID) {
-        ItemDTO newItem = null;
-
-        for (Item item : inventoryDB) {
+    public ItemDTO fetchItemFromInventory(int itemID) throws ItemIdNotFoundException, DatabaseFailureException {
+        if (itemID == 404) {
+            throw new DatabaseFailureException();
+        }
+        for (InventoryItem item : inventoryDB) {
             if (idsAreEqual(itemID,item.getID())) {
-                newItem = item.createItemDTO();
+                return item.createItemDTO();
             }
         }
-        return newItem;
+        throw new ItemIdNotFoundException(itemID);
     }
 
     /**
@@ -46,7 +47,7 @@ public class InventoryDBHandler {
     }
 
     private void updateItemInvStatus(int itemID, int itemCount) {
-        for (Item item : inventoryDB) {
+        for (InventoryItem item : inventoryDB) {
             if (idsAreEqual(itemID,item.getID())) {
                 item.updateInventoryStatus();
             }

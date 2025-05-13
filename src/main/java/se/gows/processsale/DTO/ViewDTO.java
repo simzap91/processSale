@@ -6,17 +6,25 @@ package se.gows.processsale.DTO;
  * @param runningTotalIncVat current running total inc vat
  */
 public class ViewDTO {
-    private RegisteredItemDTO regItemDTO;
-    private double runningTotalIncVat;
+    private final RegisteredItemDTO regItemDTO;
+    private final double runningTotalIncVat;
+    private final String errorMessage;
 
-    public ViewDTO(RegisteredItemDTO regItemDTO, double runningTotIncVat) {
+    public ViewDTO(RegisteredItemDTO regItemDTO, double runningTotIncVat, String errMsg) {
         this.regItemDTO = regItemDTO;
         this.runningTotalIncVat = runningTotIncVat;
+        this.errorMessage = errMsg;
     }
     public RegisteredItemDTO getRegItem() {
         return regItemDTO;
     }
     public double getRunningTotalIncVat() {
         return runningTotalIncVat;
+    }
+    public boolean hasError(){
+        return this.errorMessage != null;
+    }
+    public String getErrorMessage() {
+        return this.errorMessage;
     }
 }
