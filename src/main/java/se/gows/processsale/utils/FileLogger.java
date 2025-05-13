@@ -1,4 +1,4 @@
-package se.gows.processsale.model;
+package se.gows.processsale.utils;
 
 
     import java.io.FileWriter;
@@ -19,9 +19,8 @@ public class FileLogger {
     public FileLogger(){
     try {
         logStream = new PrintWriter(new FileWriter("log.txt"), true);
-    
     } catch (IOException ioe){
-            System.out.println("CANNOTLOG.");
+            System.out.println("CANNOT LOG.");
             ioe.printStackTrace();
         }
     }

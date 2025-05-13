@@ -6,6 +6,7 @@ import se.gows.processsale.DTO.ViewDTO;
 import se.gows.processsale.controller.*;
 import se.gows.processsale.integration.ItemIdNotFoundException;
 import se.gows.processsale.model.*;
+import se.gows.processsale.utils.FileLogger;
 
 /**
  * View class that represents the user (cashier) display. 
@@ -13,14 +14,16 @@ import se.gows.processsale.model.*;
  */
 public class View {
     private Controller ctrl;
+    private FileLogger logger;
     boolean itemsLeft = true;
 
     /**
      * Creates a new instance that uses the specified controller for all calls to other layers.
      * @param ctrl The controller to use for all calls to other layers
      */
-    public View(Controller ctrl) {
+    public View(Controller ctrl, FileLogger logger) {
         this.ctrl = ctrl;
+        this.logger = logger;
     }
 
     /**
@@ -46,6 +49,7 @@ public class View {
                     ViewDTO viewDTO = ctrl.scanItem(itemId, quantity);
                     if (viewDTO.getErrorMessage() != null) {
                         System.out.println(viewDTO.getErrorMessage());
+                        logger.log(viewDTO.getErrorMessage());
                     } else {
                         System.out.println("Add " + quantity + " item with itemId: " + itemId);
                         System.out.println("Item ID: " + viewDTO.getRegItem().getItemID());
@@ -58,6 +62,7 @@ public class View {
                     }
                 } catch (ItemIdNotFoundException exc) {
                     System.out.println("Error: " + exc.getMessage());
+                    logger.log(exc.getMessage());
                 }
                 itemsScannedCount ++;
             }
