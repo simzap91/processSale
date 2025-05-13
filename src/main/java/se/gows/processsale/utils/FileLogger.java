@@ -20,7 +20,7 @@ public class FileLogger {
     try {
         logStream = new PrintWriter(new FileWriter("log.txt"), true);
     } catch (IOException ioe){
-            System.out.println("CANNOT LOG.");
+            System.out.println("Unable to write to log.txt.");
             ioe.printStackTrace();
         }
     }
