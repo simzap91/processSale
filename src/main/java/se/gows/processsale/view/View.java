@@ -38,7 +38,7 @@ public class View {
         System.out.println("A new sale has been started.");
         System.out.println();
 
-            int[][] arrItemsToBeScanned = {{753753959,1},{404,2},{1,3}};
+            int[][] arrItemsToBeScanned = {{753753959,1},{404,2},{1,3},{1,5}};
             int itemsScannedCount = 0;
             while (itemsScannedCount < arrItemsToBeScanned.length){
 

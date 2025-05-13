@@ -44,7 +44,7 @@ public class ControllerTest {
     }
 
     @Test
-    void testScanItem() {
+    void testScanItem() throws ItemIdNotFoundException, DatabaseFailureException {
         instanceToTest.startSale();
         ViewDTO resultItemNotRegistered = instanceToTest.scanItem(2, 2);
 
@@ -57,7 +57,7 @@ public class ControllerTest {
     }
 
     @Test
-    void testEndSale() {
+    void testEndSale() throws ItemIdNotFoundException, DatabaseFailureException {
         instanceToTest.startSale();
         instanceToTest.scanItem(2, 2);
         SaleDTO result = instanceToTest.endSale();
@@ -68,7 +68,7 @@ public class ControllerTest {
     }
 
     @Test
-    void testRequestDiscount() {
+    void testRequestDiscount() throws ItemIdNotFoundException, DatabaseFailureException {
         instanceToTest.startSale();
         instanceToTest.scanItem(2, 2);
 
@@ -85,7 +85,7 @@ public class ControllerTest {
     }
 
     @Test
-    void testRegisterPaymentAndPrintReceipt() {
+    void testRegisterPaymentAndPrintReceipt() throws ItemIdNotFoundException, DatabaseFailureException {
         instanceToTest.startSale();
         instanceToTest.scanItem(2, 2);
         SaleDTO testSaleDTO = instanceToTest.endSale();

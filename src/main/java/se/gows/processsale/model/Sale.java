@@ -53,10 +53,12 @@ public class Sale {
      * @param itemQuantity amount of the given item
      */
     public void updateExistingItem(int itemID, int quantity) {
-        for (RegisteredItemDTO regItem : itemList) {
-            if (idsAreEqual(regItem.getItemID(), itemID)){
-                regItem = new RegisteredItemDTO(
-                    itemID, regItem.getItemDescription(), regItem.getPrice(), regItem.getVatRate(), regItem.getQuantity() + quantity);
+        for (int i = 0; i < this.itemList.size(); i++) {
+            if (idsAreEqual(itemList.get(i).getItemID(), itemID)) {
+                int quantityBeforeUpdate = itemList.get(i).getQuantity();
+                RegisteredItemDTO updatedItem = new RegisteredItemDTO(
+                    itemID, itemList.get(i).getItemDescription(), itemList.get(i).getPrice(), itemList.get(i).getVatRate(), quantityBeforeUpdate + quantity);
+                itemList.set(i, updatedItem);
                 break;
             }
         }
