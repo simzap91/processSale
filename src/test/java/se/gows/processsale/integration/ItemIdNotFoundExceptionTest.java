@@ -3,18 +3,52 @@ package se.gows.processsale.integration;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.AfterEach;
+
+import se.gows.processsale.controller.*;
+import se.gows.processsale.DTO.*;
+
+import org.junit.jupiter.api.BeforeEach;
+
 public class ItemIdNotFoundExceptionTest {
 
+    private InventoryDBHandler invHandler;;
+    private AccountingDBHandler accHandler;
+    private DiscountDBHandler discHandler;
+    private Controller testCtrl;
+
+    @BeforeEach
+    public void setup() {
+        invHandler = new InventoryDBHandler();
+        testCtrl = new Controller(invHandler, accHandler, discHandler);
+        testCtrl.startSale();
+    }
+
+    @AfterEach
+    public void tearDown() {
+        invHandler = null;
+        testCtrl = null;
+    }
+
     @Test
-    void testConstructorSetsMessageAndItemId() {
-        int missingId = 123;
-        ItemIdNotFoundException ex = new ItemIdNotFoundException(missingId);
+    void testScanItemThatDoesNotExist()  {
+        int missingId = 90;
 
-        assertEquals(missingId, ex.getItemIdNotFound(),
-            "getItemIdNotFound() do not return the ID passed to the constructor.");
+        try {
+            testCtrl.scanItem(missingId, 1);
+        } catch(ItemIdNotFoundException exc) {
+            assertEquals(exc.getItemIdNotFound(), missingId);
+            assertEquals(exc.getMessage(), "Item with id " + missingId + " can't be found in inventory.\n");
+        }
+    }
 
-        String expectedMessage = "Item with id " + missingId + " can't be found in inventory.\n";
-        assertEquals(expectedMessage, ex.getMessage(),
-            "getMessage() do not match the excpected message.");
+    @Test
+    void testScanItemThatShouldNotThrowException()  {
+        int existingId = 1;
+
+        assertDoesNotThrow(() -> {
+            ItemDTO dto = invHandler.fetchItemFromInventory(existingId);
+            assertNotNull(dto, "DTO should not be null for valid item ID");
+        });
     }
 }
