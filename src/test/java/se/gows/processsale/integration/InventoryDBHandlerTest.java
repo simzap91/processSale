@@ -29,7 +29,7 @@ public class InventoryDBHandlerTest {
     }
     
     @Test
-    void testFetchItemFromDB() {
+    void testFetchItemFromDB() throws ItemIdNotFoundException, DatabaseFailureException {
         testID = 1;
         boolean expectedResult = true;
         ItemDTO testItem = testInvHandler.fetchItemFromInventory(testID);
@@ -41,7 +41,7 @@ public class InventoryDBHandlerTest {
     }
 
     @Test
-    void testFetchUnknownItemFromDB() {
+    void testFetchUnknownItemFromDB() throws ItemIdNotFoundException, DatabaseFailureException {
         testID = -99;
         ItemDTO testItem = testInvHandler.fetchItemFromInventory(testID); 
         assertEquals(testItem, fakeItemDTO, "Does not return null");
