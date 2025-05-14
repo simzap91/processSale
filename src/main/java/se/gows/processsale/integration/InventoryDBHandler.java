@@ -1,19 +1,14 @@
 package se.gows.processsale.integration;
 
 import se.gows.processsale.DTO.*;
+import se.gows.processsale.integration.Inventory.InventoryDb;
+import se.gows.processsale.integration.Inventory.InventoryItem;
 
 /**     
- * Public handler that communicates with external inventory data base.
- * In this case the data base is declared internally and contains two test items, mjölk and smör, of the type Item.
+ * Public handler that communicates with the external inventory data base.
  */
 public class InventoryDBHandler {
-
-    /**
-     * Inventory data base.
-     */
-    private InventoryItem mjölk = new InventoryItem(1, "Mjölk", 14.90, 0.25);
-    private InventoryItem smör = new InventoryItem(2, "Smör", 39.90, 0.25);
-    private InventoryItem[] inventoryDB = {mjölk, smör};
+    private InventoryDb inventoryDb = InventoryDb.getInstance();
     
     /**
      * Public method that fetches item from inventoryDB.
@@ -24,36 +19,17 @@ public class InventoryDBHandler {
         if (itemID == 404) {
             throw new DatabaseFailureException();
         }
-        for (InventoryItem item : inventoryDB) {
-            if (idsAreEqual(itemID,item.getID())) {
-                return item.createItemDTO();
+        for (InventoryItem invItem : inventoryDb.getItems()) {
+            if (invItem.getID() == itemID) {
+                return invItem.createItemDTO();
             }
         }
         throw new ItemIdNotFoundException(itemID);
     }
 
     /**
-     * Public method that updates the inventory status for each item after a sale.
+     * Updates the inventory status of each item in itemList.
      * @param itemList list containing all registered items in sale.
      */
-    public void updateInventory(RegisteredItemDTO[] itemList) {
-        for (RegisteredItemDTO regItem : itemList) {
-
-            int itemID = regItem.getItemID();
-            int itemCount = regItem.getQuantity();
-            updateItemInvStatus(itemID, itemCount);
-        }
-        //System.out.println("Inventory updated.");
-    }
-
-    private void updateItemInvStatus(int itemID, int itemCount) {
-        for (InventoryItem item : inventoryDB) {
-            if (idsAreEqual(itemID,item.getID())) {
-                item.updateInventoryStatus();
-            }
-        }
-    }
-    public boolean idsAreEqual(int itemID, int comparedID){
-        return (itemID == comparedID);
-    }
+    public void updateInventory(RegisteredItemDTO[] itemList){};
 }

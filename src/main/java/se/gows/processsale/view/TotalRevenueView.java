@@ -1,5 +1,7 @@
 package se.gows.processsale.view;
 
+import java.util.Locale;
+
 import se.gows.processsale.model.*;
 import se.gows.processsale.utils.SumOfCostsObserver;
 
@@ -23,7 +25,7 @@ public class TotalRevenueView implements SumOfCostsObserver {
     private void printCurrentSumOfCosts() {
         System.out.println();
         System.out.println("###############################\n");
-        System.out.println("Today's total revenue: " + sumOfCosts + "\n");
+        System.out.println("Today's total revenue: " + String.format(Locale.US, "%.2f", sumOfCosts) + "\n");
         System.out.println("###############################");
     }
 }

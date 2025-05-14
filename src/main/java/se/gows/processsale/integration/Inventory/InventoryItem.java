@@ -1,4 +1,4 @@
-package se.gows.processsale.integration;
+package se.gows.processsale.integration.Inventory;
 
 import se.gows.processsale.DTO.ItemDTO;
 
@@ -29,12 +29,6 @@ public class InventoryItem {
         ItemDTO dto = new ItemDTO(this.itemID, this.description, this.price, this.vatRate);
         return dto;
     }
-    /**
-     * Updates the quantity of a given item within the inventoryDB.
-     */
-    public void updateInventoryStatus(){};
 
-    public int getID(){
-        return this.itemID;
-    }
+    public int getID(){return this.itemID;}
 }
