@@ -20,7 +20,7 @@ public class View {
      * Creates a new instance that uses the specified controller for all calls to other layers.
      * @param ctrl The controller to use for all calls to other layers
      */
-    public View(Controller ctrl, FileLogger logger) {
+    public View(Controller ctrl, FileLogger logger){
         this.ctrl = ctrl;
         ctrl.addSumOfCostObserver(new TotalRevenueView());
         this.logger = logger;
