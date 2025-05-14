@@ -20,7 +20,7 @@ public class AccountingDBHandler {
     public void updateAccountBalance(Receipt receipt) {
         accountBalance += receipt.getAmountPaid().getValue();
         accountBalance -= receipt.getAmountChange().getValue();
-        System.out.println("Accounting database updated!");
-        System.out.println("New balance: " +  String.format(Locale.US, "%.2f",accountBalance) + "kr");
+        //System.out.println("Accounting database updated!");
+        //System.out.println("New balance: " +  String.format(Locale.US, "%.2f",accountBalance) + "kr");
     }
 }

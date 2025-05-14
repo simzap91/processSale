@@ -19,5 +19,6 @@ public class Main {
         View view = new View(ctrl, lggr);
 
         view.runFakeExecution();
+        view.runFakeExecutionAgain();
     }
 }

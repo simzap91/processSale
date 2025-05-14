@@ -1,6 +1,5 @@
 package se.gows.processsale.controller;
 
-import java.util.List;
 import java.util.ArrayList;
 
 import se.gows.processsale.DTO.ItemDTO;
@@ -8,7 +7,7 @@ import se.gows.processsale.DTO.SaleDTO;
 import se.gows.processsale.DTO.ViewDTO;
 import se.gows.processsale.integration.*;
 import se.gows.processsale.model.*;
-import se.gows.processsale.view.SumOfCostsObserver;
+import se.gows.processsale.utils.SumOfCostsObserver;
 
 /**
  * This is the application's only controller. All calls to the model pass through this class.
@@ -20,7 +19,7 @@ public class Controller {
     private Sale currentSale;
     private SaleDTO currentSaleDTO;
     private CashRegister cashRegister;
-    private List<SumOfCostsObserver> sumOfCostsObservers = new ArrayList<>();
+    private ArrayList<SumOfCostsObserver> sumOfCostsObservers;
 
     public Controller(InventoryDBHandler invHandler, 
                         AccountingDBHandler accHandler, 
@@ -29,6 +28,7 @@ public class Controller {
         this.invHandler = invHandler;
         this.accHandler = accHandler;
         this.discHandler = discHandler;
+        this.sumOfCostsObservers = new ArrayList<>();
     }
 
     /**

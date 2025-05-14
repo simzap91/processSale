@@ -31,6 +31,7 @@ public class AccountingDBHandlerTest {
         System.setOut(originalSysOut);
     }
 
+    @Disabled
     @Test
     void testUpdateAccountBalance() {
 

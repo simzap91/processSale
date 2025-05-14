@@ -1,4 +1,4 @@
-package se.gows.processsale.view;
+package se.gows.processsale.utils;
 
 import se.gows.processsale.model.Amount;
 
