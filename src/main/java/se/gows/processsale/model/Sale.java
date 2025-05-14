@@ -1,8 +1,10 @@
 package se.gows.processsale.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import se.gows.processsale.DTO.*;
+import se.gows.processsale.utils.RevenueObserver;
 
 /**
  * Sale class that represent the sale. A new instance of this class is created every time a new customer enters the checkout.
@@ -14,6 +16,8 @@ public class Sale {
     private ArrayList<RegisteredItemDTO> itemList = new ArrayList<>();
     private double totalPrice;
     private double totalVAT;
+    private double totalRevenue = 0;
+    private final List<RevenueObserver> observers = new ArrayList<>();
 
     /**
      * Public method that checks if a scanned item is in itemList
@@ -108,6 +112,16 @@ public class Sale {
         return null;
     }
 
+    public void addRevenueObserver(RevenueObserver obs) {
+        observers.add(obs);
+    }
+
+    private void notifyObservers() {
+        for (RevenueObserver obs : observers) {
+            obs.update(totalRevenue);
+        }
+    }
+
     /**
      * Public method that ends the current sale and returns a SaleDTO containing the final information about the registered items and their total price plus Vat
      * @return SaleDTO
@@ -115,6 +129,9 @@ public class Sale {
     public SaleDTO endSale(){
         RegisteredItemDTO[] itemListArray = itemList.toArray(new RegisteredItemDTO[0]);
         SaleDTO saleDTO = new SaleDTO(totalPrice, totalVAT, itemListArray);
+        totalRevenue += totalPrice;
+        notifyObservers();
+
         return saleDTO;
     }
 }
