@@ -19,9 +19,6 @@ public class SumDTO {
         this.totalIncVat = new Amount(totalPrice.getValue() + totalVAT.getValue());
     }
 
-    public void updateTotIncVat(){
-        this.totalIncVat.setAmount(this.totalPrice.getValue() + this.totalVAT.getValue());
-    }
     public Amount getTotalPrice(){return this.totalPrice;}
     public Amount getTotalVAT(){return this.totalVAT;}
     public Amount getTotalIncVat(){return this.totalIncVat;}
