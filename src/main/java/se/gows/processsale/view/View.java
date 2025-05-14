@@ -21,9 +21,9 @@ public class View {
      * Creates a new instance that uses the specified controller for all calls to other layers.
      * @param ctrl The controller to use for all calls to other layers
      */
-    public View(Controller ctrl, FileLogger logger) {
+    public View(Controller ctrl) {
         this.ctrl = ctrl;
-        this.logger = logger;
+        this.logger = new FileLogger();
     }
 
     /**
@@ -48,8 +48,8 @@ public class View {
                 try {
                     ViewDTO viewDTO = ctrl.scanItem(itemId, quantity);
                     if (viewDTO.getErrorMessage() != null) {
-                        System.out.println(viewDTO.getErrorMessage());
                         logger.log(viewDTO.getErrorMessage());
+                        System.out.println(viewDTO.getErrorMessage());
                     } else {
                         System.out.println("Add " + quantity + " item with itemId: " + itemId);
                         System.out.println("Item ID: " + viewDTO.getRegItem().getItemID());
