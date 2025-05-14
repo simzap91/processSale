@@ -63,7 +63,7 @@ public class ControllerTest {
         SaleDTO result = instanceToTest.endSale();
 
         assertNotNull(result, "SaleDTO not created as expected.");
-        assertTrue(result.getSaleSums().getTotalPrice() > 0, "Total price not greater than zero as expected.");
+        assertTrue(result.getSaleSums().getTotalPrice().getValue() > 0, "Total price not greater than zero as expected.");
         assertEquals(1, result.getItemList().length, "Number of items in items list not as expected.");
     }
 
@@ -73,7 +73,7 @@ public class ControllerTest {
         instanceToTest.scanItem(2, 2);
 
         SaleDTO saleBeforeDiscount = instanceToTest.endSale();
-        double originalPrice = saleBeforeDiscount.getSaleSums().getTotalPrice();
+        double originalPrice = saleBeforeDiscount.getSaleSums().getTotalPrice().getValue();
 
         int[] discountTypes = {1, 2, 3};
         int customerID = 1;
@@ -81,7 +81,7 @@ public class ControllerTest {
         SaleDTO saleAfterDiscount = instanceToTest.requestDiscount(customerID, saleBeforeDiscount, discountTypes);
 
         assertNotNull(saleAfterDiscount, "Discounted SaleDTO not created as expected.");
-        assertTrue(saleAfterDiscount.getSaleSums().getTotalPrice() < originalPrice, "Total price not reduced after discount.");
+        assertTrue(saleAfterDiscount.getSaleSums().getTotalPrice().getValue() < originalPrice, "Total price not reduced after discount.");
     }
 
     @Test
@@ -96,7 +96,7 @@ public class ControllerTest {
         instanceToTest.printReceipt();
         String printout = printoutBuffer.toString();
         String expectedOutput = "Time of Sale";
-        String expectedChange = "Amount change: " + (testPayment.getValue() - testSaleDTO.getSaleSums().getTotalIncVat());
+        String expectedChange = "Amount change: " + (testPayment.getValue() - testSaleDTO.getSaleSums().getTotalIncVat().getValue());
 
         assertTrue(printout.contains(expectedOutput), "Receipt not printed as expected.");
         assertTrue(printout.contains(expectedChange), "Change not calculated as expected.");

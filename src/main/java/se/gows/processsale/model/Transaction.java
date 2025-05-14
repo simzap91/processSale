@@ -11,7 +11,7 @@ public class Transaction {
     private Amount amountPaid;
     private Amount amountChange;
     
-    public Transaction(Amount amountPaid, double totalPriceIncVat){
+    public Transaction(Amount amountPaid, Amount totalPriceIncVat){
         this.amountPaid = amountPaid;
         calculateChange(amountPaid, totalPriceIncVat);
     }
@@ -22,8 +22,8 @@ public class Transaction {
     * @param totalPriceIncVat
     * @return
     */
-    private void calculateChange(Amount amountPaid, double totalPriceIncVat){
-        this.amountChange = new Amount(amountPaid.getValue() - totalPriceIncVat);
+    private void calculateChange(Amount amountPaid, Amount totalPriceIncVat){
+        this.amountChange = new Amount(amountPaid.getValue() - totalPriceIncVat.getValue());
     }
 
     /**

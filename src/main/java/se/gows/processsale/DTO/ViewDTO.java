@@ -1,5 +1,6 @@
 package se.gows.processsale.DTO;
 
+import se.gows.processsale.model.Amount;
 /**
  * View DTO. Holds information about last scanned item and running total of the sale.
  * @param regItemDTO last scanned item
@@ -7,10 +8,10 @@ package se.gows.processsale.DTO;
  */
 public class ViewDTO {
     private final RegisteredItemDTO regItemDTO;
-    private final double runningTotalIncVat;
+    private final Amount runningTotalIncVat;
     private final String errorMessage;
 
-    public ViewDTO(RegisteredItemDTO regItemDTO, double runningTotIncVat, String errMsg) {
+    public ViewDTO(RegisteredItemDTO regItemDTO, Amount runningTotIncVat, String errMsg) {
         this.regItemDTO = regItemDTO;
         this.runningTotalIncVat = runningTotIncVat;
         this.errorMessage = errMsg;
@@ -18,7 +19,7 @@ public class ViewDTO {
     public RegisteredItemDTO getRegItem() {
         return regItemDTO;
     }
-    public double getRunningTotalIncVat() {
+    public Amount getRunningTotalIncVat() {
         return runningTotalIncVat;
     }
     public boolean hasError(){

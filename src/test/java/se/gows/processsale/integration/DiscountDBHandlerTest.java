@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import se.gows.processsale.DTO.*;
+import se.gows.processsale.model.Amount;;
 
 public class DiscountDBHandlerTest {
     /*
@@ -25,11 +26,11 @@ public class DiscountDBHandlerTest {
         RegisteredItemDTO[] purchasedItems = { regItem1, regItem2 };
         int[] discountTypes = {1, 2, 3}; 
         int customerID = 1; 
-        double totalPrice = 250.0;
+        Amount totalPrice = new Amount(250.0);
 
-        double discountedPrice = discHandler.getDiscountedPrice(discountTypes, customerID, purchasedItems, totalPrice);
+        Amount discountedPrice = discHandler.getDiscountedPrice(discountTypes, customerID, purchasedItems, totalPrice);
 
-        assertEquals(175.95, discountedPrice, 0.01, "Discount is not calculated as expected");
+        assertEquals(175.95, discountedPrice.getValue(), 0.01, "Discount is not calculated as expected");
     }
 
     /*
@@ -46,11 +47,11 @@ public class DiscountDBHandlerTest {
         RegisteredItemDTO[] purchasedItems = { regItem };
         int[] discountTypes = {}; 
         int customerID = 99; 
-        double totalPrice = 100.0;
+        Amount totalPrice = new Amount(100.0);
 
-        double discountedPrice = discHandler.getDiscountedPrice(discountTypes, customerID, purchasedItems, totalPrice);
+        Amount discountedPrice = discHandler.getDiscountedPrice(discountTypes, customerID, purchasedItems, totalPrice);
 
-        assertEquals(100.0, discountedPrice, 0.01, "Discount is not calculated as expected");
+        assertEquals(100.0, discountedPrice.getValue(), 0.01, "Discount is not calculated as expected");
     }
 
     /*
@@ -67,11 +68,11 @@ public class DiscountDBHandlerTest {
         RegisteredItemDTO[] purchasedItems = { regItem };
         int[] discountTypes = { 1 }; 
         int customerID = 99; 
-        double totalPrice = 100.0;
+        Amount totalPrice = new Amount(100.0);
 
-        double discountedPrice = discHandler.getDiscountedPrice(discountTypes, customerID, purchasedItems, totalPrice);
+        Amount discountedPrice = discHandler.getDiscountedPrice(discountTypes, customerID, purchasedItems, totalPrice);
 
-        assertEquals(80.0, discountedPrice, 0.01, "Discount for type one is not calculated as expected");
+        assertEquals(80.0, discountedPrice.getValue(), 0.01, "Discount for type one is not calculated as expected");
     }
 
     /*
@@ -88,11 +89,11 @@ public class DiscountDBHandlerTest {
         RegisteredItemDTO[] purchasedItems = { regItem };
         int[] discountTypes = { 2 }; 
         int customerID = 1; 
-        double totalPrice = 300.0;
+        Amount totalPrice = new Amount(300.0);
 
-        double discountedPrice = discHandler.getDiscountedPrice(discountTypes, customerID, purchasedItems, totalPrice);
+        Amount discountedPrice = discHandler.getDiscountedPrice(discountTypes, customerID, purchasedItems, totalPrice);
 
-        assertEquals(270.0, discountedPrice, 0.01, "Discount is not calculated as expected");
+        assertEquals(270.0, discountedPrice.getValue(), 0.01, "Discount is not calculated as expected");
     }
 
     /*
@@ -109,10 +110,10 @@ public class DiscountDBHandlerTest {
         RegisteredItemDTO[] purchasedItems = { regItem };
         int[] discountTypes = {3}; 
         int customerID = 1; 
-        double totalPrice = 100.0;
+        Amount totalPrice = new Amount(100.0);
 
-        double discountedPrice = discHandler.getDiscountedPrice(discountTypes, customerID, purchasedItems, totalPrice);
+        Amount discountedPrice = discHandler.getDiscountedPrice(discountTypes, customerID, purchasedItems, totalPrice);
 
-        assertEquals(85.0, discountedPrice, 0.01, "Discount is not calculated as expected");
+        assertEquals(85.0, discountedPrice.getValue(), 0.01, "Discount is not calculated as expected");
     }
 }
