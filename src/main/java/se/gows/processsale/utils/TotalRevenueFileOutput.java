@@ -32,7 +32,7 @@ public class TotalRevenueFileOutput implements SumOfCostsObserver {
 
     
     private void FileOutputSumOfCost() {
-        try (PrintWriter writer = new PrintWriter(new FileWriter(filePath, true))) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(filePath), true)) {
             writer.printf(">>> Total Revenue : %.2f kr%n", sumOfCosts);
         } catch (IOException e) {
             e.printStackTrace();
