@@ -26,7 +26,7 @@ public class DiscountDBHandler {
      * @return updated totalprice
      *  
      */
-    public double getDiscountedPrice(int[] discountTypes, int customerID, RegisteredItemDTO[] purchasedItems, Amount totalPrice){
+    public Amount getDiscountedPrice(int[] discountTypes, int customerID, RegisteredItemDTO[] purchasedItems, Amount totalPrice){
         double discountedTotalPrice = totalPrice.getValue();
         for (int type : discountTypes) {
             if (type == 1) {
@@ -42,7 +42,7 @@ public class DiscountDBHandler {
                 System.out.println("Invalid discount type");
             }
         }
-        return discountedTotalPrice;
+        return new Amount(discountedTotalPrice);
     }
 
     /**

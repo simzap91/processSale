@@ -67,8 +67,7 @@ public class Controller {
      * @return SaleDTO, which contains information about the sale.
      */
     public SaleDTO endSale() {
-        SaleDTO saleDTO = currentSale.endSale();
-        currentSaleDTO = saleDTO;
+        currentSaleDTO = currentSale.endSale();
         invHandler.updateInventory(currentSaleDTO.getItemList());
         return currentSaleDTO;
     }
@@ -81,7 +80,7 @@ public class Controller {
      * @return SaleDTO with updated information about the sale (after the discount)
      */
     public SaleDTO requestDiscount(int customerID, SaleDTO currentSaleDTO, int[] discTypes){
-        Amount discountedTotalPrice = new Amount(discHandler.getDiscountedPrice(discTypes, customerID, currentSaleDTO.getItemList(), currentSaleDTO.getSaleSums().getTotalPrice()));
+        Amount discountedTotalPrice = discHandler.getDiscountedPrice(discTypes, customerID, currentSaleDTO.getItemList(), currentSaleDTO.getSaleSums().getTotalPrice());
         SaleDTO updatedCurrentSaleDTO = new SaleDTO(discountedTotalPrice, currentSaleDTO.getSaleSums().getTotalVAT(), currentSaleDTO.getItemList());
         this.currentSaleDTO = updatedCurrentSaleDTO;
         return updatedCurrentSaleDTO;
