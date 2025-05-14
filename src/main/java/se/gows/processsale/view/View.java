@@ -7,6 +7,7 @@ import se.gows.processsale.controller.*;
 import se.gows.processsale.integration.ItemIdNotFoundException;
 import se.gows.processsale.model.*;
 import se.gows.processsale.utils.FileLogger;
+import se.gows.processsale.utils.TotalRevenueFileOutput;
 
 /**
  * View class that represents the user (cashier) display. 
@@ -23,6 +24,7 @@ public class View {
     public View(Controller ctrl, FileLogger logger) {
         this.ctrl = ctrl;
         ctrl.addSumOfCostObserver(new TotalRevenueView());
+        ctrl.addSumOfCostObserver(new TotalRevenueFileOutput("revenue_log.txt"));
         this.logger = logger;
     }
 
