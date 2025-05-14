@@ -23,7 +23,7 @@ public class TotalRevenueView implements SumOfCostsObserver {
     private void printCurrentSumOfCosts() {
         System.out.println();
         System.out.println("###############################\n");
-        System.out.println("Today's sum of costs: " + sumOfCosts + "\n");
+        System.out.println("Today's total revenue: " + sumOfCosts + "\n");
         System.out.println("###############################");
     }
 }

@@ -74,7 +74,6 @@ public class View {
         System.out.println("Sale ended");
         System.out.println();
         System.out.println("Total (inc. VAT): " + String.format(Locale.US, "%.2f",currentSaleDTO.getSaleSums().getTotalIncVat().getValue()) + "kr");
-        System.out.println();
 
         int customerID = 1;
         int[] discTypes = {1,2,3};
@@ -90,7 +89,6 @@ public class View {
         currentSaleDTO = ctrl.requestDiscount(customerID, currentSaleDTO, discTypes);
        
         System.out.println("-------------------------------------");
-        System.out.println();
         System.out.println("Total (inc. VAT) after discount: " + String.format(Locale.US, "%.2f",currentSaleDTO.getSaleSums().getTotalIncVat().getValue()) + "kr");
         System.out.println("-------------------------------------");
         System.out.println();
@@ -143,7 +141,6 @@ public class View {
         System.out.println("Sale ended");
         System.out.println();
         System.out.println("Total (inc. VAT): " + String.format(Locale.US, "%.2f",currentSaleDTO.getSaleSums().getTotalIncVat().getValue()) + "kr");
-        System.out.println();
 
         int customerID = 1;
         int[] discTypes = {1,2,3};
@@ -159,7 +156,6 @@ public class View {
         currentSaleDTO = ctrl.requestDiscount(customerID, currentSaleDTO, discTypes);
        
         System.out.println("-------------------------------------");
-        System.out.println();
         System.out.println("Total (inc. VAT) after discount: " + String.format(Locale.US, "%.2f",currentSaleDTO.getSaleSums().getTotalIncVat().getValue()) + "kr");
         System.out.println("-------------------------------------");
         System.out.println();

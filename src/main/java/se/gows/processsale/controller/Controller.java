@@ -117,13 +117,13 @@ public class Controller {
         cashRegister.printReceipt();
     }
 
+    public void addSumOfCostObserver(SumOfCostsObserver obs) {
+        sumOfCostsObservers.add(obs);
+    }
+
     private void notifyObservers() {
         for (SumOfCostsObserver obs : sumOfCostsObservers) {
             obs.newSumOfCost(currentSaleDTO.getSaleSums().getTotalIncVat());
         }
-    }
-
-    public void addSumOfCostObserver(SumOfCostsObserver obs) {
-        sumOfCostsObservers.add(obs);
     }
 }
