@@ -1,10 +1,14 @@
 package se.gows.processsale.controller;
 
+import java.util.List;
+import java.util.ArrayList;
+
 import se.gows.processsale.DTO.ItemDTO;
 import se.gows.processsale.DTO.SaleDTO;
 import se.gows.processsale.DTO.ViewDTO;
 import se.gows.processsale.integration.*;
 import se.gows.processsale.model.*;
+import se.gows.processsale.view.SumOfCostsObserver;
 
 /**
  * This is the application's only controller. All calls to the model pass through this class.
@@ -16,6 +20,7 @@ public class Controller {
     private Sale currentSale;
     private SaleDTO currentSaleDTO;
     private CashRegister cashRegister;
+    private List<SumOfCostsObserver> sumOfCostsObservers = new ArrayList<>();
 
     public Controller(InventoryDBHandler invHandler, 
                         AccountingDBHandler accHandler, 
@@ -51,7 +56,7 @@ public class Controller {
             }
             return currentSale.createViewDTO(itemID);
         } catch (DatabaseFailureException exc) {
-            ViewDTO error = new ViewDTO(null, 0, "Problem when calling the inventory.\n");
+            ViewDTO error = new ViewDTO(null, null, "Problem when calling the inventory.\n");
             return error;
         }
         
@@ -76,7 +81,7 @@ public class Controller {
      * @return SaleDTO with updated information about the sale (after the discount)
      */
     public SaleDTO requestDiscount(int customerID, SaleDTO currentSaleDTO, int[] discTypes){
-        double discountedTotalPrice = discHandler.getDiscountedPrice(discTypes, customerID, currentSaleDTO.getItemList(), currentSaleDTO.getSaleSums().getTotalPrice());
+        Amount discountedTotalPrice = new Amount(discHandler.getDiscountedPrice(discTypes, customerID, currentSaleDTO.getItemList(), currentSaleDTO.getSaleSums().getTotalPrice()));
         SaleDTO updatedCurrentSaleDTO = new SaleDTO(discountedTotalPrice, currentSaleDTO.getSaleSums().getTotalVAT(), currentSaleDTO.getItemList());
         this.currentSaleDTO = updatedCurrentSaleDTO;
         return updatedCurrentSaleDTO;
@@ -92,6 +97,7 @@ public class Controller {
         Receipt receipt = createReceipt(this.currentSaleDTO, trans);
         cashRegister = new CashRegister(receipt);
         accHandler.updateAccountBalance(cashRegister.getReceipt());
+        notifyObservers();
     }
 
     /**
@@ -110,5 +116,15 @@ public class Controller {
      */
     public void printReceipt(){
         cashRegister.printReceipt();
+    }
+
+    private void notifyObservers() {
+        for (SumOfCostsObserver obs : sumOfCostsObservers) {
+            obs.newSumOfCost(currentSaleDTO.getSaleSums().getTotalIncVat());
+        }
+    }
+
+    public void addSumOfCostObserver(SumOfCostsObserver obs) {
+        sumOfCostsObservers.add(obs);
     }
 }

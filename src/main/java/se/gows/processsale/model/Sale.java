@@ -11,9 +11,15 @@ import se.gows.processsale.DTO.*;
  * @param totalVAT running total vat (sum) of the sale
  */
 public class Sale {
-    private ArrayList<RegisteredItemDTO> itemList = new ArrayList<>();
-    private double totalPrice;
-    private double totalVAT;
+    private ArrayList<RegisteredItemDTO> itemList;
+    private Amount totalPrice;
+    private Amount totalVAT;
+
+    public Sale(){
+        this.itemList = new ArrayList<>();
+        this.totalPrice = new Amount(0);
+        this.totalVAT = new Amount(0);
+    }
 
     /**
      * Public method that checks if a scanned item is in itemList
@@ -69,19 +75,21 @@ public class Sale {
      * Method that updates the local attributes totalPrice and totalVAT.
      */
     private void updateSalePriceAndVat(){
-        totalPrice = 0;
-        totalVAT = 0;
+        double newTotalPrice = 0;
+        double newTotalVAT = 0;
         for (RegisteredItemDTO regItem : itemList) {
-            totalPrice += regItem.getTotalPriceOfItemQuantity();
-            totalVAT += regItem.getTotalVatOfItemQuantity();
+            newTotalPrice += regItem.getTotalPriceOfItemQuantity();
+            newTotalVAT += regItem.getTotalVatOfItemQuantity();
+            this.totalPrice.setAmount(newTotalPrice);
+            this.totalVAT.setAmount(newTotalVAT);
         }
     }
 
     /**
      * Method that calculates running total including VAT.
      */
-    private double calculateRunningTotalIncVat() {
-        return this.totalPrice + this.totalVAT;
+    private Amount calculateRunningTotalIncVat() {
+        return new Amount(this.totalPrice.getValue() + this.totalVAT.getValue());
     }
 
     /**
@@ -91,7 +99,7 @@ public class Sale {
      */
     public ViewDTO createViewDTO(int itemID) {
         RegisteredItemDTO regItem = fetchRegisteredItem(itemID);
-        double runningTotIncVat = calculateRunningTotalIncVat();
+        Amount runningTotIncVat = calculateRunningTotalIncVat();
         ViewDTO viewDTO = new ViewDTO(regItem, runningTotIncVat, null);
         return viewDTO;
     }

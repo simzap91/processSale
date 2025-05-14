@@ -13,6 +13,8 @@ public class Amount {
         this.amount = amount;
     }
 
+    public void setAmount(double newAmount) {this.amount = newAmount;}
+
     /**
      * Public method that returns the value within an Amount object
      * @return amount

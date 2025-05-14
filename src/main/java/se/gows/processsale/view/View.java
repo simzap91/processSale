@@ -15,7 +15,6 @@ import se.gows.processsale.utils.FileLogger;
 public class View {
     private Controller ctrl;
     private FileLogger logger;
-    boolean itemsLeft = true;
 
     /**
      * Creates a new instance that uses the specified controller for all calls to other layers.
@@ -23,7 +22,9 @@ public class View {
      */
     public View(Controller ctrl, FileLogger logger) {
         this.ctrl = ctrl;
+        ctrl.addSumOfCostObserver(new SumOfCostsDisplay());
         this.logger = logger;
+        
     }
 
     /**
@@ -57,7 +58,7 @@ public class View {
                         System.out.println("Item cost: " + viewDTO.getRegItem().getPrice() + "kr");
                         System.out.println("VAT: " + (int)(100 * viewDTO.getRegItem().getVatRate()) + "%");
                         System.out.println();
-                        System.out.println("Running total (inc. VAT): " + String.format(Locale.US, "%.2f",viewDTO.getRunningTotalIncVat()) + "kr");
+                        System.out.println("Running total (inc. VAT): " + String.format(Locale.US, "%.2f",viewDTO.getRunningTotalIncVat().getValue()) + "kr");
                         System.out.println();
                     }
                 } catch (ItemIdNotFoundException exc) {
@@ -71,7 +72,7 @@ public class View {
         System.out.println("-------------------------------------");
         System.out.println("Sale ended");
         System.out.println();
-        System.out.println("Total (inc. VAT): " + String.format(Locale.US, "%.2f",currentSaleDTO.getSaleSums().getTotalIncVat()) + "kr");
+        System.out.println("Total (inc. VAT): " + String.format(Locale.US, "%.2f",currentSaleDTO.getSaleSums().getTotalIncVat().getValue()) + "kr");
         System.out.println();
 
         int customerID = 1;
@@ -89,7 +90,7 @@ public class View {
        
         System.out.println("-------------------------------------");
         System.out.println();
-        System.out.println("Total (inc. VAT) after discount: " + String.format(Locale.US, "%.2f",currentSaleDTO.getSaleSums().getTotalIncVat()) + "kr");
+        System.out.println("Total (inc. VAT) after discount: " + String.format(Locale.US, "%.2f",currentSaleDTO.getSaleSums().getTotalIncVat().getValue()) + "kr");
         System.out.println("-------------------------------------");
         System.out.println();
 

@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import se.gows.processsale.DTO.*;
+import se.gows.processsale.model.Amount;;
 
 public class DiscountDBHandlerTest {
     /*
@@ -25,7 +26,7 @@ public class DiscountDBHandlerTest {
         RegisteredItemDTO[] purchasedItems = { regItem1, regItem2 };
         int[] discountTypes = {1, 2, 3}; 
         int customerID = 1; 
-        double totalPrice = 250.0;
+        Amount totalPrice = new Amount(250.0);
 
         double discountedPrice = discHandler.getDiscountedPrice(discountTypes, customerID, purchasedItems, totalPrice);
 
@@ -46,7 +47,7 @@ public class DiscountDBHandlerTest {
         RegisteredItemDTO[] purchasedItems = { regItem };
         int[] discountTypes = {}; 
         int customerID = 99; 
-        double totalPrice = 100.0;
+        Amount totalPrice = new Amount(100.0);
 
         double discountedPrice = discHandler.getDiscountedPrice(discountTypes, customerID, purchasedItems, totalPrice);
 
@@ -67,7 +68,7 @@ public class DiscountDBHandlerTest {
         RegisteredItemDTO[] purchasedItems = { regItem };
         int[] discountTypes = { 1 }; 
         int customerID = 99; 
-        double totalPrice = 100.0;
+        Amount totalPrice = new Amount(100.0);
 
         double discountedPrice = discHandler.getDiscountedPrice(discountTypes, customerID, purchasedItems, totalPrice);
 
@@ -88,7 +89,7 @@ public class DiscountDBHandlerTest {
         RegisteredItemDTO[] purchasedItems = { regItem };
         int[] discountTypes = { 2 }; 
         int customerID = 1; 
-        double totalPrice = 300.0;
+        Amount totalPrice = new Amount(300.0);
 
         double discountedPrice = discHandler.getDiscountedPrice(discountTypes, customerID, purchasedItems, totalPrice);
 
@@ -109,7 +110,7 @@ public class DiscountDBHandlerTest {
         RegisteredItemDTO[] purchasedItems = { regItem };
         int[] discountTypes = {3}; 
         int customerID = 1; 
-        double totalPrice = 100.0;
+        Amount totalPrice = new Amount(100.0);
 
         double discountedPrice = discHandler.getDiscountedPrice(discountTypes, customerID, purchasedItems, totalPrice);
 

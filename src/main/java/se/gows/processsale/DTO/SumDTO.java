@@ -1,5 +1,7 @@
 package se.gows.processsale.DTO;
 
+import se.gows.processsale.model.Amount;
+
 /**
  * Sum DTO. Holds the sales total sums.
  * @param totalPrice total price of the sale
@@ -7,20 +9,20 @@ package se.gows.processsale.DTO;
  * @param totalIncVat total price including VAT sum
  */
 public class SumDTO {
-    private double totalPrice;
-    private double totalVAT;
-    private double totalIncVat;
+    private Amount totalPrice;
+    private Amount totalVAT;
+    private Amount totalIncVat;
 
-    public SumDTO(double totalPrice, double totalVAT){
+    public SumDTO(Amount totalPrice, Amount totalVAT){
         this.totalPrice = totalPrice;
         this.totalVAT = totalVAT;
-        this.totalIncVat = totalPrice + totalVAT;
+        this.totalIncVat = new Amount(totalPrice.getValue() + totalVAT.getValue());
     }
 
     public void updateTotIncVat(){
-        this.totalIncVat = this.totalPrice + this.totalVAT;
+        this.totalIncVat.setAmount(this.totalPrice.getValue() + this.totalVAT.getValue());
     }
-    public double getTotalPrice(){return this.totalPrice;}
-    public double getTotalVAT(){return this.totalVAT;}
-    public double getTotalIncVat(){return this.totalIncVat;}
+    public Amount getTotalPrice(){return this.totalPrice;}
+    public Amount getTotalVAT(){return this.totalVAT;}
+    public Amount getTotalIncVat(){return this.totalIncVat;}
 }
