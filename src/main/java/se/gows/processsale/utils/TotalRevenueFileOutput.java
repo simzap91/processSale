@@ -18,18 +18,15 @@ public class TotalRevenueFileOutput implements SumOfCostsObserver {
         this.sumOfCosts = 0;
     }
 
-
     private void addNewCost(Amount cost){
         sumOfCosts += cost.getValue();
     }
-
 
     @Override
     public void newSumOfCost(Amount sumOfCost) {
         addNewCost(sumOfCost);
         FileOutputSumOfCost();
     }
-
     
     private void FileOutputSumOfCost() {
         try (PrintWriter writer = new PrintWriter(new FileWriter(filePath), true)) {
