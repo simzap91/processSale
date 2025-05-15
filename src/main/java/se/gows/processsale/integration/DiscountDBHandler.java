@@ -28,8 +28,7 @@ public class DiscountDBHandler {
             } else if (type == DiscountTypes.SALE){
                 SaleDiscount discountCalculator = new SaleDiscount();
                 totalPrice = discountCalculator.getDiscount(customerID, purchasedItems, totalPrice);
-            }
-            else if (type == DiscountTypes.CUSTOMER) {
+            } else if (type == DiscountTypes.CUSTOMER) {
                 CustomerDiscount discountCalculator = new CustomerDiscount();
                 totalPrice = discountCalculator.getDiscount(customerID, purchasedItems, totalPrice);
             }
