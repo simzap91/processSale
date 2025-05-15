@@ -10,11 +10,12 @@ public class TotalRevenueFileOutput implements SumOfCostsObserver {
     private String filePath;
     private double sumOfCosts;
 
+    /**
+     * Creates an instance that writes revenue to the specified file path.
+     * @param filePath The path to the file where total revenue will be written.
+     */
     public TotalRevenueFileOutput(String filePath) {
         this.filePath = filePath;
-    }
-
-    public TotalRevenueFileOutput(){
         this.sumOfCosts = 0;
     }
 
@@ -22,6 +23,10 @@ public class TotalRevenueFileOutput implements SumOfCostsObserver {
         sumOfCosts += cost.getValue();
     }
 
+    /**
+     * Called when a new cost is observed. Updates total revenue and writes to file.
+     * @param sumOfCost The new cost amount to be added.
+     */
     @Override
     public void newSumOfCost(Amount sumOfCost) {
         addNewCost(sumOfCost);
