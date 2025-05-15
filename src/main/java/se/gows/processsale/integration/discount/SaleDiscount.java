@@ -1,9 +1,9 @@
-package se.gows.processsale.integration;
+package se.gows.processsale.integration.discount;
 
 import se.gows.processsale.DTO.RegisteredItemDTO;
 import se.gows.processsale.model.Amount;
 
-public class TotalPriceDiscount implements DiscountCalculator {
+public class SaleDiscount implements DiscountCalculator {
 
     private double totalPriceLowLimit = 200; 
     private double discountRate = 0.1;
