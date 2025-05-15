@@ -5,7 +5,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import se.gows.processsale.DTO.*;
-import se.gows.processsale.model.Amount;;
+import se.gows.processsale.model.Amount;
+import se.gows.processsale.utils.DiscountTypes;;
 
 public class DiscountDBHandlerTest {
     /*
@@ -24,11 +25,11 @@ public class DiscountDBHandlerTest {
             item2.getItemID(), item2.getItemDescription(), item2.getPrice(), item2.getVatRate(), 1);
         
         RegisteredItemDTO[] purchasedItems = { regItem1, regItem2 };
-        int[] discountTypes = {1, 2, 3}; 
+        DiscountTypes[] discTypes = {DiscountTypes.ITEMS, DiscountTypes.SALE, DiscountTypes.CUSTOMER}; 
         int customerID = 1; 
         Amount totalPrice = new Amount(250.0);
 
-        Amount discountedPrice = discHandler.getDiscountedPrice(discountTypes, customerID, purchasedItems, totalPrice);
+        Amount discountedPrice = discHandler.getDiscountedPrice(discTypes, customerID, purchasedItems, totalPrice);
 
         assertEquals(175.95, discountedPrice.getValue(), 0.01, "Discount is not calculated as expected");
     }
@@ -45,11 +46,11 @@ public class DiscountDBHandlerTest {
             item.getItemID(), item.getItemDescription(), item.getPrice(), item.getVatRate(), 1);
 
         RegisteredItemDTO[] purchasedItems = { regItem };
-        int[] discountTypes = {}; 
+        DiscountTypes[] discTypes = {}; 
         int customerID = 99; 
         Amount totalPrice = new Amount(100.0);
 
-        Amount discountedPrice = discHandler.getDiscountedPrice(discountTypes, customerID, purchasedItems, totalPrice);
+        Amount discountedPrice = discHandler.getDiscountedPrice(discTypes, customerID, purchasedItems, totalPrice);
 
         assertEquals(100.0, discountedPrice.getValue(), 0.01, "Discount is not calculated as expected");
     }
@@ -66,11 +67,11 @@ public class DiscountDBHandlerTest {
             item.getItemID(), item.getItemDescription(), item.getPrice(), item.getVatRate(), 1);
 
         RegisteredItemDTO[] purchasedItems = { regItem };
-        int[] discountTypes = { 1 }; 
+        DiscountTypes[] discTypes = {DiscountTypes.ITEMS};
         int customerID = 99; 
         Amount totalPrice = new Amount(100.0);
 
-        Amount discountedPrice = discHandler.getDiscountedPrice(discountTypes, customerID, purchasedItems, totalPrice);
+        Amount discountedPrice = discHandler.getDiscountedPrice(discTypes, customerID, purchasedItems, totalPrice);
 
         assertEquals(80.0, discountedPrice.getValue(), 0.01, "Discount for type one is not calculated as expected");
     }
@@ -87,11 +88,11 @@ public class DiscountDBHandlerTest {
             item.getItemID(), item.getItemDescription(), item.getPrice(), item.getVatRate(), 1);
 
         RegisteredItemDTO[] purchasedItems = { regItem };
-        int[] discountTypes = { 2 }; 
+        DiscountTypes[] discTypes = {DiscountTypes.SALE}; 
         int customerID = 1; 
         Amount totalPrice = new Amount(300.0);
 
-        Amount discountedPrice = discHandler.getDiscountedPrice(discountTypes, customerID, purchasedItems, totalPrice);
+        Amount discountedPrice = discHandler.getDiscountedPrice(discTypes, customerID, purchasedItems, totalPrice);
 
         assertEquals(270.0, discountedPrice.getValue(), 0.01, "Discount is not calculated as expected");
     }
@@ -108,11 +109,11 @@ public class DiscountDBHandlerTest {
             item.getItemID(), item.getItemDescription(), item.getPrice(), item.getVatRate(), 1);
 
         RegisteredItemDTO[] purchasedItems = { regItem };
-        int[] discountTypes = {3}; 
+        DiscountTypes[] discTypes = {DiscountTypes.CUSTOMER}; 
         int customerID = 1; 
         Amount totalPrice = new Amount(100.0);
 
-        Amount discountedPrice = discHandler.getDiscountedPrice(discountTypes, customerID, purchasedItems, totalPrice);
+        Amount discountedPrice = discHandler.getDiscountedPrice(discTypes, customerID, purchasedItems, totalPrice);
 
         assertEquals(85.0, discountedPrice.getValue(), 0.01, "Discount is not calculated as expected");
     }
