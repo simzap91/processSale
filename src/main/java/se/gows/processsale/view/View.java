@@ -78,8 +78,7 @@ public class View {
 
         int customerID = 1;
         
-
-        DiscountTypes[] discTypes = {DiscountTypes.CUSTOMER, DiscountTypes.ITEMS, DiscountTypes.SALE};
+        DiscountTypes[] discTypes = {DiscountTypes.ITEMS, DiscountTypes.SALE, DiscountTypes.CUSTOMER};
         System.out.println("-------------------------------------");
         System.out.println("Discount requested.");
         System.out.println("Customer ID: " + customerID);
@@ -145,7 +144,7 @@ public class View {
         System.out.println("Total (inc. VAT): " + String.format(Locale.US, "%.2f",currentSaleDTO.getSaleSums().getTotalIncVat().getValue()) + "kr");
 
         int customerID = 1;
-        DiscountTypes[] discTypes = {DiscountTypes.CUSTOMER, DiscountTypes.ITEMS, DiscountTypes.SALE};
+        DiscountTypes[] discTypes = {DiscountTypes.ITEMS, DiscountTypes.SALE, DiscountTypes.CUSTOMER};
         System.out.println("-------------------------------------");
         System.out.println("Discount requested.");
         System.out.println("Customer ID: " + customerID);
