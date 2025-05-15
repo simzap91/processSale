@@ -1,4 +1,4 @@
-package se.gows.processsale.integration.Inventory;
+package se.gows.processsale.integration;
 
 import java.util.ArrayList;
 
@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Singelton class that represents the inventory database.
  * When initialized it adds the three test products "mjölk", "smör" and "choklad" to the inventory.
  */
-public class InventoryDb {
+class InventoryDb {
     private static final InventoryDb instance = new InventoryDb();
     private ArrayList<InventoryItem> items;
     private InventoryDb(){
