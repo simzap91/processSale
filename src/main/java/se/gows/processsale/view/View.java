@@ -8,7 +8,7 @@ import se.gows.processsale.integration.ItemIdNotFoundException;
 import se.gows.processsale.model.*;
 import se.gows.processsale.utils.FileLogger;
 import se.gows.processsale.utils.TotalRevenueFileOutput;
-import se.gows.processsale.utils.discountTypes;
+import se.gows.processsale.utils.DiscountTypes;
 
 /**
  * View class that represents the user (cashier) display. 
@@ -79,12 +79,12 @@ public class View {
         int customerID = 1;
         
 
-        discountTypes[] discTypes = {discountTypes.CustomerDiscount, discountTypes.ItemDiscount, discountTypes.SaleDiscount};
+        DiscountTypes[] discTypes = {DiscountTypes.CUSTOMER, DiscountTypes.ITEMS, DiscountTypes.SALE};
         System.out.println("-------------------------------------");
         System.out.println("Discount requested.");
         System.out.println("Customer ID: " + customerID);
         System.out.print("Discount types: ");
-        for (discountTypes type : discTypes) {
+        for (DiscountTypes type : discTypes) {
             System.out.print(type + ", ");
         }
         System.out.println();
@@ -145,12 +145,12 @@ public class View {
         System.out.println("Total (inc. VAT): " + String.format(Locale.US, "%.2f",currentSaleDTO.getSaleSums().getTotalIncVat().getValue()) + "kr");
 
         int customerID = 1;
-        int[] discTypes = {1,2,3};
+        DiscountTypes[] discTypes = {DiscountTypes.CUSTOMER, DiscountTypes.ITEMS, DiscountTypes.SALE};
         System.out.println("-------------------------------------");
         System.out.println("Discount requested.");
         System.out.println("Customer ID: " + customerID);
         System.out.print("Discount types: ");
-        for (int type : discTypes) {
+        for (DiscountTypes type : discTypes) {
             System.out.print(type + ", ");
         }
         System.out.println();

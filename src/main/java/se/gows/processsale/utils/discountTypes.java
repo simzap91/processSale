@@ -1,7 +1,7 @@
 package se.gows.processsale.utils;
 
-public enum discountTypes {
-            CustomerDiscount,
-            ItemDiscount,
-            SaleDiscount
+public enum DiscountTypes{
+            CUSTOMER,
+            ITEMS,
+            SALE
 }

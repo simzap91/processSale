@@ -2,6 +2,7 @@ package se.gows.processsale.integration;
 
 import se.gows.processsale.DTO.RegisteredItemDTO;
 import se.gows.processsale.model.Amount;
+import se.gows.processsale.utils.DiscountTypes;
 
 /**     
  * Public handler that communicates with external discount data base.
@@ -19,16 +20,18 @@ public class DiscountDBHandler {
 
     /**
      * Public method that determines which type of discount should be applied on the sale and calculates the total discount.
-     * @param discountTypes The different types of discounts, stores as an array
+     * @param DiscountTypes The different types of discounts, stores as an array
      * @param customerID the customers ID
      * @param purchasedItems a list of all items that are present in the current sale
      * @param totalPrice the total price (excl. Vat) of all items in the current sale
      * @return updated totalprice
      *  
      */
-    public Amount getDiscountedPrice(int[] discountTypes, int customerID, RegisteredItemDTO[] purchasedItems, Amount totalPrice){
+
+    public Amount getDiscountedPrice(DiscountTypes[] discTypes, int customerID, RegisteredItemDTO[] purchasedItems, Amount totalPrice){
+        
         double discountedTotalPrice = totalPrice.getValue();
-        for (int type : discountTypes) {
+        for (DiscountTypes type : discTypes) {
             if (type == 1) {
                 discountedTotalPrice -= calculateDiscountItemsSum(purchasedItems);
             }
