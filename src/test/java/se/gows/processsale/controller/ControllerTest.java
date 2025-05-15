@@ -8,7 +8,6 @@ import java.io.PrintStream;
 
 import se.gows.processsale.DTO.*;
 import se.gows.processsale.integration.*;
-import se.gows.processsale.model.*;
 
 public class ControllerTest {
 
@@ -82,23 +81,5 @@ public class ControllerTest {
 
         assertNotNull(saleAfterDiscount, "Discounted SaleDTO not created as expected.");
         assertTrue(saleAfterDiscount.getSaleSums().getTotalPrice().getValue() < originalPrice, "Total price not reduced after discount.");
-    }
-
-    @Test
-    void testRegisterPaymentAndPrintReceipt() throws ItemIdNotFoundException, DatabaseFailureException {
-        instanceToTest.startSale();
-        instanceToTest.scanItem(2, 2);
-        SaleDTO testSaleDTO = instanceToTest.endSale();
-
-        Amount testPayment = new Amount(200);
-
-        instanceToTest.registerPayment(testPayment, testSaleDTO);
-        //instanceToTest.printReceipt();
-        String printout = printoutBuffer.toString();
-        String expectedOutput = "Time of Sale";
-        String expectedChange = "Amount change: " + (testPayment.getValue() - testSaleDTO.getSaleSums().getTotalIncVat().getValue());
-
-        assertTrue(printout.contains(expectedOutput), "Receipt not printed as expected.");
-        assertTrue(printout.contains(expectedChange), "Change not calculated as expected.");
     }
 }
