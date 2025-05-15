@@ -12,6 +12,10 @@ public class TotalRevenueView implements SumOfCostsObserver {
         this.sumOfCosts = 0;
     }
 
+    /**
+     * Called when a new cost is observed. Updates total revenue and prints it in the console.
+     * @param sumOfCost The new cost amount to be added.
+     */
     @Override
     public void newSumOfCost(Amount sumOfCost){
         addNewCost(sumOfCost);
