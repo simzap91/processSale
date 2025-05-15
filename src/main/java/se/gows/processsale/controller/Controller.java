@@ -17,7 +17,6 @@ public class Controller {
     private AccountingDBHandler accHandler;
     private DiscountDBHandler discHandler;
     private Sale currentSale;
-    private SaleDTO currentSaleDTO;
     private CashRegister cashRegister;
     private ArrayList<SumOfCostsObserver> sumOfCostsObservers;
 
@@ -36,6 +35,7 @@ public class Controller {
      */
     public void startSale() {
         currentSale = new Sale();
+        cashRegister = new CashRegister();
     }
 
     /**
@@ -59,7 +59,6 @@ public class Controller {
             ViewDTO error = new ViewDTO(null, null, "Problem when calling the inventory.\n");
             return error;
         }
-        
     }
 
     /**
@@ -67,9 +66,8 @@ public class Controller {
      * @return SaleDTO, which contains information about the sale.
      */
     public SaleDTO endSale() {
-        currentSaleDTO = currentSale.endSale();
-        invHandler.updateInventory(currentSaleDTO.getItemList());
-        return currentSaleDTO;
+        invHandler.updateInventory(currentSale.endSale().getItemList());
+        return currentSale.endSale();
     }
 
     /**
@@ -81,9 +79,8 @@ public class Controller {
      */
     public SaleDTO requestDiscount(int customerID, SaleDTO currentSaleDTO, int[] discTypes){
         Amount discountedTotalPrice = discHandler.getDiscountedPrice(discTypes, customerID, currentSaleDTO.getItemList(), currentSaleDTO.getSaleSums().getTotalPrice());
-        SaleDTO updatedCurrentSaleDTO = new SaleDTO(discountedTotalPrice, currentSaleDTO.getSaleSums().getTotalVAT(), currentSaleDTO.getItemList());
-        this.currentSaleDTO = updatedCurrentSaleDTO;
-        return updatedCurrentSaleDTO;
+        SaleDTO updatedSaleDTO = new SaleDTO(discountedTotalPrice, currentSaleDTO.getSaleSums().getTotalVAT(), currentSaleDTO.getItemList());
+        return updatedSaleDTO;
     }
 
     /**
@@ -91,37 +88,17 @@ public class Controller {
      * and updates the Accounting DB.
      * @param payment sale payment
      */
-    public void registerPayment(Amount payment){
-        Transaction trans = new Transaction(payment, this.currentSaleDTO.getSaleSums().getTotalIncVat());
-        Receipt receipt = createReceipt(this.currentSaleDTO, trans);
-        cashRegister = new CashRegister(receipt);
+    public void registerPayment(Amount payment, SaleDTO currentSaleDTO){
+        cashRegister.registerPayment(payment, currentSaleDTO);
         accHandler.updateAccountBalance(cashRegister.getReceipt());
-        notifyObservers();
-    }
-
-    /**
-     * Creates new receipt.
-     * @param saleDTO sale data
-     * @param trans object that holds the transaction
-     * @return receipt
-     */
-    private Receipt createReceipt(SaleDTO saleDTO, Transaction trans) {
-        Receipt receipt = new Receipt(saleDTO, trans);
-        return receipt;
-    }
-
-    /**
-     * Prints receipt to console.
-     */
-    public void printReceipt(){
-        cashRegister.printReceipt();
+        notifyObservers(currentSaleDTO);
     }
 
     public void addSumOfCostObserver(SumOfCostsObserver obs) {
         sumOfCostsObservers.add(obs);
     }
 
-    private void notifyObservers() {
+    private void notifyObservers(SaleDTO currentSaleDTO) {
         for (SumOfCostsObserver obs : sumOfCostsObservers) {
             obs.newSumOfCost(currentSaleDTO.getSaleSums().getTotalIncVat());
         }

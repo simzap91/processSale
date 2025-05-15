@@ -92,8 +92,8 @@ public class ControllerTest {
 
         Amount testPayment = new Amount(200);
 
-        instanceToTest.registerPayment(testPayment);
-        instanceToTest.printReceipt();
+        instanceToTest.registerPayment(testPayment, testSaleDTO);
+        //instanceToTest.printReceipt();
         String printout = printoutBuffer.toString();
         String expectedOutput = "Time of Sale";
         String expectedChange = "Amount change: " + (testPayment.getValue() - testSaleDTO.getSaleSums().getTotalIncVat().getValue());

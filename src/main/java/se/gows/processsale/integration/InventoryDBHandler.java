@@ -1,8 +1,6 @@
 package se.gows.processsale.integration;
 
 import se.gows.processsale.DTO.*;
-import se.gows.processsale.integration.Inventory.InventoryDb;
-import se.gows.processsale.integration.Inventory.InventoryItem;
 
 /**     
  * Public handler that communicates with the external inventory data base.

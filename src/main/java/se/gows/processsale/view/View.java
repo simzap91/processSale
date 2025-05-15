@@ -94,8 +94,7 @@ public class View {
         System.out.println();
 
         Amount payment = new Amount(200);
-        ctrl.registerPayment(payment);
-        ctrl.printReceipt();
+        ctrl.registerPayment(payment, currentSaleDTO);
     }
 
     public void runFakeExecutionAgain() {
@@ -161,8 +160,7 @@ public class View {
         System.out.println();
 
         Amount payment = new Amount(200);
-        ctrl.registerPayment(payment);
-        ctrl.printReceipt();
+        ctrl.registerPayment(payment, currentSaleDTO);
     }
 
     
