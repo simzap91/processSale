@@ -93,7 +93,10 @@ public class Controller {
         accHandler.updateAccountBalance(cashRegister.getReceipt());
         notifyObservers(currentSaleDTO);
     }
-
+    /**
+     * Adds observer to the list of observers
+     * @param obs the observer 
+     */
     public void addSumOfCostObserver(SumOfCostsObserver obs) {
         sumOfCostsObservers.add(obs);
     }
