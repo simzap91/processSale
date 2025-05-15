@@ -8,6 +8,7 @@ import se.gows.processsale.integration.ItemIdNotFoundException;
 import se.gows.processsale.model.*;
 import se.gows.processsale.utils.FileLogger;
 import se.gows.processsale.utils.TotalRevenueFileOutput;
+import se.gows.processsale.utils.discountTypes;
 
 /**
  * View class that represents the user (cashier) display. 
@@ -77,11 +78,7 @@ public class View {
 
         int customerID = 1;
         
-        enum discountTypes{
-            CustomerDiscount,
-            ItemDiscount,
-            SaleDiscount
-        }
+
         discountTypes[] discTypes = {discountTypes.CustomerDiscount, discountTypes.ItemDiscount, discountTypes.SaleDiscount};
         System.out.println("-------------------------------------");
         System.out.println("Discount requested.");
