@@ -1,4 +1,4 @@
-package se.gows.processsale.integration;
+package se.gows.processsale.integration.inventory;
 
 import se.gows.processsale.DTO.ItemDTO;
 
@@ -9,7 +9,7 @@ import se.gows.processsale.DTO.ItemDTO;
  * @param price the price for the item
  * @param vatRate the Vat-rate for the item
  */
-class InventoryItem {
+public class InventoryItem {
     private int itemID;
     private String description;
     private double price;
