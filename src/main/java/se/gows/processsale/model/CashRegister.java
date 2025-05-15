@@ -1,9 +1,9 @@
 package se.gows.processsale.model;
 
 /**
- * A CashRegister object that contains the information about the transaction and the receipt, and stores it in controller
- * @param trans customers payements and total price of sale, stores as a Transaction object
- * @param receipt All information about the current sale, including a updated total price from dicounts.
+ * A CashRegister object that stores information about the transaction and the receipt.
+ * @param trans Transaction object that contains the customer's payment and total price of sale.
+ * @param receipt All information about the current sale, including an updated total price after dicounts.
  */
 public class CashRegister {
     private Receipt receipt;
