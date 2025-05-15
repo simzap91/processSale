@@ -36,6 +36,7 @@ public class Controller {
      */
     public void startSale() {
         currentSale = new Sale();
+        cashRegister = new CashRegister();
     }
 
     /**
@@ -59,7 +60,6 @@ public class Controller {
             ViewDTO error = new ViewDTO(null, null, "Problem when calling the inventory.\n");
             return error;
         }
-        
     }
 
     /**
@@ -92,29 +92,9 @@ public class Controller {
      * @param payment sale payment
      */
     public void registerPayment(Amount payment){
-        Transaction trans = new Transaction(payment, this.currentSaleDTO.getSaleSums().getTotalIncVat());
-        Receipt receipt = createReceipt(this.currentSaleDTO, trans);
-        cashRegister = new CashRegister(receipt);
+        cashRegister.registerPayment(payment, currentSaleDTO);
         accHandler.updateAccountBalance(cashRegister.getReceipt());
         notifyObservers();
-    }
-
-    /**
-     * Creates new receipt.
-     * @param saleDTO sale data
-     * @param trans object that holds the transaction
-     * @return receipt
-     */
-    private Receipt createReceipt(SaleDTO saleDTO, Transaction trans) {
-        Receipt receipt = new Receipt(saleDTO, trans);
-        return receipt;
-    }
-
-    /**
-     * Prints receipt to console.
-     */
-    public void printReceipt(){
-        cashRegister.printReceipt();
     }
 
     public void addSumOfCostObserver(SumOfCostsObserver obs) {

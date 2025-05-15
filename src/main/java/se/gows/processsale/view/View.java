@@ -95,7 +95,6 @@ public class View {
 
         Amount payment = new Amount(200);
         ctrl.registerPayment(payment);
-        ctrl.printReceipt();
     }
 
     public void runFakeExecutionAgain() {
@@ -162,7 +161,6 @@ public class View {
 
         Amount payment = new Amount(200);
         ctrl.registerPayment(payment);
-        ctrl.printReceipt();
     }
 
     
