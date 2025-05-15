@@ -76,12 +76,18 @@ public class View {
         System.out.println("Total (inc. VAT): " + String.format(Locale.US, "%.2f",currentSaleDTO.getSaleSums().getTotalIncVat().getValue()) + "kr");
 
         int customerID = 1;
-        int[] discTypes = {1,2,3};
+        
+        enum discountTypes{
+            CustomerDiscount,
+            ItemDiscount,
+            SaleDiscount
+        }
+        discountTypes[] discTypes = {discountTypes.CustomerDiscount, discountTypes.ItemDiscount, discountTypes.SaleDiscount};
         System.out.println("-------------------------------------");
         System.out.println("Discount requested.");
         System.out.println("Customer ID: " + customerID);
         System.out.print("Discount types: ");
-        for (int type : discTypes) {
+        for (discountTypes type : discTypes) {
             System.out.print(type + ", ");
         }
         System.out.println();

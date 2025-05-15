@@ -77,7 +77,7 @@ public class Controller {
      * @param discTypes contains the requested discount types
      * @return SaleDTO with updated information about the sale (after the discount)
      */
-    public SaleDTO requestDiscount(int customerID, SaleDTO currentSaleDTO, int[] discTypes){
+    public SaleDTO requestDiscount(int customerID, SaleDTO currentSaleDTO, discType[] discTypes){
         Amount discountedTotalPrice = discHandler.getDiscountedPrice(discTypes, customerID, currentSaleDTO.getItemList(), currentSaleDTO.getSaleSums().getTotalPrice());
         SaleDTO updatedSaleDTO = new SaleDTO(discountedTotalPrice, currentSaleDTO.getSaleSums().getTotalVAT(), currentSaleDTO.getItemList());
         return updatedSaleDTO;
