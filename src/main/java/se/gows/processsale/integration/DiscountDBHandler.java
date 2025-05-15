@@ -6,18 +6,17 @@ import se.gows.processsale.model.Amount;
 import se.gows.processsale.utils.DiscountTypes;
 
 /**     
- * Public handler that communicates with external discount data base.
- * In this case the data base is declared internally and consists of a list with member IDs and lists/variables for three different discount types.
+ * Public handler that communicates with the external discount database.
  */
 public class DiscountDBHandler {
 
     /**
-     * Public method that determines which type of discount should be applied on the sale and calculates the total discount.
+     * Public method that fetch all requested and relevant discounts and calculates a new reduced total price.
      * @param DiscountTypes The different types of discounts, stores as an array
-     * @param customerID the customers ID
-     * @param purchasedItems a list of all items that are present in the current sale
-     * @param totalPrice the total price (excl. Vat) of all items in the current sale
-     * @return updated totalprice
+     * @param customerID Customer ID.
+     * @param purchasedItems A list of all registered items.
+     * @param totalPrice The total price (excl. Vat) of all items in the current sale.
+     * @return Updated totalprice. Returns unchanged if no discount apply.
      *  
      */
     public Amount getDiscountedPrice(DiscountTypes[] discountTypes, int customerID, RegisteredItemDTO[] purchasedItems, Amount totalPrice){
