@@ -17,7 +17,6 @@ public class Controller {
     private AccountingDBHandler accHandler;
     private DiscountDBHandler discHandler;
     private Sale currentSale;
-    private SaleDTO currentSaleDTO;
     private CashRegister cashRegister;
     private ArrayList<SumOfCostsObserver> sumOfCostsObservers;
 
@@ -67,9 +66,8 @@ public class Controller {
      * @return SaleDTO, which contains information about the sale.
      */
     public SaleDTO endSale() {
-        currentSaleDTO = currentSale.endSale();
-        invHandler.updateInventory(currentSaleDTO.getItemList());
-        return currentSaleDTO;
+        invHandler.updateInventory(currentSale.endSale().getItemList());
+        return currentSale.endSale();
     }
 
     /**
@@ -81,9 +79,8 @@ public class Controller {
      */
     public SaleDTO requestDiscount(int customerID, SaleDTO currentSaleDTO, int[] discTypes){
         Amount discountedTotalPrice = discHandler.getDiscountedPrice(discTypes, customerID, currentSaleDTO.getItemList(), currentSaleDTO.getSaleSums().getTotalPrice());
-        SaleDTO updatedCurrentSaleDTO = new SaleDTO(discountedTotalPrice, currentSaleDTO.getSaleSums().getTotalVAT(), currentSaleDTO.getItemList());
-        this.currentSaleDTO = updatedCurrentSaleDTO;
-        return updatedCurrentSaleDTO;
+        SaleDTO updatedSaleDTO = new SaleDTO(discountedTotalPrice, currentSaleDTO.getSaleSums().getTotalVAT(), currentSaleDTO.getItemList());
+        return updatedSaleDTO;
     }
 
     /**
@@ -91,17 +88,17 @@ public class Controller {
      * and updates the Accounting DB.
      * @param payment sale payment
      */
-    public void registerPayment(Amount payment){
+    public void registerPayment(Amount payment, SaleDTO currentSaleDTO){
         cashRegister.registerPayment(payment, currentSaleDTO);
         accHandler.updateAccountBalance(cashRegister.getReceipt());
-        notifyObservers();
+        notifyObservers(currentSaleDTO);
     }
 
     public void addSumOfCostObserver(SumOfCostsObserver obs) {
         sumOfCostsObservers.add(obs);
     }
 
-    private void notifyObservers() {
+    private void notifyObservers(SaleDTO currentSaleDTO) {
         for (SumOfCostsObserver obs : sumOfCostsObservers) {
             obs.newSumOfCost(currentSaleDTO.getSaleSums().getTotalIncVat());
         }

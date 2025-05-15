@@ -92,7 +92,7 @@ public class ControllerTest {
 
         Amount testPayment = new Amount(200);
 
-        instanceToTest.registerPayment(testPayment);
+        instanceToTest.registerPayment(testPayment, testSaleDTO);
         //instanceToTest.printReceipt();
         String printout = printoutBuffer.toString();
         String expectedOutput = "Time of Sale";
