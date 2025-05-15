@@ -1,11 +1,7 @@
 package se.gows.processsale.DTO;
 
 /**
- * Item DTO. Holds information about item.
- * @param itemID Unique item identifier
- * @param itemDescription name of item, e.g. "Smör"
- * @param price price of item (SEK)
- * @param vatRate item VAT rate (decimal)
+ * Item DTO that stores item data.
  */
 public class ItemDTO {
     private int itemID;
@@ -13,6 +9,12 @@ public class ItemDTO {
     private double price;
     private double vatRate;
 
+    /**
+     * @param itemID Unique item identifier
+     * @param itemDescription Name of item, e.g. "Smör"
+     * @param price Price of item (SEK)
+     * @param vatRate Item VAT rate (decimal)
+     */
     public ItemDTO(int itemID, String itemDescription, double price, double vatRate) {
         this.itemID = itemID;
         this.itemDescription = itemDescription;
