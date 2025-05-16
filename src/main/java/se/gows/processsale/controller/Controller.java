@@ -82,7 +82,7 @@ public class Controller {
     public SaleDTO requestDiscount(CustomerId customerId, SaleDTO currentSaleDTO, DiscountTypes[] requestedDiscounts){
         DiscountRequestDTO discRequestDTO = new DiscountRequestDTO(customerId, currentSaleDTO.getItemList(), currentSaleDTO.getSaleSums().getTotalPrice());
         Amount discountedTotalPrice = discHandler.getDiscountedPrice(requestedDiscounts, discRequestDTO);
-        SaleDTO discountedSaleDTO = new SaleDTO(discountedTotalPrice, currentSaleDTO.getSaleSums().getTotalVAT(), currentSaleDTO.getItemList(), customerId);
+        SaleDTO discountedSaleDTO = new SaleDTO(discountedTotalPrice, currentSaleDTO.getSaleSums().getTotalVAT(), currentSaleDTO.getItemList());
         return discountedSaleDTO;
     }
 

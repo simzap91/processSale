@@ -1,7 +1,6 @@
 package se.gows.processsale.DTO;
 
 import se.gows.processsale.model.Amount;
-import se.gows.processsale.model.CustomerId;
 
 /**
  * Sale DTO. Holds information about a sale.
@@ -12,7 +11,7 @@ public class SaleDTO {
     private SumDTO saleSums;
     private RegisteredItemDTO[] itemList;
 
-    public SaleDTO (Amount totalPrice, Amount totalVAT, RegisteredItemDTO[] itemList, CustomerId customerId){
+    public SaleDTO (Amount totalPrice, Amount totalVAT, RegisteredItemDTO[] itemList){
         this.saleSums = new SumDTO(totalPrice, totalVAT);
         this.itemList = itemList;
     }

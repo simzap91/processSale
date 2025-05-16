@@ -122,7 +122,7 @@ public class Sale {
      */
     public SaleDTO endSale(){
         RegisteredItemDTO[] itemListArray = itemList.toArray(new RegisteredItemDTO[0]);
-        SaleDTO saleDTO = new SaleDTO(totalPrice, totalVAT, itemListArray, null);
+        SaleDTO saleDTO = new SaleDTO(totalPrice, totalVAT, itemListArray);
         return saleDTO;
     }
 }
