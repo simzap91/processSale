@@ -1,5 +1,8 @@
 package se.gows.processsale.model;
-
+/**
+ * Class that stores a customers ID.
+ * @param id the customers ID.
+ */
 public class CustomerId {
     int customerId;
     public CustomerId(int id){this.customerId = id;}
