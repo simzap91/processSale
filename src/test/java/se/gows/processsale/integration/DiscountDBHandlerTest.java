@@ -26,7 +26,7 @@ public class DiscountDBHandlerTest {
             item2.getItemID(), item2.getItemDescription(), item2.getPrice(), item2.getVatRate(), 1);
         
         RegisteredItemDTO[] purchasedItems = { regItem1, regItem2 };
-        DiscountTypes[] discTypes = {DiscountTypes.ITEMS, DiscountTypes.SALE};//, DiscountTypes.SALE, DiscountTypes.CUSTOMER}; 
+        DiscountTypes[] discTypes = {DiscountTypes.ITEMS, DiscountTypes.SALE, DiscountTypes.CUSTOMER};
         CustomerId customerId = new CustomerId(1);
         Amount totalPrice = new Amount(250.0);
         DiscountRequestDTO testDiscRequest = new DiscountRequestDTO(customerId, purchasedItems, totalPrice);
