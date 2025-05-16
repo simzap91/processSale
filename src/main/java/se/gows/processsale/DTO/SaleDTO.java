@@ -11,15 +11,12 @@ import se.gows.processsale.model.CustomerId;
 public class SaleDTO {
     private SumDTO saleSums;
     private RegisteredItemDTO[] itemList;
-    private CustomerId customerId;
 
     public SaleDTO (Amount totalPrice, Amount totalVAT, RegisteredItemDTO[] itemList, CustomerId customerId){
         this.saleSums = new SumDTO(totalPrice, totalVAT);
         this.itemList = itemList;
-        this.customerId = customerId;
     }
 
     public SumDTO getSaleSums() {return this.saleSums;}
     public RegisteredItemDTO[] getItemList() {return this.itemList;}
-    public CustomerId getCustomerId() {return this.customerId;}
 }
