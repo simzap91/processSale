@@ -9,7 +9,7 @@ public class SaleDiscount implements DiscountCalculator {
     private double discountRate = 0.1;
 /**
  * Calculates a discounted price from sale when given a total price higher than the discounts lowest limit.
- * @param sale SaleDTO containing all information about the sale including its total price.
+ * @param discRequest DiscountRequestDTO containing all information required for applying a discount, including the sales total price.
  * @return a new discounted price.
  */
     public Amount getDiscount(DiscountRequestDTO discRequest) {

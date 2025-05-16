@@ -9,7 +9,7 @@ public class ItemDiscount implements DiscountCalculator{
     private double[][] activeItemDiscounts = {{1.0, 0.20},{2.0, 0.10}}; // Format: {itemID (as double), discountRate}
     /**
  * Calculates a discounted price from sale when comparing its item list with a list of active discounts, reducing the items price if it is on the list.
- * @param sale SaleDTO containing all information about the sale including a item list.
+ * @param discRequest DiscountRequestDTO containing all information required for applying a discount, including an item list.
  * @return a new discounted price.
  */
     @Override
