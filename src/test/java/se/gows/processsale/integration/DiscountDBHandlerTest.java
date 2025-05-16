@@ -24,12 +24,12 @@ public class DiscountDBHandlerTest {
             item2.getItemID(), item2.getItemDescription(), item2.getPrice(), item2.getVatRate(), 1);
         
         RegisteredItemDTO[] purchasedItems = { regItem1, regItem2 };
-        DiscountTypes[] discTypes = {DiscountTypes.ITEMS, DiscountTypes.SALE, DiscountTypes.CUSTOMER};
+        DiscountTypes[] requestedDiscounts = {DiscountTypes.ITEMS, DiscountTypes.SALE, DiscountTypes.CUSTOMER};
         CustomerId customerId = new CustomerId(1);
         Amount totalPrice = new Amount(250.0);
         DiscountRequestDTO testDiscRequest = new DiscountRequestDTO(customerId, purchasedItems, totalPrice);
 
-        Amount discountedPrice = discHandler.getDiscountedPrice(discTypes, testDiscRequest);
+        Amount discountedPrice = discHandler.getDiscountedPrice(requestedDiscounts, testDiscRequest);
 
         assertEquals(175.95, discountedPrice.getValue(), 0.01, "Discount is not calculated as expected");
     }
@@ -43,12 +43,12 @@ public class DiscountDBHandlerTest {
             item.getItemID(), item.getItemDescription(), item.getPrice(), item.getVatRate(), 1);
 
         RegisteredItemDTO[] purchasedItems = { regItem };
-        DiscountTypes[] discTypes = {}; 
+        DiscountTypes[] requestedDiscounts = {}; 
         CustomerId customerId = new CustomerId(99);
         Amount totalPrice = new Amount(100.0);
         DiscountRequestDTO testDiscRequest = new DiscountRequestDTO(customerId, purchasedItems, totalPrice);
 
-        Amount discountedPrice = discHandler.getDiscountedPrice(discTypes, testDiscRequest);
+        Amount discountedPrice = discHandler.getDiscountedPrice(requestedDiscounts, testDiscRequest);
 
         assertEquals(100.0, discountedPrice.getValue(), 0.01, "Discount is not calculated as expected");
     }
@@ -62,12 +62,12 @@ public class DiscountDBHandlerTest {
             item.getItemID(), item.getItemDescription(), item.getPrice(), item.getVatRate(), 1);
 
         RegisteredItemDTO[] purchasedItems = { regItem };
-        DiscountTypes[] discTypes = {DiscountTypes.ITEMS};
+        DiscountTypes[] requestedDiscounts = {DiscountTypes.ITEMS};
         CustomerId customerId = new CustomerId(99);
         Amount totalPrice = new Amount(100.0);
         DiscountRequestDTO testDiscRequest = new DiscountRequestDTO(customerId, purchasedItems, totalPrice);
 
-        Amount discountedPrice = discHandler.getDiscountedPrice(discTypes, testDiscRequest);
+        Amount discountedPrice = discHandler.getDiscountedPrice(requestedDiscounts, testDiscRequest);
 
         assertEquals(80.0, discountedPrice.getValue(), 0.01, "Discount for type one is not calculated as expected");
     }
@@ -81,12 +81,12 @@ public class DiscountDBHandlerTest {
             item.getItemID(), item.getItemDescription(), item.getPrice(), item.getVatRate(), 1);
 
         RegisteredItemDTO[] purchasedItems = { regItem };
-        DiscountTypes[] discTypes = {DiscountTypes.SALE}; 
+        DiscountTypes[] requestedDiscounts = {DiscountTypes.SALE}; 
         CustomerId customerId = new CustomerId(1);
         Amount totalPrice = new Amount(300.0);
         DiscountRequestDTO testDiscRequest = new DiscountRequestDTO(customerId, purchasedItems, totalPrice);
 
-        Amount discountedPrice = discHandler.getDiscountedPrice(discTypes, testDiscRequest);
+        Amount discountedPrice = discHandler.getDiscountedPrice(requestedDiscounts, testDiscRequest);
 
         assertEquals(270.0, discountedPrice.getValue(), 0.01, "Discount is not calculated as expected");
     }
@@ -100,12 +100,12 @@ public class DiscountDBHandlerTest {
             item.getItemID(), item.getItemDescription(), item.getPrice(), item.getVatRate(), 1);
 
         RegisteredItemDTO[] purchasedItems = { regItem };
-        DiscountTypes[] discTypes = {DiscountTypes.CUSTOMER}; 
+        DiscountTypes[] requestedDiscounts = {DiscountTypes.CUSTOMER}; 
         CustomerId customerId = new CustomerId(1);
         Amount totalPrice = new Amount(100.0);
         DiscountRequestDTO testDiscRequest = new DiscountRequestDTO(customerId, purchasedItems, totalPrice);
 
-        Amount discountedPrice = discHandler.getDiscountedPrice(discTypes, testDiscRequest);
+        Amount discountedPrice = discHandler.getDiscountedPrice(requestedDiscounts, testDiscRequest);
 
         assertEquals(85.0, discountedPrice.getValue(), 0.01, "Discount is not calculated as expected");
     }
