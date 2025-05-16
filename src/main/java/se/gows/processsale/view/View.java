@@ -76,19 +76,18 @@ public class View {
         System.out.println();
         System.out.println("Total (inc. VAT): " + String.format(Locale.US, "%.2f",currentSaleDTO.getSaleSums().getTotalIncVat().getValue()) + "kr");
 
-        int customerID = 1;
-        
+        CustomerId customerId = new CustomerId(1);
         DiscountTypes[] discTypes = {DiscountTypes.ITEMS, DiscountTypes.SALE, DiscountTypes.CUSTOMER};
         System.out.println("-------------------------------------");
         System.out.println("Discount requested.");
-        System.out.println("Customer ID: " + customerID);
+        System.out.println("Customer ID: " + customerId);
         System.out.print("Discount types: ");
         for (DiscountTypes type : discTypes) {
             System.out.print(type + ", ");
         }
         System.out.println();
  
-        currentSaleDTO = ctrl.requestDiscount(customerID, currentSaleDTO, discTypes);
+        currentSaleDTO = ctrl.requestDiscount(customerId, currentSaleDTO, discTypes);
        
         System.out.println("-------------------------------------");
         System.out.println("Total (inc. VAT) after discount: " + String.format(Locale.US, "%.2f",currentSaleDTO.getSaleSums().getTotalIncVat().getValue()) + "kr");
@@ -143,18 +142,18 @@ public class View {
         System.out.println();
         System.out.println("Total (inc. VAT): " + String.format(Locale.US, "%.2f",currentSaleDTO.getSaleSums().getTotalIncVat().getValue()) + "kr");
 
-        int customerID = 1;
+        CustomerId customerId = new CustomerId(1);
         DiscountTypes[] discTypes = {DiscountTypes.ITEMS, DiscountTypes.SALE, DiscountTypes.CUSTOMER};
         System.out.println("-------------------------------------");
         System.out.println("Discount requested.");
-        System.out.println("Customer ID: " + customerID);
+        System.out.println("Customer ID: " + customerId);
         System.out.print("Discount types: ");
         for (DiscountTypes type : discTypes) {
             System.out.print(type + ", ");
         }
         System.out.println();
  
-        currentSaleDTO = ctrl.requestDiscount(customerID, currentSaleDTO, discTypes);
+        currentSaleDTO = ctrl.requestDiscount(customerId, currentSaleDTO, discTypes);
        
         System.out.println("-------------------------------------");
         System.out.println("Total (inc. VAT) after discount: " + String.format(Locale.US, "%.2f",currentSaleDTO.getSaleSums().getTotalIncVat().getValue()) + "kr");

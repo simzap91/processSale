@@ -1,18 +1,19 @@
 package se.gows.processsale.integration.discount;
 
-import se.gows.processsale.DTO.RegisteredItemDTO;
+import se.gows.processsale.DTO.SaleDTO;
 import se.gows.processsale.model.Amount;
+import se.gows.processsale.model.CustomerId;
 
 public class CustomerDiscount implements DiscountCalculator {
 
-    private int[] memberCustomerIDs = {1,2,3,4,5};
+    private CustomerId[] memberCustomerIDs = {new CustomerId(1),new CustomerId(2), new CustomerId(3)};
     private double discountRate = 0.15;
 
-    public Amount getDiscount(int customerID, RegisteredItemDTO[] purchasedItems, Amount totalPrice){
-        double discountedPrice = totalPrice.getValue();
+    public Amount getDiscount(SaleDTO sale){
+        double discountedPrice = sale.getSaleSums().getTotalPrice().getValue();
 
-        for (int memberID : memberCustomerIDs) {
-            if (memberID == customerID) {
+        for (CustomerId memberId : memberCustomerIDs) {
+            if (memberId.isEqual(sale.getCustomerId().getId())){
                 discountedPrice *= (1 - discountRate);
             }
         }

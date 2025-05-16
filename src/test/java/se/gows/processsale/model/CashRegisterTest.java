@@ -44,7 +44,7 @@ public class CashRegisterTest {
                                             new RegisteredItemDTO(2, "Smör", 20, 0.1, 1)};
         Amount testTotalPrice = new Amount(40);
         Amount testTotalVat = new Amount(4);
-        SaleDTO testSaleDTO = new SaleDTO(testTotalPrice, testTotalVat, testItemList);
+        SaleDTO testSaleDTO = new SaleDTO(testTotalPrice, testTotalVat, testItemList, null);
 
         instanceToTest.registerPayment(testPayment, testSaleDTO);
 
@@ -61,7 +61,7 @@ public class CashRegisterTest {
                                             new RegisteredItemDTO(2, "Smör", 20, 0.1, 1)};
         Amount testTotalPrice = new Amount(40);
         Amount testTotalVat = new Amount(4);
-        SaleDTO testSaleDTO = new SaleDTO(testTotalPrice, testTotalVat, testItemList);
+        SaleDTO testSaleDTO = new SaleDTO(testTotalPrice, testTotalVat, testItemList, null);
 
         instanceToTest.registerPayment(testPayment, testSaleDTO);
 

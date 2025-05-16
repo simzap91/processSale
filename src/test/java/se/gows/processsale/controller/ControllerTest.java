@@ -8,6 +8,7 @@ import java.io.PrintStream;
 
 import se.gows.processsale.DTO.*;
 import se.gows.processsale.integration.*;
+import se.gows.processsale.model.CustomerId;
 import se.gows.processsale.utils.DiscountTypes;
 
 public class ControllerTest {
@@ -76,9 +77,9 @@ public class ControllerTest {
         double originalPrice = saleBeforeDiscount.getSaleSums().getTotalPrice().getValue();
 
         DiscountTypes[] discountTypes = {DiscountTypes.ITEMS, DiscountTypes.SALE, DiscountTypes.CUSTOMER};
-        int customerID = 1;
+        CustomerId customerId = new CustomerId(1);
 
-        SaleDTO saleAfterDiscount = instanceToTest.requestDiscount(customerID, saleBeforeDiscount, discountTypes);
+        SaleDTO saleAfterDiscount = instanceToTest.requestDiscount(customerId, saleBeforeDiscount, discountTypes);
 
         assertNotNull(saleAfterDiscount, "Discounted SaleDTO not created as expected.");
         assertTrue(saleAfterDiscount.getSaleSums().getTotalPrice().getValue() < originalPrice, "Total price not reduced after discount.");
