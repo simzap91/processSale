@@ -76,7 +76,7 @@ public class Controller {
      * This method passes a discount request to the discount handler.
      * @param customerID used to check if customer is member
      * @param currentSaleDTO contains information about the current sale
-     * @param discTypes contains the requested discount types
+     * @param requestedDiscounts contains the requested discount types
      * @return SaleDTO with updated information about the sale (after the discount)
      */
     public SaleDTO requestDiscount(CustomerId customerId, SaleDTO currentSaleDTO, DiscountTypes[] requestedDiscounts){
