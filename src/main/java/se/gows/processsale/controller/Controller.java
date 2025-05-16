@@ -34,6 +34,7 @@ public class Controller {
 
     /**
      * Starts a new sale. This method must be called first in the process.
+     * This method also initializes a cash register that handles the payment and receipt of the sale.
      */
     public void startSale() {
         currentSale = new Sale();
@@ -45,7 +46,7 @@ public class Controller {
      * If item already in the Sale object, it updates the sale with new item quantity and total price/Vat.
      * @param itemID item identifier of scanned item
      * @param quantity quantity of scanned item
-     * @return  ViewDTO, which contains the last scanned item and running total (inc VAT)
+     * @return ViewDTO, which contains the last scanned item and running total (inc VAT)
      */
     public ViewDTO scanItem(int itemID, int quantity) throws ItemIdNotFoundException { 
         try {
@@ -58,8 +59,8 @@ public class Controller {
             }
             return currentSale.createViewDTO(itemID);
         } catch (DatabaseFailureException exc) {
-            ViewDTO error = new ViewDTO(null, null, "Problem when calling the inventory.\n");
-            return error;
+            ViewDTO connectionFailureViewDTO = new ViewDTO(null, null, "Problem when calling the inventory.\n");
+            return connectionFailureViewDTO;
         }
     }
 

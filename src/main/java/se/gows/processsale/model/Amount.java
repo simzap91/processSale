@@ -3,8 +3,7 @@ package se.gows.processsale.model;
 import java.util.Locale;
 
 /**
- * Amount object cotaining a stored value as a double.
- * @param amount
+ * Amount object containing a stored value as a double.
  */
 public class Amount {
     private double amount;
@@ -14,11 +13,6 @@ public class Amount {
     }
 
     public void setAmount(double newAmount) {this.amount = newAmount;}
-
-    /**
-     * Public method that returns the value within an Amount object
-     * @return amount
-     */
     public double getValue() {return amount;}
 
     /**

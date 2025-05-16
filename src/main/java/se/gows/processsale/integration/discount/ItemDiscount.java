@@ -9,19 +9,19 @@ public class ItemDiscount implements DiscountCalculator{
     private double[][] activeItemDiscounts = {{1.0, 0.20},{2.0, 0.10}}; // Format: {itemID (as double), discountRate}
     /**
  * Calculates a discounted price from sale when comparing its item list with a list of active discounts, reducing the items price if it is on the list.
- * @param discRequest DiscountRequestDTO containing all information required for applying a discount, including an item list.
+ * @param discountRequest DiscountRequestDTO containing all information required for applying a discount, including an item list.
  * @return a new discounted price.
  */
     @Override
-    public Amount getDiscount(DiscountRequestDTO discRequest){
-        double discountedPrice = discRequest.getTotalPrice().getValue();
-        for (double[] discount : activeItemDiscounts){
-            for (RegisteredItemDTO regItem : discRequest.getItemList()) {
+    public Amount getDiscount(DiscountRequestDTO discountRequest){
+        double discountedPrice = discountRequest.getTotalPrice().getValue();
+        for (double[] itemDiscount : activeItemDiscounts){
+            for (RegisteredItemDTO regItem : discountRequest.getPurchasedItems()) {
 
-                int discObjItemId = (int) discount[0];
+                int discObjItemId = (int) itemDiscount[0];
                 if (discObjItemId == regItem.getItemID()){
 
-                    double discItemRate = discount[1];
+                    double discItemRate = itemDiscount[1];
                     double discItemSum = regItem.getTotalPriceOfItemQuantity() * discItemRate;
 
                     discountedPrice -= discItemSum;

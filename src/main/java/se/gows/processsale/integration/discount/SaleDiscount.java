@@ -9,15 +9,15 @@ public class SaleDiscount implements DiscountCalculator {
     private double discountRate = 0.1;
 /**
  * Calculates a discounted price from sale when given a total price higher than the discounts lowest limit.
- * @param discRequest DiscountRequestDTO containing all information required for applying a discount, including the sales total price.
+ * @param discountRequest DiscountRequestDTO containing all information required for applying a discount, including the sales total price.
  * @return a new discounted price.
  */
-    public Amount getDiscount(DiscountRequestDTO discRequest) {
-        double totalPrice = discRequest.getTotalPrice().getValue();
+    public Amount getDiscount(DiscountRequestDTO discountRequest) {
+        double totalPrice = discountRequest.getTotalPrice().getValue();
         if (totalPrice > totalPriceLowLimit) {
             double discountedPrice = totalPrice * (1 - discountRate);
             return new Amount(discountedPrice);
         }
-        return discRequest.getTotalPrice();
+        return discountRequest.getTotalPrice();
     }
 }

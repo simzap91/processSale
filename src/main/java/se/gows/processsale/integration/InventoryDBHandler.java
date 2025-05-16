@@ -12,6 +12,7 @@ public class InventoryDBHandler {
     
     /**
      * Public method that fetches item from inventoryDB.
+     * Id 404 represent a data base connection error.
      * @param itemID unique identifier used to find item in DB
      * @return fetched item as ItemDTO. If no item ID matches the methods returns null.
      */

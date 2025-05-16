@@ -17,29 +17,27 @@ public class DiscountDBHandler {
 
     /**
      * Public method that fetches all requested and applicable discounts and calculates a new reduced total price.
-     * @param requestedDiscounts A list of requested discount types.
-     * @param discRequest Contains customer ID, purchased items and total price of the sale.
+     * @param requestedDiscountTypes A list of requested discount types.
+     * @param discountRequest Contains customer ID, purchased items and total price of the sale.
      * @return Updated totalprice. Returns unchanged if no discount apply.
      *  
      */
-    public Amount getDiscountedPrice(DiscountTypes[] requestedDiscounts, DiscountRequestDTO discRequest){
+    public Amount getDiscountedPrice(DiscountTypes[] requestedDiscountTypes, DiscountRequestDTO discountRequest){
 
-        CustomerId customerId = discRequest.getCustomerId();
-        RegisteredItemDTO[] purchasedItems = discRequest.getItemList();
-        Amount totalPrice = discRequest.getTotalPrice();
+        CustomerId customerId = discountRequest.getCustomerId();
+        RegisteredItemDTO[] purchasedItems = discountRequest.getPurchasedItems();
+        Amount totalPrice = discountRequest.getTotalPrice();
 
-        if (Arrays.stream(requestedDiscounts).anyMatch(n -> n == DiscountTypes.ITEMS)) {
-            ItemDiscount discountCalculator = new ItemDiscount();
-            totalPrice = discountCalculator.getDiscount(discRequest);
-            discRequest = new DiscountRequestDTO(customerId, purchasedItems, totalPrice);
+        if (Arrays.stream(requestedDiscountTypes).anyMatch(n -> n == DiscountTypes.ITEMS)) {
+            totalPrice = new ItemDiscount().getDiscount(discountRequest);
+            discountRequest = new DiscountRequestDTO(customerId, purchasedItems, totalPrice);
         }
-        if (Arrays.stream(requestedDiscounts).anyMatch(n -> n == DiscountTypes.SALE)) {
-            totalPrice = new SaleDiscount().getDiscount(discRequest);
-            discRequest = new DiscountRequestDTO(customerId, purchasedItems, totalPrice);
+        if (Arrays.stream(requestedDiscountTypes).anyMatch(n -> n == DiscountTypes.SALE)) {
+            totalPrice = new SaleDiscount().getDiscount(discountRequest);
+            discountRequest = new DiscountRequestDTO(customerId, purchasedItems, totalPrice);
         }
-        if (Arrays.stream(requestedDiscounts).anyMatch(n -> n == DiscountTypes.CUSTOMER)) {
-            CustomerDiscount discountCalculator = new CustomerDiscount();
-            totalPrice = discountCalculator.getDiscount(discRequest);
+        if (Arrays.stream(requestedDiscountTypes).anyMatch(n -> n == DiscountTypes.CUSTOMER)) {
+            totalPrice = new CustomerDiscount().getDiscount(discountRequest);
         }
         return totalPrice;
     }

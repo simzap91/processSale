@@ -10,14 +10,14 @@ public class CustomerDiscount implements DiscountCalculator {
     private double discountRate = 0.15;
 /**
  * Calculates a discounted price for sale when given a customer ID that is eligable for a discount
- * @param discRequest DiscountRequestDTO containing all information required for applying a discount, including customer ID.
+ * @param discountRequest DiscountRequestDTO containing all information required for applying a discount, including customer ID.
  * @return a new discounted price.
  */
-    public Amount getDiscount(DiscountRequestDTO discRequest){
-        double discountedPrice = discRequest.getTotalPrice().getValue();
+    public Amount getDiscount(DiscountRequestDTO discountRequest){
+        double discountedPrice = discountRequest.getTotalPrice().getValue();
 
         for (CustomerId memberId : memberCustomerIDs) {
-            if (memberId.isEqual(discRequest.getCustomerId())) {
+            if (memberId.isEqual(discountRequest.getCustomerId())) {
                 discountedPrice *= (1 - discountRate);
             }
         }
