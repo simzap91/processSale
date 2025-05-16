@@ -16,7 +16,7 @@ public class Main {
         Controller ctrl = new Controller(invHandler, accHandler, discHandler);
         View view = new View(ctrl);
 
-        view.runFakeExecution();
-        view.runFakeExecutionAgain();
+        view.runSaleCustomerOne();
+        view.runSaleCustomerTwo();
     }
 }
