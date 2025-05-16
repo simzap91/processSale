@@ -16,9 +16,9 @@ import se.gows.processsale.utils.DiscountTypes;
 public class DiscountDBHandler {
 
     /**
-     * Public method that fetch all requested and relevant discounts and calculates a new reduced total price.
-     * @param discountTypes The different types of discounts, stores as an array
-     * @param sale Contains information about the current sale.
+     * Public method that fetches all requested and applicable discounts and calculates a new reduced total price.
+     * @param requestedDiscounts A list of requested discount types.
+     * @param discRequest Contains customer ID, purchased items and total price of the sale.
      * @return Updated totalprice. Returns unchanged if no discount apply.
      *  
      */
