@@ -2,6 +2,7 @@ package se.gows.processsale.controller;
 
 import java.util.ArrayList;
 
+import se.gows.processsale.DTO.DiscountRequestDTO;
 import se.gows.processsale.DTO.ItemDTO;
 import se.gows.processsale.DTO.SaleDTO;
 import se.gows.processsale.DTO.ViewDTO;
@@ -78,10 +79,10 @@ public class Controller {
      * @param discTypes contains the requested discount types
      * @return SaleDTO with updated information about the sale (after the discount)
      */
-    public SaleDTO requestDiscount(CustomerId customerId, SaleDTO currentSaleDTO, DiscountTypes[] discTypes){
-        SaleDTO updatedSaleDTO = new SaleDTO(currentSaleDTO.getSaleSums().getTotalPrice(), currentSaleDTO.getSaleSums().getTotalVAT(), currentSaleDTO.getItemList(), customerId);
-        Amount discountedTotalPrice = discHandler.getDiscountedPrice(discTypes, updatedSaleDTO);
-        SaleDTO discountedSaleDTO = new SaleDTO(discountedTotalPrice, updatedSaleDTO.getSaleSums().getTotalVAT(), updatedSaleDTO.getItemList(), customerId);
+    public SaleDTO requestDiscount(CustomerId customerId, SaleDTO currentSaleDTO, DiscountTypes[] requestedDiscounts){
+        DiscountRequestDTO discRequestDTO = new DiscountRequestDTO(customerId, currentSaleDTO.getItemList(), currentSaleDTO.getSaleSums().getTotalPrice());
+        Amount discountedTotalPrice = discHandler.getDiscountedPrice(requestedDiscounts, discRequestDTO);
+        SaleDTO discountedSaleDTO = new SaleDTO(discountedTotalPrice, currentSaleDTO.getSaleSums().getTotalVAT(), currentSaleDTO.getItemList(), customerId);
         return discountedSaleDTO;
     }
 
