@@ -10,11 +10,9 @@ import se.gows.processsale.model.CustomerId;
 import se.gows.processsale.utils.DiscountTypes;
 
 public class DiscountDBHandlerTest {
-    /*
-     * Test for all discounts
-     */
+    
     @Test
-    void testGetDiscountedPriceAllDiscounts() {
+    void testAllDiscountsApplied() {
         DiscountDBHandler discHandler = new DiscountDBHandler();
         
         ItemDTO item1 = new ItemDTO(1, "Test Item", 100.0, 0.25);
@@ -36,11 +34,8 @@ public class DiscountDBHandlerTest {
         assertEquals(175.95, discountedPrice.getValue(), 0.01, "Discount is not calculated as expected");
     }
 
-    /*
-     * Test for no discounts
-     */
     @Test
-    void testGetDiscountedPriceNoDiscountApplied() {
+    void testNoDiscountsApplied() {
         DiscountDBHandler discHandler = new DiscountDBHandler();
 
         ItemDTO item = new ItemDTO(99, "Non-discounted Item", 100.0, 0.25);
@@ -58,11 +53,8 @@ public class DiscountDBHandlerTest {
         assertEquals(100.0, discountedPrice.getValue(), 0.01, "Discount is not calculated as expected");
     }
 
-    /*
-     * Test for type one discount
-     */
     @Test
-    void testGetDiscountedPriceTypeOneDiscountApplied() {
+    void testItemsDiscountApplied() {
         DiscountDBHandler discHandler = new DiscountDBHandler();
 
         ItemDTO item = new ItemDTO(1, "Discounted Item", 100.0, 0.25);
@@ -80,11 +72,8 @@ public class DiscountDBHandlerTest {
         assertEquals(80.0, discountedPrice.getValue(), 0.01, "Discount for type one is not calculated as expected");
     }
 
-    /*
-     * Test for type two discount
-     */
     @Test
-    void testGetDiscountedPriceTypeTwoDiscountApplied() {
+    void testSaleDiscountApplied() {
         DiscountDBHandler discHandler = new DiscountDBHandler();
 
         ItemDTO item = new ItemDTO(99, "Non-discounted Item", 300.0, 0.25);
@@ -102,11 +91,8 @@ public class DiscountDBHandlerTest {
         assertEquals(270.0, discountedPrice.getValue(), 0.01, "Discount is not calculated as expected");
     }
 
-    /*
-     * Test for type three discount
-     */
     @Test
-    void testGetDiscountedPriceTypeThreeDiscountApplied() {
+    void testCustomerDiscountApplied() {
         DiscountDBHandler discHandler = new DiscountDBHandler();
 
         ItemDTO item = new ItemDTO(99, "Non-discounted Item", 100.0, 0.25);
