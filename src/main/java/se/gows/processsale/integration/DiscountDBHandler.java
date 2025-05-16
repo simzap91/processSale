@@ -1,9 +1,12 @@
 package se.gows.processsale.integration;
 
+import java.util.Arrays;
+
 import se.gows.processsale.DTO.SaleDTO;
 import se.gows.processsale.integration.discount.*;
 import se.gows.processsale.model.Amount;
 import se.gows.processsale.utils.DiscountTypes;
+
 
 /**     
  * Public handler that communicates with the external discount database.
@@ -21,17 +24,17 @@ public class DiscountDBHandler {
 
         Amount totalPrice = sale.getSaleSums().getTotalPrice();
 
-        for (DiscountTypes type : discountTypes) {
-            if (type == DiscountTypes.ITEMS){
-                ItemDiscount discountCalculator = new ItemDiscount();
-                totalPrice = discountCalculator.getDiscount(sale);
-            } else if (type == DiscountTypes.SALE){
-                SaleDiscount discountCalculator = new SaleDiscount();
-                totalPrice = discountCalculator.getDiscount(sale);
-            } else if (type == DiscountTypes.CUSTOMER) {
-                CustomerDiscount discountCalculator = new CustomerDiscount();
-                totalPrice = discountCalculator.getDiscount(sale);
-            }
+        if (Arrays.stream(discountTypes).anyMatch(n -> n == DiscountTypes.ITEMS)) {
+            ItemDiscount discountCalculator = new ItemDiscount();
+            totalPrice = discountCalculator.getDiscount(sale);
+        }
+        if (Arrays.stream(discountTypes).anyMatch(n -> n == DiscountTypes.SALE)) {
+            SaleDiscount discountCalculator = new SaleDiscount();
+            totalPrice = discountCalculator.getDiscount(sale);
+        }
+        if (Arrays.stream(discountTypes).anyMatch(n -> n == DiscountTypes.CUSTOMER)) {
+            CustomerDiscount discountCalculator = new CustomerDiscount();
+            totalPrice = discountCalculator.getDiscount(sale);
         }
         return totalPrice;
     }
