@@ -1,7 +1,7 @@
 package se.gows.processsale.integration.discount;
 
+import se.gows.processsale.DTO.DiscountRequestDTO;
 import se.gows.processsale.DTO.RegisteredItemDTO;
-import se.gows.processsale.DTO.SaleDTO;
 import se.gows.processsale.model.Amount;
 
 public class ItemDiscount implements DiscountCalculator{ 
@@ -13,10 +13,10 @@ public class ItemDiscount implements DiscountCalculator{
  * @return a new discounted price.
  */
     @Override
-    public Amount getDiscount(SaleDTO sale){
-        double discountedPrice = sale.getSaleSums().getTotalPrice().getValue();
+    public Amount getDiscount(DiscountRequestDTO discRequest){
+        double discountedPrice = discRequest.getTotalPrice().getValue();
         for (double[] discount : activeItemDiscounts){
-            for (RegisteredItemDTO regItem : sale.getItemList()) {
+            for (RegisteredItemDTO regItem : discRequest.getItemList()) {
 
                 int discObjItemId = (int) discount[0];
                 if (discObjItemId == regItem.getItemID()){

@@ -1,8 +1,8 @@
 package se.gows.processsale.integration.discount;
 
 import se.gows.processsale.model.Amount;
-import se.gows.processsale.DTO.SaleDTO;
+import se.gows.processsale.DTO.DiscountRequestDTO;
 
 interface DiscountCalculator {
-    Amount getDiscount(SaleDTO sale);
+    Amount getDiscount(DiscountRequestDTO discRequest);
 }

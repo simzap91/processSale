@@ -2,9 +2,11 @@ package se.gows.processsale.integration;
 
 import java.util.Arrays;
 
-import se.gows.processsale.DTO.SaleDTO;
+import se.gows.processsale.DTO.DiscountRequestDTO;
+import se.gows.processsale.DTO.RegisteredItemDTO;
 import se.gows.processsale.integration.discount.*;
 import se.gows.processsale.model.Amount;
+import se.gows.processsale.model.CustomerId;
 import se.gows.processsale.utils.DiscountTypes;
 
 
@@ -20,21 +22,24 @@ public class DiscountDBHandler {
      * @return Updated totalprice. Returns unchanged if no discount apply.
      *  
      */
-    public Amount getDiscountedPrice(DiscountTypes[] discountTypes, SaleDTO sale){
+    public Amount getDiscountedPrice(DiscountTypes[] requestedDiscounts, DiscountRequestDTO discRequest){
 
-        Amount totalPrice = sale.getSaleSums().getTotalPrice();
+        CustomerId customerId = discRequest.getCustomerId();
+        RegisteredItemDTO[] purchasedItems = discRequest.getItemList();
+        Amount totalPrice = discRequest.getTotalPrice();
 
-        if (Arrays.stream(discountTypes).anyMatch(n -> n == DiscountTypes.ITEMS)) {
+        if (Arrays.stream(requestedDiscounts).anyMatch(n -> n == DiscountTypes.ITEMS)) {
             ItemDiscount discountCalculator = new ItemDiscount();
-            totalPrice = discountCalculator.getDiscount(sale);
+            totalPrice = discountCalculator.getDiscount(discRequest);
+            discRequest = new DiscountRequestDTO(customerId, purchasedItems, totalPrice);
         }
-        if (Arrays.stream(discountTypes).anyMatch(n -> n == DiscountTypes.SALE)) {
-            SaleDiscount discountCalculator = new SaleDiscount();
-            totalPrice = discountCalculator.getDiscount(sale);
+        if (Arrays.stream(requestedDiscounts).anyMatch(n -> n == DiscountTypes.SALE)) {
+            totalPrice = new SaleDiscount().getDiscount(discRequest);
+            discRequest = new DiscountRequestDTO(customerId, purchasedItems, totalPrice);
         }
-        if (Arrays.stream(discountTypes).anyMatch(n -> n == DiscountTypes.CUSTOMER)) {
+        if (Arrays.stream(requestedDiscounts).anyMatch(n -> n == DiscountTypes.CUSTOMER)) {
             CustomerDiscount discountCalculator = new CustomerDiscount();
-            totalPrice = discountCalculator.getDiscount(sale);
+            totalPrice = discountCalculator.getDiscount(discRequest);
         }
         return totalPrice;
     }

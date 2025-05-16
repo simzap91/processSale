@@ -1,6 +1,6 @@
 package se.gows.processsale.integration.discount;
 
-import se.gows.processsale.DTO.SaleDTO;
+import se.gows.processsale.DTO.DiscountRequestDTO;
 import se.gows.processsale.model.Amount;
 import se.gows.processsale.model.CustomerId;
 
@@ -13,11 +13,11 @@ public class CustomerDiscount implements DiscountCalculator {
  * @param sale SaleDTO containing all information about the sale including customer ID.
  * @return a new discounted price.
  */
-    public Amount getDiscount(SaleDTO sale){
-        double discountedPrice = sale.getSaleSums().getTotalPrice().getValue();
+    public Amount getDiscount(DiscountRequestDTO discRequest){
+        double discountedPrice = discRequest.getTotalPrice().getValue();
 
         for (CustomerId memberId : memberCustomerIDs) {
-            if (memberId.isEqual(sale.getCustomerId().getId())){
+            if (memberId.isEqual(discRequest.getCustomerId())) {
                 discountedPrice *= (1 - discountRate);
             }
         }
