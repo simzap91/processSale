@@ -41,7 +41,7 @@ public class Controller {
      */
     public void startSale() {
         currentSale = new Sale();
-        cashRegister = new CashRegister();
+        cashRegister = new CashRegister(sumOfCostsObservers);
     }
 
     /**
@@ -100,7 +100,7 @@ public class Controller {
     public void registerPayment(Amount payment, SaleDTO currentSaleDTO){
         cashRegister.registerPayment(payment, currentSaleDTO);
         accHandler.updateAccountBalance(cashRegister.getReceipt());
-        notifyObservers(currentSaleDTO);
+        
     }
     /**
      * Adds observer to the list of observers
@@ -110,9 +110,4 @@ public class Controller {
         sumOfCostsObservers.add(obs);
     }
 
-    private void notifyObservers(SaleDTO currentSaleDTO) {
-        for (SumOfCostsObserver obs : sumOfCostsObservers) {
-            obs.newSumOfCost(currentSaleDTO.getSaleSums().getTotalIncVat());
-        }
-    }
 }
