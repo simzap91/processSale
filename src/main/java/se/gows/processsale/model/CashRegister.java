@@ -1,6 +1,6 @@
 package se.gows.processsale.model;
 
-import java.util.ArrayList;
+
 
 import se.gows.processsale.DTO.SaleDTO;
 import se.gows.processsale.utils.ObserversList;
