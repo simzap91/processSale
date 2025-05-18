@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.ArrayList;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,10 +14,8 @@ import org.junit.jupiter.api.Test;
 import se.gows.processsale.DTO.RegisteredItemDTO;
 import se.gows.processsale.DTO.SaleDTO;
 import se.gows.processsale.utils.ObserversList;
-import se.gows.processsale.utils.SumOfCostsObserver;
 
 public class CashRegisterTest {
-    private ArrayList<SumOfCostsObserver> sumOfCostsObservers;
     private CashRegister instanceToTest;
     private ByteArrayOutputStream printoutBuffer;
     private PrintStream originalSysOut;
@@ -26,6 +23,7 @@ public class CashRegisterTest {
 
     @BeforeEach
     public void setUp(){
+        obsList = new ObserversList();
         instanceToTest = new CashRegister(obsList);
 
         printoutBuffer = new ByteArrayOutputStream();

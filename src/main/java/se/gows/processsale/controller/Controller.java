@@ -1,14 +1,11 @@
 package se.gows.processsale.controller;
 
-import java.util.ArrayList;
-
 import se.gows.processsale.DTO.DiscountRequestDTO;
 import se.gows.processsale.DTO.ItemDTO;
 import se.gows.processsale.DTO.SaleDTO;
 import se.gows.processsale.DTO.ViewDTO;
 import se.gows.processsale.integration.*;
 import se.gows.processsale.model.*;
-import se.gows.processsale.utils.SumOfCostsObserver;
 import se.gows.processsale.utils.DiscountTypes;
 import se.gows.processsale.utils.FileLogger;
 import se.gows.processsale.utils.ObserversList;
