@@ -31,14 +31,14 @@ public class ItemIdNotFoundExceptionTest {
     }
 
     @Test
-    void testScanItemThatDoesNotExist() throws DatabaseFailureException {
+    void testScanItemThatDoesNotExist() throws DatabaseFailureException, DatabaseNotRunningException {
         int missingId = 90;
 
         try {
-            testCtrl.scanItem(missingId, 1);
+            invHandler.fetchItemFromInventory(missingId);
         } catch(ItemIdNotFoundException exc) {
             assertEquals(exc.getItemIdNotFound(), missingId);
-            assertEquals(exc.getMessage(), "Item with id " + missingId + " can't be found in inventory.\n");
+            assertEquals(exc.getMessage(), "Item with id " + missingId + " can not be found in inventory.");
         }
     }
 

@@ -10,6 +10,7 @@ import se.gows.processsale.integration.*;
 import se.gows.processsale.model.*;
 import se.gows.processsale.utils.SumOfCostsObserver;
 import se.gows.processsale.utils.DiscountTypes;
+import se.gows.processsale.utils.FileLogger;
 
 /**
  * This is the application's only controller. All calls to the model pass through this class.
@@ -20,6 +21,7 @@ public class Controller {
     private DiscountDBHandler discHandler;
     private Sale currentSale;
     private CashRegister cashRegister;
+    private FileLogger logger;
     private ArrayList<SumOfCostsObserver> sumOfCostsObservers;
 
     public Controller(InventoryDBHandler invHandler, 
@@ -29,6 +31,7 @@ public class Controller {
         this.invHandler = invHandler;
         this.accHandler = accHandler;
         this.discHandler = discHandler;
+        this.logger = new FileLogger();
         this.sumOfCostsObservers = new ArrayList<>();
     }
 
@@ -49,14 +52,20 @@ public class Controller {
      * @return ViewDTO, which contains the last scanned item and running total (inc VAT)
      */
     public ViewDTO scanItem(int itemID, int quantity) throws ItemIdNotFoundException, DatabaseFailureException { 
-        boolean itemIsRegistered = currentSale.isItemInItemList(itemID);
-        if (!itemIsRegistered) {
-            ItemDTO newItem = invHandler.fetchItemFromInventory(itemID);
-            currentSale.addNewItem(newItem, quantity);
-        } else {
-            currentSale.updateExistingItem(itemID, quantity);
+
+        try {
+            boolean itemIsRegistered = currentSale.isItemInItemList(itemID);
+            if (!itemIsRegistered) {
+                ItemDTO newItem = invHandler.fetchItemFromInventory(itemID);
+                currentSale.addNewItem(newItem, quantity);
+            } else {
+                currentSale.updateExistingItem(itemID, quantity);
+            }
+            return currentSale.createViewDTO(itemID);
+        } catch (DatabaseNotRunningException e) {
+            logger.log(e.getMessage());
+            throw new DatabaseFailureException("Unable to connect to database.", e);
         }
-        return currentSale.createViewDTO(itemID);
     }
 
     /**

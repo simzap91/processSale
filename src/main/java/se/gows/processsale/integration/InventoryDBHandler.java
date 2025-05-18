@@ -16,9 +16,9 @@ public class InventoryDBHandler {
      * @param itemID unique identifier used to find item in DB
      * @return fetched item as ItemDTO. If no item ID matches the methods returns null.
      */
-    public ItemDTO fetchItemFromInventory(int itemID) throws ItemIdNotFoundException, DatabaseFailureException {
+    public ItemDTO fetchItemFromInventory(int itemID) throws ItemIdNotFoundException, DatabaseNotRunningException {
         if (itemID == 404) {
-            throw new DatabaseFailureException();
+            throw new DatabaseNotRunningException();
         }
         for (InventoryItem invItem : inventoryDb.getItems()) {
             if (invItem.getID() == itemID) {

@@ -2,6 +2,7 @@ package se.gows.processsale.integration;
 import se.gows.processsale.DTO.ItemDTO;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,14 +12,12 @@ public class InventoryDBHandlerTest {
     private InventoryDBHandler testInvHandler;
     private int testID;
     private ItemDTO testItemDTO;
-    private ItemDTO fakeItemDTO;
     
     @BeforeEach
     void setUp(){
         
         testInvHandler = new InventoryDBHandler();
         testItemDTO = new ItemDTO(1, "Mjölk", 14.90, 0.25);
-        fakeItemDTO = null;
     }
     
     @AfterEach
@@ -29,7 +28,7 @@ public class InventoryDBHandlerTest {
     }
     
     @Test
-    void testFetchItemFromDB() throws ItemIdNotFoundException, DatabaseFailureException {
+    void testFetchItemFromDB() throws ItemIdNotFoundException, DatabaseNotRunningException {
         testID = 1;
         boolean expectedResult = true;
         ItemDTO testItem = testInvHandler.fetchItemFromInventory(testID);
@@ -41,9 +40,10 @@ public class InventoryDBHandlerTest {
     }
 
     @Test
-    void testFetchUnknownItemFromDB() throws ItemIdNotFoundException, DatabaseFailureException {
+    void testFetchUnknownItemFromDB() throws ItemIdNotFoundException, DatabaseNotRunningException {
         testID = -99;
-        ItemDTO testItem = testInvHandler.fetchItemFromInventory(testID); 
-        assertEquals(testItem, fakeItemDTO, "Does not return null");
+        assertThrows(ItemIdNotFoundException.class, () -> {
+            testInvHandler.fetchItemFromInventory(testID);
+        }, "Do not throw ItemIdNotFoundException for unknown ID");
     }
 }

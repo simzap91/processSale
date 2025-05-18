@@ -36,8 +36,8 @@ public class DatabaseFailureExceptionTest {
 
         try {
             invHandler.fetchItemFromInventory(failureId);
-        } catch(DatabaseFailureException exc) {
-            assertEquals(exc.getMessage(), "Database can not be called.");
+        } catch(DatabaseNotRunningException exc) {
+            assertEquals(exc.getMessage(), "Error 404: Database not running.");
         }
     }
 

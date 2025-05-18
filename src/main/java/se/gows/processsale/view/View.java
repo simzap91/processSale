@@ -6,7 +6,6 @@ import se.gows.processsale.DTO.ViewDTO;
 import se.gows.processsale.controller.*;
 import se.gows.processsale.integration.ItemIdNotFoundException;
 import se.gows.processsale.model.*;
-import se.gows.processsale.utils.FileLogger;
 import se.gows.processsale.utils.TotalRevenueFileOutput;
 import se.gows.processsale.utils.DiscountTypes;
 
@@ -16,7 +15,6 @@ import se.gows.processsale.utils.DiscountTypes;
  */
 public class View {
     private Controller ctrl;
-    private FileLogger logger;
 
     /**
      * Creates a new instance that uses the specified controller for all calls to other layers.
@@ -26,7 +24,6 @@ public class View {
         this.ctrl = ctrl;
         ctrl.addSumOfCostObserver(new TotalRevenueView());
         ctrl.addSumOfCostObserver(new TotalRevenueFileOutput("revenueFileOutput.txt"));
-        this.logger = new FileLogger();
     }
 
     /**
@@ -58,11 +55,11 @@ public class View {
                     System.out.println();
                     System.out.println("Running total (inc. VAT): " + String.format(Locale.US, "%.2f",viewDTO.getRunningTotalIncVat().getValue()) + "kr");
                     System.out.println();
-                } catch (ItemIdNotFoundException exc) {
-                    System.out.println("Error: Invalid item-id." + "\n");
-                } catch (Exception exc) {
-                    System.out.println("Error: Unable to connect to database. Try again later.\n");
-                    logger.log(exc.getMessage());
+                } catch (ItemIdNotFoundException e) {
+                    System.out.println("Error: " + e.getMessage() + "\n");
+                }
+                catch (DatabaseFailureException e) {
+                    System.out.println("Error: " + e.getMessage() + "\n");
                 }
                 scannedItemsCount ++;
             }
@@ -120,11 +117,11 @@ public class View {
                     System.out.println();
                     System.out.println("Running total (inc. VAT): " + String.format(Locale.US, "%.2f",viewDTO.getRunningTotalIncVat().getValue()) + "kr");
                     System.out.println();
-                } catch (ItemIdNotFoundException exc) {
-                    System.out.println("Error: Invalid item-id." + "\n");
-                } catch (Exception exc) {
-                    System.out.println("Error: Unable to connect to database. Try again later.\n");
-                    logger.log(exc.getMessage());
+                } catch (ItemIdNotFoundException e) {
+                    System.out.println("Error: " + e.getMessage() + "\n");
+                }
+                catch (DatabaseFailureException e) {
+                    System.out.println("Error: " + e.getMessage() + "\n");
                 }
                 scannedItemsCount ++;
             }
