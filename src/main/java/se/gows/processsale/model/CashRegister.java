@@ -3,6 +3,7 @@ package se.gows.processsale.model;
 import java.util.ArrayList;
 
 import se.gows.processsale.DTO.SaleDTO;
+import se.gows.processsale.utils.ObserversList;
 import se.gows.processsale.utils.SumOfCostsObserver;
 
 /**
@@ -13,11 +14,11 @@ public class CashRegister {
     private Printer printer;
     private Transaction transaction;
     private Receipt receipt;
-    private ArrayList<SumOfCostsObserver> sumOfCostsObservers;
+    private ObserversList obsList;
 
-    public CashRegister (ArrayList<SumOfCostsObserver> sumOfCostsObservers) {
+    public CashRegister (ObserversList obsList) {
         this.printer = new Printer();
-        this.sumOfCostsObservers = sumOfCostsObservers;
+        this.obsList = obsList;
     }
 
     /**
@@ -38,7 +39,7 @@ public class CashRegister {
 
 
     private void notifyObservers(SaleDTO sale) {
-        for (SumOfCostsObserver obs : sumOfCostsObservers) {
+        for (SumOfCostsObserver obs : obsList.getSumOfCostsObservers()) {
             obs.newSumOfCost(sale.getSaleSums().getTotalIncVat());
         }
     }

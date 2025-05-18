@@ -2,6 +2,7 @@ package se.gows.processsale.startup;
 
 import se.gows.processsale.controller.*;
 import se.gows.processsale.integration.*;
+import se.gows.processsale.utils.ObserversList;
 import se.gows.processsale.view.*;
 
 /**
@@ -13,7 +14,10 @@ public class Main {
         InventoryDBHandler invHandler = new InventoryDBHandler();
         AccountingDBHandler accHandler = new AccountingDBHandler();
         DiscountDBHandler discHandler = new DiscountDBHandler();
-        Controller ctrl = new Controller(invHandler, accHandler, discHandler);
+
+        ObserversList obsList = new ObserversList();
+
+        Controller ctrl = new Controller(invHandler, accHandler, discHandler, obsList);
         View view = new View(ctrl);
 
         view.runSaleCustomerOne();

@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 
 import se.gows.processsale.DTO.RegisteredItemDTO;
 import se.gows.processsale.DTO.SaleDTO;
+import se.gows.processsale.utils.ObserversList;
 import se.gows.processsale.utils.SumOfCostsObserver;
 
 public class CashRegisterTest {
@@ -21,10 +22,11 @@ public class CashRegisterTest {
     private CashRegister instanceToTest;
     private ByteArrayOutputStream printoutBuffer;
     private PrintStream originalSysOut;
+    private ObserversList obsList;
 
     @BeforeEach
     public void setUp(){
-        instanceToTest = new CashRegister(sumOfCostsObservers);
+        instanceToTest = new CashRegister(obsList);
 
         printoutBuffer = new ByteArrayOutputStream();
         PrintStream inMemSysOut = new PrintStream(printoutBuffer);

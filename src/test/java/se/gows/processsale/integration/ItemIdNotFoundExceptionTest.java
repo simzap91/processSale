@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.AfterEach;
 
 import se.gows.processsale.controller.*;
+import se.gows.processsale.utils.ObserversList;
 import se.gows.processsale.DTO.*;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -15,12 +16,13 @@ public class ItemIdNotFoundExceptionTest {
     private InventoryDBHandler invHandler;;
     private AccountingDBHandler accHandler;
     private DiscountDBHandler discHandler;
+    private ObserversList obsList;
     private Controller testCtrl;
 
     @BeforeEach
     public void setup() {
         invHandler = new InventoryDBHandler();
-        testCtrl = new Controller(invHandler, accHandler, discHandler);
+        testCtrl = new Controller(invHandler, accHandler, discHandler, obsList);
         testCtrl.startSale();
     }
 

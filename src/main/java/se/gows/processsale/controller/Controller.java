@@ -11,6 +11,7 @@ import se.gows.processsale.model.*;
 import se.gows.processsale.utils.SumOfCostsObserver;
 import se.gows.processsale.utils.DiscountTypes;
 import se.gows.processsale.utils.FileLogger;
+import se.gows.processsale.utils.ObserversList;
 
 /**
  * This is the application's only controller. All calls to the model pass through this class.
@@ -22,17 +23,18 @@ public class Controller {
     private Sale currentSale;
     private CashRegister cashRegister;
     private FileLogger logger;
-    private ArrayList<SumOfCostsObserver> sumOfCostsObservers;
+    private ObserversList obsList;
 
     public Controller(InventoryDBHandler invHandler, 
                         AccountingDBHandler accHandler, 
-                        DiscountDBHandler discHandler)
+                        DiscountDBHandler discHandler,
+                        ObserversList obsList)
     {
         this.invHandler = invHandler;
         this.accHandler = accHandler;
         this.discHandler = discHandler;
         this.logger = new FileLogger();
-        this.sumOfCostsObservers = new ArrayList<>();
+        this.obsList = obsList;
     }
 
     /**
@@ -41,7 +43,7 @@ public class Controller {
      */
     public void startSale() {
         currentSale = new Sale();
-        cashRegister = new CashRegister(sumOfCostsObservers);
+        cashRegister = new CashRegister(obsList);
     }
 
     /**
@@ -101,13 +103,6 @@ public class Controller {
         cashRegister.registerPayment(payment, currentSaleDTO);
         accHandler.updateAccountBalance(cashRegister.getReceipt());
         
-    }
-    /**
-     * Adds observer to the list of observers
-     * @param obs the observer 
-     */
-    public void addSumOfCostObserver(SumOfCostsObserver obs) {
-        sumOfCostsObservers.add(obs);
     }
 
 }

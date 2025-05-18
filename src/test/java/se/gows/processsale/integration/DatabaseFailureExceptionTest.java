@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import se.gows.processsale.DTO.ItemDTO;
 import se.gows.processsale.controller.*;
+import se.gows.processsale.utils.ObserversList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,12 +16,13 @@ public class DatabaseFailureExceptionTest {
     private InventoryDBHandler invHandler;;
     private AccountingDBHandler accHandler;
     private DiscountDBHandler discHandler;
+    private ObserversList obsList;
     private Controller testCtrl;
 
     @BeforeEach
     public void setup() {
         invHandler = new InventoryDBHandler();
-        testCtrl = new Controller(invHandler, accHandler, discHandler);
+        testCtrl = new Controller(invHandler, accHandler, discHandler, obsList);
         testCtrl.startSale();
     }
 

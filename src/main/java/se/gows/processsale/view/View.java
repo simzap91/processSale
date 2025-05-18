@@ -6,7 +6,6 @@ import se.gows.processsale.DTO.ViewDTO;
 import se.gows.processsale.controller.*;
 import se.gows.processsale.integration.ItemIdNotFoundException;
 import se.gows.processsale.model.*;
-import se.gows.processsale.utils.TotalRevenueFileOutput;
 import se.gows.processsale.utils.DiscountTypes;
 
 /**
@@ -22,8 +21,6 @@ public class View {
      */
     public View(Controller ctrl){
         this.ctrl = ctrl;
-        ctrl.addSumOfCostObserver(new TotalRevenueView());
-        ctrl.addSumOfCostObserver(new TotalRevenueFileOutput("revenueFileOutput.txt"));
     }
 
     /**

@@ -10,6 +10,7 @@ import se.gows.processsale.DTO.*;
 import se.gows.processsale.integration.*;
 import se.gows.processsale.model.CustomerId;
 import se.gows.processsale.utils.DiscountTypes;
+import se.gows.processsale.utils.ObserversList;
 
 public class ControllerTest {
 
@@ -19,6 +20,7 @@ public class ControllerTest {
     private InventoryDBHandler invHandler;;
     private AccountingDBHandler accHandler;
     private DiscountDBHandler discHandler;
+    private ObserversList obsList;
 
     @BeforeEach
     public void setUp(){
@@ -26,7 +28,7 @@ public class ControllerTest {
         accHandler = new AccountingDBHandler();
         discHandler = new DiscountDBHandler();
 
-        instanceToTest = new Controller(invHandler, accHandler, discHandler);
+        instanceToTest = new Controller(invHandler, accHandler, discHandler, obsList);
         printoutBuffer = new ByteArrayOutputStream();
         PrintStream inMemSysOut = new PrintStream(printoutBuffer);
         originalSysOut = System.out;
