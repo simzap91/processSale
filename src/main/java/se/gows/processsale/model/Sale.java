@@ -100,7 +100,7 @@ public class Sale {
     public ViewDTO createViewDTO(int itemID) {
         RegisteredItemDTO regItem = fetchRegisteredItem(itemID);
         Amount runningTotIncVat = calculateRunningTotalIncVat();
-        ViewDTO viewDTO = new ViewDTO(regItem, runningTotIncVat, null);
+        ViewDTO viewDTO = new ViewDTO(regItem, runningTotIncVat);
         return viewDTO;
     }
 

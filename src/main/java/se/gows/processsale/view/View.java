@@ -50,21 +50,18 @@ public class View {
 
                 try {
                     ViewDTO viewDTO = ctrl.scanItem(itemId, quantity);
-                    if (viewDTO.getErrorMessage() != null) {
-                        logger.log(viewDTO.getErrorMessage());
-                        System.out.println(viewDTO.getErrorMessage());
-                    } else {
-                        System.out.println("Add " + quantity + " item with itemId: " + itemId);
-                        System.out.println("Item ID: " + viewDTO.getRegItem().getItemID());
-                        System.out.println("Item name: " + viewDTO.getRegItem().getItemDescription());
-                        System.out.println("Item cost: " + viewDTO.getRegItem().getPrice() + "kr");
-                        System.out.println("VAT: " + (int)(100 * viewDTO.getRegItem().getVatRate()) + "%");
-                        System.out.println();
-                        System.out.println("Running total (inc. VAT): " + String.format(Locale.US, "%.2f",viewDTO.getRunningTotalIncVat().getValue()) + "kr");
-                        System.out.println();
-                    }
+                    System.out.println("Add " + quantity + " item with itemId: " + itemId);
+                    System.out.println("Item ID: " + viewDTO.getRegItem().getItemID());
+                    System.out.println("Item name: " + viewDTO.getRegItem().getItemDescription());
+                    System.out.println("Item cost: " + viewDTO.getRegItem().getPrice() + "kr");
+                    System.out.println("VAT: " + (int)(100 * viewDTO.getRegItem().getVatRate()) + "%");
+                    System.out.println();
+                    System.out.println("Running total (inc. VAT): " + String.format(Locale.US, "%.2f",viewDTO.getRunningTotalIncVat().getValue()) + "kr");
+                    System.out.println();
                 } catch (ItemIdNotFoundException exc) {
-                    System.out.println("Error: " + exc.getMessage());
+                    System.out.println("Error: Invalid item-id." + "\n");
+                } catch (Exception exc) {
+                    System.out.println("Error: Unable to connect to database. Try again later.\n");
                     logger.log(exc.getMessage());
                 }
                 scannedItemsCount ++;
@@ -115,21 +112,18 @@ public class View {
 
                 try {
                     ViewDTO viewDTO = ctrl.scanItem(itemId, quantity);
-                    if (viewDTO.getErrorMessage() != null) {
-                        System.out.println(viewDTO.getErrorMessage());
-                        logger.log(viewDTO.getErrorMessage());
-                    } else {
-                        System.out.println("Add " + quantity + " item with itemId: " + itemId);
-                        System.out.println("Item ID: " + viewDTO.getRegItem().getItemID());
-                        System.out.println("Item name: " + viewDTO.getRegItem().getItemDescription());
-                        System.out.println("Item cost: " + viewDTO.getRegItem().getPrice() + "kr");
-                        System.out.println("VAT: " + (int)(100 * viewDTO.getRegItem().getVatRate()) + "%");
-                        System.out.println();
-                        System.out.println("Running total (inc. VAT): " + String.format(Locale.US, "%.2f",viewDTO.getRunningTotalIncVat().getValue()) + "kr");
-                        System.out.println();
-                    }
+                    System.out.println("Add " + quantity + " item with itemId: " + itemId);
+                    System.out.println("Item ID: " + viewDTO.getRegItem().getItemID());
+                    System.out.println("Item name: " + viewDTO.getRegItem().getItemDescription());
+                    System.out.println("Item cost: " + viewDTO.getRegItem().getPrice() + "kr");
+                    System.out.println("VAT: " + (int)(100 * viewDTO.getRegItem().getVatRate()) + "%");
+                    System.out.println();
+                    System.out.println("Running total (inc. VAT): " + String.format(Locale.US, "%.2f",viewDTO.getRunningTotalIncVat().getValue()) + "kr");
+                    System.out.println();
                 } catch (ItemIdNotFoundException exc) {
-                    System.out.println("Error: " + exc.getMessage());
+                    System.out.println("Error: Invalid item-id." + "\n");
+                } catch (Exception exc) {
+                    System.out.println("Error: Unable to connect to database. Try again later.\n");
                     logger.log(exc.getMessage());
                 }
                 scannedItemsCount ++;
@@ -161,6 +155,4 @@ public class View {
         Amount payment = new Amount(200);
         ctrl.registerPayment(payment, currentSaleDTO);
     }
-
-    
 }

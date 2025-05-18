@@ -1,4 +1,1 @@
-Item with id 753753959 can't be found in inventory.
-
-Problem when calling the inventory.
-
+2025-05-18 13:27 Exception thrown: Problem when trying to connect to inventory database.

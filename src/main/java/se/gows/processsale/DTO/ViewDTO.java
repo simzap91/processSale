@@ -10,23 +10,15 @@ import se.gows.processsale.model.Amount;
 public class ViewDTO {
     private final RegisteredItemDTO regItemDTO;
     private final Amount runningTotalIncVat;
-    private final String errorMessage;
 
-    public ViewDTO(RegisteredItemDTO regItemDTO, Amount runningTotIncVat, String errMsg) {
+    public ViewDTO(RegisteredItemDTO regItemDTO, Amount runningTotIncVat) {
         this.regItemDTO = regItemDTO;
         this.runningTotalIncVat = runningTotIncVat;
-        this.errorMessage = errMsg;
     }
     public RegisteredItemDTO getRegItem() {
         return regItemDTO;
     }
     public Amount getRunningTotalIncVat() {
         return runningTotalIncVat;
-    }
-    public boolean hasError(){
-        return this.errorMessage != null;
-    }
-    public String getErrorMessage() {
-        return this.errorMessage;
     }
 }

@@ -48,20 +48,15 @@ public class Controller {
      * @param quantity quantity of scanned item
      * @return ViewDTO, which contains the last scanned item and running total (inc VAT)
      */
-    public ViewDTO scanItem(int itemID, int quantity) throws ItemIdNotFoundException { 
-        try {
-            boolean itemIsRegistered = currentSale.isItemInItemList(itemID);
-            if (!itemIsRegistered) {
-                ItemDTO newItem = invHandler.fetchItemFromInventory(itemID);
-                currentSale.addNewItem(newItem, quantity);
-            } else {
-                currentSale.updateExistingItem(itemID, quantity);
-            }
-            return currentSale.createViewDTO(itemID);
-        } catch (DatabaseFailureException exc) {
-            ViewDTO connectionFailureViewDTO = new ViewDTO(null, null, "Problem when calling the inventory.\n");
-            return connectionFailureViewDTO;
+    public ViewDTO scanItem(int itemID, int quantity) throws ItemIdNotFoundException, DatabaseFailureException { 
+        boolean itemIsRegistered = currentSale.isItemInItemList(itemID);
+        if (!itemIsRegistered) {
+            ItemDTO newItem = invHandler.fetchItemFromInventory(itemID);
+            currentSale.addNewItem(newItem, quantity);
+        } else {
+            currentSale.updateExistingItem(itemID, quantity);
         }
+        return currentSale.createViewDTO(itemID);
     }
 
     /**

@@ -7,6 +7,6 @@ public class DatabaseFailureException extends Exception {
  * Constructs a new exception with a message specifying that the database cannot be reached.
  */
     public DatabaseFailureException() {
-        super("Database can not be called.");
+        super("Problem when trying to connect to inventory database.");
     }
 }

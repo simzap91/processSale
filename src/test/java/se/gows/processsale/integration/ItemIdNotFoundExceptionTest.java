@@ -31,7 +31,7 @@ public class ItemIdNotFoundExceptionTest {
     }
 
     @Test
-    void testScanItemThatDoesNotExist()  {
+    void testScanItemThatDoesNotExist() throws DatabaseFailureException {
         int missingId = 90;
 
         try {
@@ -43,7 +43,7 @@ public class ItemIdNotFoundExceptionTest {
     }
 
     @Test
-    void testScanItemThatShouldNotThrowException()  {
+    void testScanItemThatShouldNotThrowException() {
         int existingId = 1;
 
         assertDoesNotThrow(() -> {

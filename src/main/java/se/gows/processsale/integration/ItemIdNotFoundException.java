@@ -11,7 +11,7 @@ public class ItemIdNotFoundException extends Exception {
     * @param itemID the item ID that was not found
      */
     public ItemIdNotFoundException(int itemId){
-        super("Item with id " + itemId + " can't be found in inventory.\n");
+        super("Item with id " + itemId + " can not be found in inventory.");
         this.itemIdNotFound = itemId;
     }
     /**
