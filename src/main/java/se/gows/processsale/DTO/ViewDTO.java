@@ -5,6 +5,7 @@ import se.gows.processsale.model.Amount;
  * View DTO. Holds information about last scanned item and running total of the sale.
  * @param regItemDTO last scanned item
  * @param runningTotalIncVat current running total inc vat
+ * @param errMsg If item is not in inventoryDB
  */
 public class ViewDTO {
     private final RegisteredItemDTO regItemDTO;
