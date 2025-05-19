@@ -1,16 +1,15 @@
 package se.gows.processsale.utils;
 
-
-    import java.io.FileWriter;
-    import java.io.IOException;
-    import java.io.PrintWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-    /**
-    * Prints log messages to a file. The log file will be in the
-    * current directory and will be called log.txt.
-    */
 
+/**
+* Prints log messages to a file. The log file will be in the
+* current directory and will be called log.txt.
+*/
 public class FileLogger {
      private PrintWriter logStream;
 

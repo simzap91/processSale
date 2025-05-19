@@ -10,7 +10,9 @@ import se.gows.processsale.utils.DiscountTypes;
 
 /**
  * View class that represents the user (cashier) display. 
- * This class also declares test items, a test customerId and a test discount request to the sale simulation.
+ * This class also declares test items, a test customerId and requested test discount types to the sale simulation.
+ * The class includes two methods that simulates sales - runSaleCustomerOne and runSaleCustomerTwo.
+ * The class catches the only two exceptions that can reach this level: ItemidNotFoundException and DatabaseFailureException.
  */
 public class View {
     private Controller ctrl;
@@ -54,8 +56,7 @@ public class View {
                     System.out.println();
                 } catch (ItemIdNotFoundException e) {
                     System.out.println("Error: " + e.getMessage() + "\n");
-                }
-                catch (DatabaseFailureException e) {
+                } catch (DatabaseFailureException e) {
                     System.out.println("Error: " + e.getMessage() + "\n");
                 }
                 scannedItemsCount ++;
@@ -116,8 +117,7 @@ public class View {
                     System.out.println();
                 } catch (ItemIdNotFoundException e) {
                     System.out.println("Error: " + e.getMessage() + "\n");
-                }
-                catch (DatabaseFailureException e) {
+                } catch (DatabaseFailureException e) {
                     System.out.println("Error: " + e.getMessage() + "\n");
                 }
                 scannedItemsCount ++;

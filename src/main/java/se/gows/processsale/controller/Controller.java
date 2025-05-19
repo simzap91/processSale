@@ -46,6 +46,8 @@ public class Controller {
     /**
      * This method first checks if item is registered in the sale. If not, it creates a new ItemDTO and sends to the Sale object.
      * If item already in the Sale object, it updates the sale with new item quantity and total price/Vat.
+     * If the itemId is not present in the inventory data base an ItemIdNotFoundException is thrown.
+     * If a DatabaseNotRunningException is catched a generic DatabaseFailureException is thrown.
      * @param itemID item identifier of scanned item
      * @param quantity quantity of scanned item
      * @return ViewDTO, which contains the last scanned item and running total (inc VAT)

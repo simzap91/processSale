@@ -6,6 +6,11 @@ import java.io.PrintWriter;
 
 import se.gows.processsale.DTO.SaleDTO;
 
+/**
+ * A class that keeps track of the sum of costs of all sales made during a program run.
+ * The class also writes this sum to a .txt-file.
+ * This class implements the SumOfCostsObserver interface and is put in the ObserversList by the Main-class when the program start.
+ */
 public class TotalRevenueFileOutput implements SumOfCostsObserver {
     private String filePath;
     private double sumOfCosts;

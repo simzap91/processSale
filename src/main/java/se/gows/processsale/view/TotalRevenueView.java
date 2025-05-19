@@ -5,6 +5,11 @@ import java.util.Locale;
 import se.gows.processsale.DTO.SaleDTO;
 import se.gows.processsale.utils.SumOfCostsObserver;
 
+/**
+ * A class that keeps track of the sum of costs of all sales made during a program run.
+ * The class also prints this sum to the View-console.
+ * This class implements the SumOfCostsObserver interface and is put in the ObserversList by the Main-class when the program start.
+ */
 public class TotalRevenueView implements SumOfCostsObserver {
     private double sumOfCosts;
 

@@ -11,8 +11,9 @@ public class InventoryDBHandler {
     private InventoryDb inventoryDb = InventoryDb.getInstance();
     
     /**
-     * Public method that fetches item from inventoryDB.
-     * Id 404 represent a data base connection error.
+     * Public method that fetches item from inventoryDB. If the itemId is not present in inventory 
+     * an ItemIdNotFoundException is thrown.
+     * Id 404 represent data base not running. If this problem occurs a DatabaseNotRunningException is thrown.
      * @param itemID unique identifier used to find item in DB
      * @return fetched item as ItemDTO. If no item ID matches the methods returns null.
      */
