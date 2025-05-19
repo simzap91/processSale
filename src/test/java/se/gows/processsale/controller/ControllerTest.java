@@ -8,7 +8,6 @@ import java.io.PrintStream;
 
 import se.gows.processsale.DTO.*;
 import se.gows.processsale.integration.*;
-import se.gows.processsale.model.CustomerId;
 import se.gows.processsale.utils.DiscountTypes;
 import se.gows.processsale.utils.ObserversList;
 
@@ -79,7 +78,7 @@ public class ControllerTest {
         double originalPrice = saleBeforeDiscount.getSaleSums().getTotalPrice().getValue();
 
         DiscountTypes[] discountTypes = {DiscountTypes.ITEMS, DiscountTypes.SALE, DiscountTypes.CUSTOMER};
-        CustomerId customerId = new CustomerId(1);
+        int customerId = 1;
 
         SaleDTO saleAfterDiscount = instanceToTest.requestDiscount(customerId, saleBeforeDiscount, discountTypes);
 

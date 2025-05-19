@@ -1,1 +1,0 @@
-2025-05-19 12:36 Exception thrown: Error 404: Database not running.

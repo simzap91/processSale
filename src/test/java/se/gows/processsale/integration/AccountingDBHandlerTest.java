@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import se.gows.processsale.DTO.SaleDTO;
 import se.gows.processsale.model.*;
+import se.gows.processsale.utils.Amount;
 
 public class AccountingDBHandlerTest {
     private AccountingDBHandler accDBtest;

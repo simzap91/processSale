@@ -1,20 +1,19 @@
 package se.gows.processsale.DTO;
 
-import se.gows.processsale.model.Amount;
-import se.gows.processsale.model.CustomerId;
+import se.gows.processsale.utils.Amount;
 
 public class DiscountRequestDTO {
 
-    private CustomerId customerId;
+    private int customerId;
     private RegisteredItemDTO[] purchasedItems;
     private Amount totalPrice;
 
-    public DiscountRequestDTO(CustomerId customerId, RegisteredItemDTO[] purchasedItems, Amount totalPrice){
+    public DiscountRequestDTO(int customerId, RegisteredItemDTO[] purchasedItems, Amount totalPrice){
         this.customerId = customerId;
         this.purchasedItems = purchasedItems;
         this.totalPrice = totalPrice;
     }
-    public CustomerId getCustomerId() {return customerId;}
+    public int getCustomerId() {return customerId;}
     public RegisteredItemDTO[] getPurchasedItems(){return purchasedItems;}
     public Amount getTotalPrice(){return totalPrice;}
 }

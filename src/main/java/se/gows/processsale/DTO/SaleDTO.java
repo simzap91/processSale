@@ -1,6 +1,6 @@
 package se.gows.processsale.DTO;
 
-import se.gows.processsale.model.Amount;
+import se.gows.processsale.utils.Amount;
 
 /**
  * Sale DTO. Holds information about a sale.

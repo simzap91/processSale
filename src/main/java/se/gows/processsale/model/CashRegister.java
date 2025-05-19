@@ -1,6 +1,7 @@
 package se.gows.processsale.model;
 
 import se.gows.processsale.DTO.SaleDTO;
+import se.gows.processsale.utils.Amount;
 import se.gows.processsale.utils.ObserversList;
 import se.gows.processsale.utils.SumOfCostsObserver;
 

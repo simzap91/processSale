@@ -1,6 +1,6 @@
 package se.gows.processsale.DTO;
 
-import se.gows.processsale.model.Amount;
+import se.gows.processsale.utils.Amount;
 
 /**
  * Sum DTO. Holds the sales total sums.

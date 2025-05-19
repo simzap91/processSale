@@ -1,5 +1,7 @@
 package se.gows.processsale.model;
 
+import se.gows.processsale.utils.Amount;
+
 /**
  * Transaction object contain information about a customers payment and the price for the entire sale.
  * Method uses amountPaid from Payment method and totalPriceIncVat from saleSUmmary

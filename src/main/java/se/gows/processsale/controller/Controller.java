@@ -80,7 +80,7 @@ public class Controller {
      * @param requestedDiscountTypes contains the requested discount types
      * @return SaleDTO with updated information about the sale (after the discount)
      */
-    public SaleDTO requestDiscount(CustomerId customerId, SaleDTO saleSummary, DiscountTypes[] requestedDiscountTypes){
+    public SaleDTO requestDiscount(int customerId, SaleDTO saleSummary, DiscountTypes[] requestedDiscountTypes){
         DiscountRequestDTO discRequestDTO = new DiscountRequestDTO(customerId, saleSummary.getItemList(), saleSummary.getSaleSums().getTotalPrice());
         Amount discountedTotalPrice = discHandler.getDiscountedPrice(requestedDiscountTypes, discRequestDTO);
         SaleDTO discountedSaleSummary = new SaleDTO(discountedTotalPrice, saleSummary.getSaleSums().getTotalVAT(), saleSummary.getItemList());

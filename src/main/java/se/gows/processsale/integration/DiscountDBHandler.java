@@ -5,8 +5,7 @@ import java.util.Arrays;
 import se.gows.processsale.DTO.DiscountRequestDTO;
 import se.gows.processsale.DTO.RegisteredItemDTO;
 import se.gows.processsale.integration.discount.*;
-import se.gows.processsale.model.Amount;
-import se.gows.processsale.model.CustomerId;
+import se.gows.processsale.utils.Amount;
 import se.gows.processsale.utils.DiscountTypes;
 
 
@@ -24,7 +23,7 @@ public class DiscountDBHandler {
      */
     public Amount getDiscountedPrice(DiscountTypes[] requestedDiscountTypes, DiscountRequestDTO discountRequest){
 
-        CustomerId customerId = discountRequest.getCustomerId();
+        int customerId = discountRequest.getCustomerId();
         RegisteredItemDTO[] purchasedItems = discountRequest.getPurchasedItems();
         Amount totalPrice = discountRequest.getTotalPrice();
 

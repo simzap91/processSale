@@ -3,6 +3,7 @@ package se.gows.processsale.model;
 import java.time.LocalDateTime;
 
 import se.gows.processsale.DTO.*;
+import se.gows.processsale.utils.Amount;
 
 /**
  * Public class for receipt.

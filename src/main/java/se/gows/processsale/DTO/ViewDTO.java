@@ -1,6 +1,6 @@
 package se.gows.processsale.DTO;
 
-import se.gows.processsale.model.Amount;
+import se.gows.processsale.utils.Amount;
 /**
  * View DTO. Holds information about last scanned item and running total of the sale.
  * @param regItemDTO last scanned item

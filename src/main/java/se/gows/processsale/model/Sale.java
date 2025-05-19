@@ -3,6 +3,7 @@ package se.gows.processsale.model;
 import java.util.ArrayList;
 
 import se.gows.processsale.DTO.*;
+import se.gows.processsale.utils.Amount;
 
 /**
  * Sale class that represent the sale. A new instance of this class is created every time a new customer enters the checkout.

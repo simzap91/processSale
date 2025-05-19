@@ -3,6 +3,8 @@ package se.gows.processsale.model;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
 
+import se.gows.processsale.utils.Amount;
+
 public class TransactionTest {
 
     private Transaction instanceToTest;

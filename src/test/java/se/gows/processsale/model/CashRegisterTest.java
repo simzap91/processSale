@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import se.gows.processsale.DTO.RegisteredItemDTO;
 import se.gows.processsale.DTO.SaleDTO;
+import se.gows.processsale.utils.Amount;
 import se.gows.processsale.utils.ObserversList;
 
 public class CashRegisterTest {

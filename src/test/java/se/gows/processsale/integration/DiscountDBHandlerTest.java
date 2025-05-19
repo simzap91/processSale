@@ -5,8 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import se.gows.processsale.DTO.*;
-import se.gows.processsale.model.Amount;
-import se.gows.processsale.model.CustomerId;
+import se.gows.processsale.utils.Amount;
 import se.gows.processsale.utils.DiscountTypes;
 
 public class DiscountDBHandlerTest {
@@ -25,7 +24,7 @@ public class DiscountDBHandlerTest {
         
         RegisteredItemDTO[] purchasedItems = { regItem1, regItem2 };
         DiscountTypes[] requestedDiscounts = {DiscountTypes.ITEMS, DiscountTypes.SALE, DiscountTypes.CUSTOMER};
-        CustomerId customerId = new CustomerId(1);
+        int customerId = 1;
         Amount totalPrice = new Amount(250.0);
         DiscountRequestDTO testDiscRequest = new DiscountRequestDTO(customerId, purchasedItems, totalPrice);
 
@@ -44,7 +43,7 @@ public class DiscountDBHandlerTest {
 
         RegisteredItemDTO[] purchasedItems = { regItem };
         DiscountTypes[] requestedDiscounts = {}; 
-        CustomerId customerId = new CustomerId(99);
+        int customerId = 99;
         Amount totalPrice = new Amount(100.0);
         DiscountRequestDTO testDiscRequest = new DiscountRequestDTO(customerId, purchasedItems, totalPrice);
 
@@ -63,7 +62,7 @@ public class DiscountDBHandlerTest {
 
         RegisteredItemDTO[] purchasedItems = { regItem };
         DiscountTypes[] requestedDiscounts = {DiscountTypes.ITEMS};
-        CustomerId customerId = new CustomerId(99);
+        int customerId = 99;
         Amount totalPrice = new Amount(100.0);
         DiscountRequestDTO testDiscRequest = new DiscountRequestDTO(customerId, purchasedItems, totalPrice);
 
@@ -82,7 +81,7 @@ public class DiscountDBHandlerTest {
 
         RegisteredItemDTO[] purchasedItems = { regItem };
         DiscountTypes[] requestedDiscounts = {DiscountTypes.SALE}; 
-        CustomerId customerId = new CustomerId(1);
+        int customerId = 1;
         Amount totalPrice = new Amount(300.0);
         DiscountRequestDTO testDiscRequest = new DiscountRequestDTO(customerId, purchasedItems, totalPrice);
 
@@ -101,7 +100,7 @@ public class DiscountDBHandlerTest {
 
         RegisteredItemDTO[] purchasedItems = { regItem };
         DiscountTypes[] requestedDiscounts = {DiscountTypes.CUSTOMER}; 
-        CustomerId customerId = new CustomerId(1);
+        int customerId = 1;
         Amount totalPrice = new Amount(100.0);
         DiscountRequestDTO testDiscRequest = new DiscountRequestDTO(customerId, purchasedItems, totalPrice);
 

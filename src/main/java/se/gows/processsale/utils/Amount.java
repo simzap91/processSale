@@ -1,4 +1,4 @@
-package se.gows.processsale.model;
+package se.gows.processsale.utils;
 
 import java.util.Locale;
 
