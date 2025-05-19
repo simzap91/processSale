@@ -17,13 +17,13 @@ public class Receipt {
     /**
     * Public method that initializes a receipt object by copying sale details from a saleDTO object that it receives, 
     * and payment details from a Transaction object named trans.
-    * @param saleDTO Holds sale information
+    * @param saleSummary Holds sale information
     * @param trans Holds transaction information
     */
-    public Receipt(SaleDTO saleDTO, Transaction trans) {
+    public Receipt(SaleDTO saleSummary, Transaction trans) {
         this.timeOfSale = LocalDateTime.now();
-        this.saleSums = saleDTO.getSaleSums();
-        this.itemList = saleDTO.getItemList();
+        this.saleSums = saleSummary.getSaleSums();
+        this.itemList = saleSummary.getItemList();
         this.amountPaid = trans.getAmountPaid();
         this.amountChange = trans.getAmountChange();
     }

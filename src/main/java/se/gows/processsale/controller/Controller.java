@@ -1,14 +1,9 @@
 package se.gows.processsale.controller;
 
-import se.gows.processsale.DTO.DiscountRequestDTO;
-import se.gows.processsale.DTO.ItemDTO;
-import se.gows.processsale.DTO.SaleDTO;
-import se.gows.processsale.DTO.ViewDTO;
+import se.gows.processsale.DTO.*;
 import se.gows.processsale.integration.*;
 import se.gows.processsale.model.*;
-import se.gows.processsale.utils.DiscountTypes;
-import se.gows.processsale.utils.FileLogger;
-import se.gows.processsale.utils.ObserversList;
+import se.gows.processsale.utils.*;
 
 /**
  * This is the application's only controller. All calls to the model pass through this class.
@@ -88,8 +83,8 @@ public class Controller {
     public SaleDTO requestDiscount(CustomerId customerId, SaleDTO saleSummary, DiscountTypes[] requestedDiscountTypes){
         DiscountRequestDTO discRequestDTO = new DiscountRequestDTO(customerId, saleSummary.getItemList(), saleSummary.getSaleSums().getTotalPrice());
         Amount discountedTotalPrice = discHandler.getDiscountedPrice(requestedDiscountTypes, discRequestDTO);
-        SaleDTO discountedSaleDTO = new SaleDTO(discountedTotalPrice, saleSummary.getSaleSums().getTotalVAT(), saleSummary.getItemList());
-        return discountedSaleDTO;
+        SaleDTO discountedSaleSummary = new SaleDTO(discountedTotalPrice, saleSummary.getSaleSums().getTotalVAT(), saleSummary.getItemList());
+        return discountedSaleSummary;
     }
 
     /**

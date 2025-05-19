@@ -117,12 +117,13 @@ public class Sale {
     }
 
     /**
-     * Public method that ends the current sale and returns a SaleDTO containing the final information about the registered items and their total price plus Vat
-     * @return SaleDTO
+     * Public method that ends the current sale and returns a SaleDTO containing the final information 
+     * about the registered items and their total price plus Vat
+     * @return SaleDTO saleSummary.
      */
     public SaleDTO endSale(){
         RegisteredItemDTO[] itemListArray = itemList.toArray(new RegisteredItemDTO[0]);
-        SaleDTO saleDTO = new SaleDTO(totalPrice, totalVAT, itemListArray);
-        return saleDTO;
+        SaleDTO saleSummary = new SaleDTO(totalPrice, totalVAT, itemListArray);
+        return saleSummary;
     }
 }
