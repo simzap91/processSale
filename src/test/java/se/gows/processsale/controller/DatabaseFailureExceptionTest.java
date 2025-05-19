@@ -1,9 +1,8 @@
-package se.gows.processsale.integration;
+package se.gows.processsale.controller;
 
 import org.junit.jupiter.api.Test;
 
-import se.gows.processsale.DTO.ItemDTO;
-import se.gows.processsale.controller.*;
+import se.gows.processsale.integration.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -31,23 +30,17 @@ public class DatabaseFailureExceptionTest {
     }
 
     @Test
-    void testScanItemThatShouldThrowException() throws ItemIdNotFoundException {
+    void testDatabaseFailureExceptionIsThrown() {
         int failureId = 404;
 
-        try {
-            invHandler.fetchItemFromInventory(failureId);
-        } catch(DatabaseNotRunningException exc) {
-            assertEquals(exc.getMessage(), "Error 404: Database not running.");
-        }
-    }
+        DatabaseFailureException thrown = assertThrows(
+            DatabaseFailureException.class,
+            () -> testCtrl.scanItem(failureId, 1),
+            "DatabaseFailureException not thrown as expected."
+        );
 
-    @Test
-    void testScanItemThatShouldNotThrowException()  {
-        int existingId = 1;
-
-        assertDoesNotThrow(() -> {
-            ItemDTO dto = invHandler.fetchItemFromInventory(existingId);
-            assertNotNull(dto, "DTO should not be null for valid item ID");
-        });
+        assertEquals("Unable to connect to database.", thrown.getMessage(), "Exception message not correctly set.");
+        assertNotNull(thrown.getCause(), "Exception cause not correctly set.");
+        assertEquals(DatabaseNotRunningException.class, thrown.getCause().getClass(), "Exception cause not correctly set.");
     }
 }
