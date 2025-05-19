@@ -2,7 +2,7 @@ package se.gows.processsale.model;
 
 /**
  * Transaction object contain information about a customers payment and the price for the entire sale.
- * Method uses amountPaid from Payment method and totalPriceIncVat from currentSaleDTO
+ * Method uses amountPaid from Payment method and totalPriceIncVat from saleSUmmary
  * @param amountPaid amount paid by customer
  * @param totalPriceIncVat total price (inc Vat) of the sale
  * @return Transaction
@@ -17,7 +17,7 @@ public class Transaction {
     }
     /**
     * private method that calculates the amount of change that should be returned to the customer
-    * Method uses amountPaid from Payment method and totalPriceIncVat from currentSaleDTO
+    * Method uses amountPaid from Payment method and totalPriceIncVat from saleSummary
     * @param amountPaid
     * @param totalPriceIncVat
     * @return

@@ -79,14 +79,14 @@ public class Controller {
     /**
      * This method passes a discount request to the discount handler.
      * @param customerID used to check if customer is member
-     * @param currentSaleDTO contains information about the current sale
+     * @param saleSummary contains information about the current sale
      * @param requestedDiscountTypes contains the requested discount types
      * @return SaleDTO with updated information about the sale (after the discount)
      */
-    public SaleDTO requestDiscount(CustomerId customerId, SaleDTO currentSaleDTO, DiscountTypes[] requestedDiscountTypes){
-        DiscountRequestDTO discRequestDTO = new DiscountRequestDTO(customerId, currentSaleDTO.getItemList(), currentSaleDTO.getSaleSums().getTotalPrice());
+    public SaleDTO requestDiscount(CustomerId customerId, SaleDTO saleSummary, DiscountTypes[] requestedDiscountTypes){
+        DiscountRequestDTO discRequestDTO = new DiscountRequestDTO(customerId, saleSummary.getItemList(), saleSummary.getSaleSums().getTotalPrice());
         Amount discountedTotalPrice = discHandler.getDiscountedPrice(requestedDiscountTypes, discRequestDTO);
-        SaleDTO discountedSaleDTO = new SaleDTO(discountedTotalPrice, currentSaleDTO.getSaleSums().getTotalVAT(), currentSaleDTO.getItemList());
+        SaleDTO discountedSaleDTO = new SaleDTO(discountedTotalPrice, saleSummary.getSaleSums().getTotalVAT(), saleSummary.getItemList());
         return discountedSaleDTO;
     }
 
@@ -94,10 +94,10 @@ public class Controller {
      * Takes a paid amount and creates a new transaction and a new receipt. The method then register these objects in the cash register
      * and updates the Accounting DB.
      * @param payment sale payment
-     * @param currentSaleDTO saleDTO
+     * @param saleSummary saleDTO
      */
-    public void registerPayment(Amount payment, SaleDTO currentSaleDTO){
-        cashRegister.registerPayment(payment, currentSaleDTO);
+    public void registerPayment(Amount payment, SaleDTO saleSummary){
+        cashRegister.registerPayment(payment, saleSummary);
         accHandler.updateAccountBalance(cashRegister.getReceipt());
     }
 
