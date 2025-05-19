@@ -1,6 +1,6 @@
 package se.gows.processsale.controller;
 /**
- * General exception class thrown to higher layers when any issues with database arises.
+ * Generic exception class thrown to higher layers when any issues with database arises.
  */
 public class DatabaseFailureException extends Exception {
     /**
