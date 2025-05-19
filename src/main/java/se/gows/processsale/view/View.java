@@ -71,7 +71,7 @@ public class View {
         DiscountTypes[] requestedDiscountTypes = {DiscountTypes.ITEMS, DiscountTypes.SALE, DiscountTypes.CUSTOMER};
         System.out.println("-------------------------------------");
         System.out.println("Discount requested.");
-        System.out.println("Customer ID: " + customerId);
+        System.out.println("Customer ID: " + customerId.getId());
         System.out.print("Discount types: ");
         for (DiscountTypes type : requestedDiscountTypes) {
             System.out.print(type + ", ");
@@ -133,7 +133,7 @@ public class View {
         DiscountTypes[] requestedDiscountTypes = {DiscountTypes.ITEMS, DiscountTypes.SALE, DiscountTypes.CUSTOMER};
         System.out.println("-------------------------------------");
         System.out.println("Discount requested.");
-        System.out.println("Customer ID: " + customerId);
+        System.out.println("Customer ID: " + customerId.getId());
         System.out.print("Discount types: ");
         for (DiscountTypes type : requestedDiscountTypes) {
             System.out.print(type + ", ");

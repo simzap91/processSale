@@ -99,7 +99,6 @@ public class Controller {
     public void registerPayment(Amount payment, SaleDTO currentSaleDTO){
         cashRegister.registerPayment(payment, currentSaleDTO);
         accHandler.updateAccountBalance(cashRegister.getReceipt());
-        
     }
 
 }
