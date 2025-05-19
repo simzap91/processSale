@@ -4,7 +4,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import se.gows.processsale.model.*;
+import se.gows.processsale.DTO.SaleDTO;
 
 public class TotalRevenueFileOutput implements SumOfCostsObserver {
     private String filePath;
@@ -19,8 +19,8 @@ public class TotalRevenueFileOutput implements SumOfCostsObserver {
         this.sumOfCosts = 0;
     }
 
-    private void addNewCost(Amount cost){
-        sumOfCosts += cost.getValue();
+    private void addNewCost(SaleDTO saleSummary){
+        sumOfCosts += saleSummary.getSaleSums().getTotalIncVat().getValue();
     }
 
     /**
@@ -28,8 +28,8 @@ public class TotalRevenueFileOutput implements SumOfCostsObserver {
      * @param sumOfCost The new cost amount to be added.
      */
     @Override
-    public void newSumOfCost(Amount sumOfCost) {
-        addNewCost(sumOfCost);
+    public void newSumOfCost(SaleDTO saleSummary) {
+        addNewCost(saleSummary);
         FileOutputSumOfCost();
     }
     

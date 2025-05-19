@@ -2,7 +2,7 @@ package se.gows.processsale.view;
 
 import java.util.Locale;
 
-import se.gows.processsale.model.*;
+import se.gows.processsale.DTO.SaleDTO;
 import se.gows.processsale.utils.SumOfCostsObserver;
 
 public class TotalRevenueView implements SumOfCostsObserver {
@@ -17,13 +17,13 @@ public class TotalRevenueView implements SumOfCostsObserver {
      * @param sumOfCost The new cost amount to be added.
      */
     @Override
-    public void newSumOfCost(Amount sumOfCost){
-        addNewCost(sumOfCost);
+    public void newSumOfCost(SaleDTO saleSummary){
+        addNewCost(saleSummary);
         printCurrentSumOfCosts();
     };
 
-    private void addNewCost(Amount cost){
-        sumOfCosts += cost.getValue();
+    private void addNewCost(SaleDTO saleSummary){
+        sumOfCosts += saleSummary.getSaleSums().getTotalIncVat().getValue();
     }
 
     private void printCurrentSumOfCosts() {

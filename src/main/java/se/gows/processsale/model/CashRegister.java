@@ -22,23 +22,23 @@ public class CashRegister {
     /**
      * Register payment as a new Transaction object, creates a new receipt and finally prints the receipt.
      * @param payment Payment made by customer.
-     * @param sale Information about the sale.
+     * @param saleSummary Information about the sale.
      */
-    public void registerPayment(Amount payment, SaleDTO sale){
-        transaction = new Transaction(payment, sale.getSaleSums().getTotalIncVat());
-        createReceipt(sale);
+    public void registerPayment(Amount payment, SaleDTO saleSummary){
+        transaction = new Transaction(payment, saleSummary.getSaleSums().getTotalIncVat());
+        createReceipt(saleSummary);
         printReceipt();
-        notifyObservers(sale);
+        notifyObservers(saleSummary);
     }
 
-    private void createReceipt(SaleDTO sale) {receipt = new Receipt(sale, transaction);}
+    private void createReceipt(SaleDTO saleSummary) {receipt = new Receipt(saleSummary, transaction);}
     private void printReceipt(){printer.printReceipt(receipt);}
     public Receipt getReceipt(){return this.receipt;}
 
 
-    private void notifyObservers(SaleDTO sale) {
+    private void notifyObservers(SaleDTO saleSummary) {
         for (SumOfCostsObserver obs : obsList.getSumOfCostsObservers()) {
-            obs.newSumOfCost(sale.getSaleSums().getTotalIncVat());
+            obs.newSumOfCost(saleSummary);
         }
     }
 }
