@@ -26,19 +26,32 @@ public class View {
     }
 
     /**
+     * Some values used to simulate a test run with two sales/customers.
+     */
+    int[][][] shoppingCarts = {{{20,1},{404,2},{1,2}},{{1,1},{2,1},{3,5}}};
+    int[] customerIds = {1, 2};
+    DiscountTypes[] discountRequests = {DiscountTypes.ITEMS, DiscountTypes.SALE, DiscountTypes.CUSTOMER};
+    Amount[] payments = {new Amount(100), new Amount(200)};
+
+    /**
      * Runs simulation of sale process.
      */
-    public void runSaleCustomerOne() {
-   
-        ctrl.startSale();
-        
-        System.out.println();
-        System.out.println("-------------------------------------");
-        System.out.println("A new sale has been started.");
-        System.out.println();
+    public void testRun() {
 
-            int[][] shoppingCart = {{753753959,1},{404,2},{1,2}};
+        int customersInQueue = 2;
+
+        while (customersInQueue > 0) {
+
+            ctrl.startSale();
+        
+            System.out.println();
+            System.out.println("-------------------------------------");
+            System.out.println("A new sale has been started.");
+            System.out.println();
+
+            int[][] shoppingCart = shoppingCarts[2 - customersInQueue];
             int scannedItemsCount = 0;
+
             while (scannedItemsCount < shoppingCart.length){
 
                 int itemId = shoppingCart[scannedItemsCount][0];
@@ -46,14 +59,7 @@ public class View {
 
                 try {
                     ViewDTO viewDTO = ctrl.scanItem(itemId, quantity);
-                    System.out.println("Add " + quantity + " item with itemId: " + itemId);
-                    System.out.println("Item ID: " + viewDTO.getRegItem().getItemID());
-                    System.out.println("Item name: " + viewDTO.getRegItem().getItemDescription());
-                    System.out.println("Item cost: " + viewDTO.getRegItem().getPrice() + "kr");
-                    System.out.println("VAT: " + (int)(100 * viewDTO.getRegItem().getVatRate()) + "%");
-                    System.out.println();
-                    System.out.println("Running total (inc. VAT): " + String.format(Locale.US, "%.2f",viewDTO.getRunningTotalIncVat().getValue()) + "kr");
-                    System.out.println();
+                    printScannedItem(itemId, quantity, viewDTO);
                 } catch (ItemIdNotFoundException e) {
                     System.out.println("Error: " + e.getMessage() + "\n");
                 } catch (DatabaseFailureException e) {
@@ -62,91 +68,52 @@ public class View {
                 scannedItemsCount ++;
             }
 
-        SaleDTO saleSummary = ctrl.endSale();
-        System.out.println("-------------------------------------");
-        System.out.println("Sale ended");
-        System.out.println();
-        System.out.println("Total (inc. VAT): " + String.format(Locale.US, "%.2f",saleSummary.getSaleSums().getTotalIncVat().getValue()) + "kr");
+            SaleDTO saleSummary = ctrl.endSale();
+            printEndSale(saleSummary);
 
-        int customerId = 1;
-        DiscountTypes[] requestedDiscountTypes = {DiscountTypes.ITEMS, DiscountTypes.SALE, DiscountTypes.CUSTOMER};
-        System.out.println("-------------------------------------");
-        System.out.println("Discount requested.");
-        System.out.println("Customer ID: " + customerId);
-        System.out.print("Discount types: ");
-        for (DiscountTypes type : requestedDiscountTypes) {
-            System.out.print(type + ", ");
+            int customerId = customerIds[2 - customersInQueue];
+            DiscountTypes[] requestedDiscountTypes = discountRequests;
+            printRequestDiscount(customerId, requestedDiscountTypes);
+            saleSummary = ctrl.requestDiscount(customerId, saleSummary, requestedDiscountTypes);
+
+            System.out.println("-------------------------------------");
+            System.out.println("Total (inc. VAT) after discount: " + String.format(Locale.US, "%.2f",saleSummary.getSaleSums().getTotalIncVat().getValue()) + "kr");
+            System.out.println("-------------------------------------");
+            System.out.println();
+
+            Amount payment = payments[2 - customersInQueue];
+            ctrl.registerPayment(payment, saleSummary);
+
+            customersInQueue --;
         }
-        System.out.println();
-        saleSummary = ctrl.requestDiscount(customerId, saleSummary, requestedDiscountTypes);
-       
-        System.out.println("-------------------------------------");
-        System.out.println("Total (inc. VAT) after discount: " + String.format(Locale.US, "%.2f",saleSummary.getSaleSums().getTotalIncVat().getValue()) + "kr");
-        System.out.println("-------------------------------------");
-        System.out.println();
-
-        Amount payment = new Amount(100);
-        ctrl.registerPayment(payment, saleSummary);
     }
 
-    public void runSaleCustomerTwo() {
-   
-        ctrl.startSale();
-        
+    private void printScannedItem(int itemId, int quantity, ViewDTO viewDTO){
+        System.out.println("Add " + quantity + " item with itemId: " + itemId);
+        System.out.println("Item ID: " + viewDTO.getRegItem().getItemID());
+        System.out.println("Item name: " + viewDTO.getRegItem().getItemDescription());
+        System.out.println("Item cost: " + viewDTO.getRegItem().getPrice() + "kr");
+        System.out.println("VAT: " + (int)(100 * viewDTO.getRegItem().getVatRate()) + "%");
         System.out.println();
-        System.out.println("-------------------------------------");
-        System.out.println("A new sale has been started.");
+        System.out.println("Running total (inc. VAT): " + String.format(Locale.US, "%.2f",viewDTO.getRunningTotalIncVat().getValue()) + "kr");
         System.out.println();
+    }
 
-            int[][] shoppingCart = {{1,1},{2,1},{3,5}};
-            int scannedItemsCount = 0;
-            while (scannedItemsCount < shoppingCart.length){
-
-                int itemId = shoppingCart[scannedItemsCount][0];
-                int quantity = shoppingCart[scannedItemsCount][1];
-
-                try {
-                    ViewDTO viewDTO = ctrl.scanItem(itemId, quantity);
-                    System.out.println("Add " + quantity + " item with itemId: " + itemId);
-                    System.out.println("Item ID: " + viewDTO.getRegItem().getItemID());
-                    System.out.println("Item name: " + viewDTO.getRegItem().getItemDescription());
-                    System.out.println("Item cost: " + viewDTO.getRegItem().getPrice() + "kr");
-                    System.out.println("VAT: " + (int)(100 * viewDTO.getRegItem().getVatRate()) + "%");
-                    System.out.println();
-                    System.out.println("Running total (inc. VAT): " + String.format(Locale.US, "%.2f",viewDTO.getRunningTotalIncVat().getValue()) + "kr");
-                    System.out.println();
-                } catch (ItemIdNotFoundException e) {
-                    System.out.println("Error: " + e.getMessage() + "\n");
-                } catch (DatabaseFailureException e) {
-                    System.out.println("Error: " + e.getMessage() + "\n");
-                }
-                scannedItemsCount ++;
-            }
-
-        SaleDTO saleSummary = ctrl.endSale();
+    private void printEndSale(SaleDTO saleSummary) {
         System.out.println("-------------------------------------");
         System.out.println("Sale ended");
         System.out.println();
         System.out.println("Total (inc. VAT): " + String.format(Locale.US, "%.2f",saleSummary.getSaleSums().getTotalIncVat().getValue()) + "kr");
+    }
 
-        int customerId = 2;
-        DiscountTypes[] requestedDiscountTypes = {DiscountTypes.ITEMS, DiscountTypes.SALE, DiscountTypes.CUSTOMER};
+    private void printRequestDiscount(int customerId, DiscountTypes[] discReq){
         System.out.println("-------------------------------------");
         System.out.println("Discount requested.");
         System.out.println("Customer ID: " + customerId);
         System.out.print("Discount types: ");
-        for (DiscountTypes type : requestedDiscountTypes) {
+        for (DiscountTypes type : discReq) {
             System.out.print(type + ", ");
         }
         System.out.println();
-        saleSummary = ctrl.requestDiscount(customerId, saleSummary, requestedDiscountTypes);
-       
-        System.out.println("-------------------------------------");
-        System.out.println("Total (inc. VAT) after discount: " + String.format(Locale.US, "%.2f",saleSummary.getSaleSums().getTotalIncVat().getValue()) + "kr");
-        System.out.println("-------------------------------------");
-        System.out.println();
-
-        Amount payment = new Amount(200);
-        ctrl.registerPayment(payment, saleSummary);
     }
 }

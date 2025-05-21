@@ -20,7 +20,6 @@ public class Main {
         Controller ctrl = new Controller(invHandler, accHandler, discHandler, obsList);
         View view = new View(ctrl);
 
-        view.runSaleCustomerOne();
-        view.runSaleCustomerTwo();
+        view.testRun();
     }
 }
