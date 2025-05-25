@@ -23,7 +23,7 @@ public class TotalRevenueView extends TotalRevenueDisplay {
 
     @Override
     protected void handleErrors(Exception e) {
-        logger.log(e.getMessage()); // Osäker på denna
-        System.out.println("Not able to display total income."); // Osäker på denna
+        logger.log(e.getMessage());
+        System.out.println("Not able to display total income.");
     }
 }

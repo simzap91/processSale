@@ -44,7 +44,7 @@ public abstract class TotalRevenueDisplay implements SumOfCostsObserver {
     protected abstract void doShowTotalIncome(double sumOfCosts) throws Exception;
 
     /**
-     * Handles the exceptions that occurs in showTotalIncome-method in this class.
+     * Handles the exceptions that is thrown by the doShowTotalIncome-method in the subclass.
      * 
      * @param e Exception that causes the error.
      */
