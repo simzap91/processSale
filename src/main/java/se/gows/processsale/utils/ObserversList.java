@@ -20,7 +20,8 @@ public class ObserversList {
 
     /**
      * Adds observer to the list of observers
-     * @param obs the observer 
+     * 
+     * @param obs Observer that is to be added.
      */
     public void addSumOfCostObserver(SumOfCostsObserver obs) {
         sumOfCostsObservers.add(obs);

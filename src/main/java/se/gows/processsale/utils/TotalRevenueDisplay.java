@@ -22,7 +22,7 @@ public abstract class TotalRevenueDisplay implements SumOfCostsObserver {
     public void newSaleWasMade(double costOfNewSale){
         addNewCost(costOfNewSale);
         showTotalIncome();
-    };
+    }
 
     private void addNewCost(double costOfNewSale){
         sumOfCosts += costOfNewSale;
