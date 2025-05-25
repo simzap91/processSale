@@ -10,17 +10,21 @@ import java.io.PrintWriter;
  */
 public class TotalRevenueFileOutput extends TotalRevenueDisplay {
     private String filePath;
+    private FileLogger logger;
 
     /**
      * Creates an instance that first runs the constructor of TotalRevenueDisplay, then creates
      * a new filePath from passed String.
-     * @param filePath The path to the file where total revenue will be written.
+     * 
+     * @param filePath Path to file where total income will be written.
      */
     public TotalRevenueFileOutput(String filePath) {
         this.filePath = filePath;
+        this.logger = new FileLogger();
     }
     
-    protected void doShowTotalIncome(double sumOfCosts) throws Exception {
+    @Override
+    protected void doShowTotalIncome(double sumOfCosts) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(filePath), true)) {
             writer.printf(">>> Total Revenue : %.2f kr%n", sumOfCosts);
         } catch (IOException e) {
@@ -28,7 +32,9 @@ public class TotalRevenueFileOutput extends TotalRevenueDisplay {
         }
     }
 
+    @Override
     protected void handleErrors(Exception e) {
-        // SKRIV DENNA
+        logger.log(e.getMessage()); // Osäker på denna
+        System.out.println("Not able to display total income."); // Osäker på denna
     }
 }

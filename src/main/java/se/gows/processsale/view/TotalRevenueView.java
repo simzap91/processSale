@@ -3,6 +3,7 @@ package se.gows.processsale.view;
 import java.util.Locale;
 
 import se.gows.processsale.utils.TotalRevenueDisplay;
+import se.gows.processsale.utils.FileLogger;
 
 /**
  * A subclass to the TotalRevenueDisplay superclass that prints the total revenue sum to the View-console.
@@ -10,6 +11,9 @@ import se.gows.processsale.utils.TotalRevenueDisplay;
  */
 public class TotalRevenueView extends TotalRevenueDisplay {
 
+    private FileLogger logger = new FileLogger();
+
+    @Override
     protected void doShowTotalIncome(double sumOfCosts) {
         System.out.println();
         System.out.println("###############################\n");
@@ -17,7 +21,9 @@ public class TotalRevenueView extends TotalRevenueDisplay {
         System.out.println("###############################");
     }
 
+    @Override
     protected void handleErrors(Exception e) {
-        // SKRIV DENNA
+        logger.log(e.getMessage()); // Osäker på denna
+        System.out.println("Not able to display total income."); // Osäker på denna
     }
 }
