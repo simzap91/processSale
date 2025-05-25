@@ -37,7 +37,7 @@ public class View {
         System.out.println("A new sale has been started.");
         System.out.println();
 
-            int[][] shoppingCart = {{753753959,1},{404,2},{1,2}};
+            int[][] shoppingCart = {{753753959,1},{404,2},{1,3}};
             int scannedItemsCount = 0;
             while (scannedItemsCount < shoppingCart.length){
 

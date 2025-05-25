@@ -29,7 +29,7 @@ public class CashRegister {
         transaction = new Transaction(payment, saleSummary.getSaleSums().getTotalIncVat());
         createReceipt(saleSummary);
         printReceipt();
-        notifyObservers(saleSummary);
+        notifyObservers(saleSummary.getSaleSums().getTotalPrice().getValue());
     }
 
     private void createReceipt(SaleDTO saleSummary) {receipt = new Receipt(saleSummary, transaction);}
@@ -37,9 +37,9 @@ public class CashRegister {
     public Receipt getReceipt(){return this.receipt;}
 
 
-    private void notifyObservers(SaleDTO saleSummary) {
+    private void notifyObservers(double totalCostOfSale) {
         for (SumOfCostsObserver obs : obsList.getSumOfCostsObservers()) {
-            obs.newSumOfCost(saleSummary);
+            obs.newSaleWasMade(totalCostOfSale);
         }
     }
 }
