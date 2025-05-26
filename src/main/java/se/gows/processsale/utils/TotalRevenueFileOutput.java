@@ -24,17 +24,14 @@ public class TotalRevenueFileOutput extends TotalRevenueDisplay {
     }
     
     @Override
-    protected void doShowTotalIncome(double sumOfCosts) {
+    protected void doShowTotalIncome(double sumOfCosts) throws IOException {
         try (PrintWriter writer = new PrintWriter(new FileWriter(filePath), true)) {
             writer.printf(">>> Total Revenue : %.2f kr%n", sumOfCosts);
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
     @Override
     protected void handleErrors(Exception e) {
-        logger.log(e.getMessage());
-        System.out.println("Not able to display total income.");
+        logger.log("Failed to print total income to file: " + e.getMessage());
     }
 }
