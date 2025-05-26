@@ -25,14 +25,13 @@ public class MainTest {
         System.setOut(originalSysOut);
     }
 
-    @Disabled
     @Test
     void testMain() {
         String[] args = null;
         Main.main(args);
 
         String printout = printoutBuffer.toString();
-        String expectedOutput = "started";
-        assertTrue(printout.contains(expectedOutput), "UI did not start correctly.");
+        String expectedWordInOutput = "started";
+        assertTrue(printout.contains(expectedWordInOutput), "Test run did not start correctly.");
     }
 }
