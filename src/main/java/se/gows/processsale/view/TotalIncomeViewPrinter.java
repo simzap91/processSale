@@ -2,19 +2,15 @@ package se.gows.processsale.view;
 
 import java.util.Locale;
 
-import se.gows.processsale.utils.TotalRevenueDisplay;
+import se.gows.processsale.utils.TotalIncomePrinter;
 
-/**
- * A subclass to the TotalRevenueDisplay superclass that prints the total revenue sum to the View-console.
- * This class is put in the ObserversList by the Main-class when the program start.
- */
-public class TotalRevenueView extends TotalRevenueDisplay {
+public class TotalIncomeViewPrinter extends TotalIncomePrinter {
 
     @Override
-    protected void doShowTotalIncome(double sumOfCosts) {
+    protected void doShowTotalIncome(double totalIncome) {
         System.out.println();
         System.out.println("###############################\n");
-        System.out.println("Total income: " + String.format(Locale.US, "%.2f", sumOfCosts) + "\n");
+        System.out.println("Total Income: " + String.format(Locale.US, "%.2f", totalIncome) + "\n");
         System.out.println("###############################");
     }
 

@@ -3,7 +3,7 @@ package se.gows.processsale.utils;
 import java.util.ArrayList;
 import java.util.List;
 
-import se.gows.processsale.view.TotalRevenueView;
+import se.gows.processsale.view.TotalIncomeViewPrinter;
 
 /**
  * A class that holds a list with observed objects that implements the SumOfCostsObserver interface.
@@ -14,8 +14,8 @@ public class ObserversList {
 
     public ObserversList () {
         this.sumOfCostsObservers = new ArrayList<>();
-        addSumOfCostObserver(new TotalRevenueView());
-        addSumOfCostObserver(new TotalRevenueFileOutput("revenueFileOutput.txt"));
+        addSumOfCostObserver(new TotalIncomeViewPrinter());
+        addSumOfCostObserver(new TotalIncomeFilePrinter("totalIncomeDisplay.txt"));
     }
 
     /**

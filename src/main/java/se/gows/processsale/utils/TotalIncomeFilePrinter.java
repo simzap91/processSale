@@ -5,10 +5,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
- * A subclass to the TotalRevenueDisplay superclass that prints the total revenue sum to a file.
+ * A subclass to the TotalIncomePrinter superclass that prints the total income of all sales to a file.
  * This class is put in the ObserversList by the Main-class when the program start.
  */
-public class TotalRevenueFileOutput extends TotalRevenueDisplay {
+public class TotalIncomeFilePrinter extends TotalIncomePrinter {
+
     private String filePath;
     private FileLogger logger;
 
@@ -18,15 +19,15 @@ public class TotalRevenueFileOutput extends TotalRevenueDisplay {
      * 
      * @param filePath Path to file where total income will be written.
      */
-    public TotalRevenueFileOutput(String filePath) {
+    public TotalIncomeFilePrinter(String filePath) {
         this.filePath = filePath;
         this.logger = new FileLogger();
     }
     
     @Override
-    protected void doShowTotalIncome(double sumOfCosts) throws IOException {
+    protected void doShowTotalIncome(double totalIncome) throws IOException {
         try (PrintWriter writer = new PrintWriter(new FileWriter(filePath), true)) {
-            writer.printf(">>> Total Revenue : %.2f kr%n", sumOfCosts);
+            writer.printf(">>> Total Income : %.2f kr%n", totalIncome);
         }
     }
 

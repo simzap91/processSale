@@ -36,7 +36,6 @@ public class CashRegister {
     private void printReceipt(){printer.printReceipt(receipt);}
     public Receipt getReceipt(){return this.receipt;}
 
-
     private void notifyObservers(double totalCostOfSale) {
         for (SumOfCostsObserver obs : obsList.getSumOfCostsObservers()) {
             obs.newSaleWasMade(totalCostOfSale);
