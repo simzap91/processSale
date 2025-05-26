@@ -22,5 +22,6 @@ public class Main {
 
         view.runSaleCustomerOne();
         view.runSaleCustomerTwo();
+        view.runSaleCustomerThree();
     }
 }

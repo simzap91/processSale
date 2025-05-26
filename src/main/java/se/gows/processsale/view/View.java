@@ -149,4 +149,52 @@ public class View {
         Amount payment = new Amount(200);
         ctrl.registerPayment(payment, saleSummary);
     }
+
+    public void runSaleCustomerThree() {
+   
+        ctrl.startSale();
+        
+        System.out.println();
+        System.out.println("-------------------------------------");
+        System.out.println("A new sale has been started.");
+        System.out.println();
+
+            int[][] shoppingCart = {{1,3}};
+            int scannedItemsCount = 0;
+            while (scannedItemsCount < shoppingCart.length){
+
+                int itemId = shoppingCart[scannedItemsCount][0];
+                int quantity = shoppingCart[scannedItemsCount][1];
+
+                try {
+                    ViewDTO viewDTO = ctrl.scanItem(itemId, quantity);
+                    System.out.println("Add " + quantity + " item with itemId: " + itemId);
+                    System.out.println("Item ID: " + viewDTO.getRegItem().getItemID());
+                    System.out.println("Item name: " + viewDTO.getRegItem().getItemDescription());
+                    System.out.println("Item cost: " + viewDTO.getRegItem().getPrice() + "kr");
+                    System.out.println("VAT: " + (int)(100 * viewDTO.getRegItem().getVatRate()) + "%");
+                    System.out.println();
+                    System.out.println("Running total (inc. VAT): " + String.format(Locale.US, "%.2f",viewDTO.getRunningTotalIncVat().getValue()) + "kr");
+                    System.out.println();
+                } catch (ItemIdNotFoundException e) {
+                    System.out.println("Error: " + e.getMessage() + "\n");
+                } catch (DatabaseFailureException e) {
+                    System.out.println("Error: " + e.getMessage() + "\n");
+                }
+                scannedItemsCount ++;
+            }
+
+        SaleDTO saleSummary = ctrl.endSale();
+        System.out.println("-------------------------------------");
+        System.out.println("Sale ended");
+        System.out.println();
+        System.out.println("Total (inc. VAT): " + String.format(Locale.US, "%.2f",saleSummary.getSaleSums().getTotalIncVat().getValue()) + "kr");
+        System.out.println("-------------------------------------");
+        System.out.println("Total (inc. VAT) after discount: " + String.format(Locale.US, "%.2f",saleSummary.getSaleSums().getTotalIncVat().getValue()) + "kr");
+        System.out.println("-------------------------------------");
+        System.out.println();
+
+        Amount payment = new Amount(100);
+        ctrl.registerPayment(payment, saleSummary);
+    }
 }
