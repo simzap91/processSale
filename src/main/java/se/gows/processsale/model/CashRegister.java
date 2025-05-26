@@ -29,7 +29,7 @@ public class CashRegister {
         transaction = new Transaction(payment, saleSummary.getSaleSums().getTotalIncVat());
         createReceipt(saleSummary);
         printReceipt();
-        notifyObservers(saleSummary.getSaleSums().getTotalPrice().getValue());
+        notifyObservers(saleSummary.getSaleSums().getTotalIncVat().getValue());
     }
 
     private void createReceipt(SaleDTO saleSummary) {receipt = new Receipt(saleSummary, transaction);}
