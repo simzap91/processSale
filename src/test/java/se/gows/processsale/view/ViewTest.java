@@ -60,16 +60,34 @@ public class ViewTest {
 
         String printout = printoutBuffer.toString();
         String expectedStartString = "A new sale has been started.";
-        String expectedScanString = "Item name:";
+        String expectedAddString = "Add 1";
+        String expectedItemIdString = "Item ID: 1";
+        String expectedItemNameString = "Item name:";
+        String expectedItemCostString = "Item cost:";
+        String expectedVatString = "VAT: ";
         String expectedEndString = "Sale ended";
+        String expectedRunTotString = "Running total (inc. VAT):";
+        String expectedTotIncVatString = "Total (inc. VAT): ";
         String expectedDiscountString = "Discount requested.";
+        String expectedCustIdString = "Customer ID: 1";
+        String expectedDiscTypesString = "Discount types: ";
+        String expectedDiscTypeString = "ITEMS";
         String expectedAfterDiscountString = "after discount:";
         
         assertTrue(printout.contains(expectedStartString), "Test run did not print sale start correctly.");
-        assertTrue(printout.contains(expectedScanString), "Test run did not print scanned item correctly.");
+        assertTrue(printout.contains(expectedAddString), "Test run did not print add item correctly.");
+        assertTrue(printout.contains(expectedItemIdString), "Test run did not print item id correctly.");
+        assertTrue(printout.contains(expectedItemNameString), "Test run did not print scanned item name correctly.");
+        assertTrue(printout.contains(expectedItemCostString), "Test run did not print item cost correctly.");
+        assertTrue(printout.contains(expectedVatString), "Test run did not print sale vat correctly.");
+        assertTrue(printout.contains(expectedRunTotString), "Test run did not print running total correctly.");
         assertTrue(printout.contains(expectedEndString), "Test run did not print sale end correctly.");
+        assertTrue(printout.contains(expectedTotIncVatString), "Test run did not print TotIncVat correctly.");
         assertTrue(printout.contains(expectedDiscountString), "Test run did not print discount output correctly.");
+        assertTrue(printout.contains(expectedCustIdString), "Test run did not print customer id correctly.");
         assertTrue(printout.contains(expectedAfterDiscountString), "Test run did not print after discount output correctly.");
+        assertTrue(printout.contains(expectedDiscTypesString), "Test run did not print discount types correctly.");
+        assertTrue(printout.contains(expectedDiscTypeString), "Test run did not print discount type correctly.");   
     }
 
     @Test
