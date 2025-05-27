@@ -1,4 +1,5 @@
 package se.gows.processsale.controller;
+
 /**
  * Generic exception class thrown to higher layers when any issues with database arises.
  */

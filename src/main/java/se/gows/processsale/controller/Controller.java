@@ -15,18 +15,18 @@ public class Controller {
     private Sale currentSale;
     private CashRegister cashRegister;
     private FileLogger logger;
-    private ObserversList obsList;
+    private ObserversList observers;
 
     public Controller(InventoryDBHandler invHandler, 
                         AccountingDBHandler accHandler, 
                         DiscountDBHandler discHandler,
-                        ObserversList obsList)
+                        ObserversList observers)
     {
         this.invHandler = invHandler;
         this.accHandler = accHandler;
         this.discHandler = discHandler;
         this.logger = new FileLogger();
-        this.obsList = obsList;
+        this.observers = observers;
     }
 
     /**
@@ -35,7 +35,7 @@ public class Controller {
      */
     public void startSale() {
         currentSale = new Sale();
-        cashRegister = new CashRegister(obsList);
+        cashRegister = new CashRegister(observers);
     }
 
     /**
@@ -43,9 +43,12 @@ public class Controller {
      * If item already in the Sale object, it updates the sale with new item quantity and total price/Vat.
      * If the itemId is not present in the inventory data base an ItemIdNotFoundException is thrown.
      * If a DatabaseNotRunningException is catched a generic DatabaseFailureException is thrown.
+     * 
      * @param itemID item identifier of scanned item
      * @param quantity quantity of scanned item
      * @return ViewDTO, which contains the last scanned item and running total (inc VAT)
+     * @throws ItemIdNotFoundException if invalid item id is passed to invHandler
+     * @throws DatabaseFailureException if database can't be reached by invHandler
      */
     public ViewDTO scanItem(int itemID, int quantity) throws ItemIdNotFoundException, DatabaseFailureException { 
 
@@ -65,7 +68,9 @@ public class Controller {
     }
 
     /**
-     * This method ends the sale, creates a SaleDTO and then updates the inventory.
+     * This method ends the sale. The method first updates the inventory database, then creates a SaleDTO
+     * that contains a summary of the ended sale.
+     * 
      * @return SaleDTO, which contains information about the sale.
      */
     public SaleDTO endSale() {
@@ -74,7 +79,9 @@ public class Controller {
     }
 
     /**
-     * This method passes a discount request to the discount handler.
+     * This method creates a new DiscountRequestDTO and then passes this to the discount handler. The method then
+     * creates a new SaleDTO with the updated price.
+     * 
      * @param customerID used to check if customer is member
      * @param saleSummary contains information about the current sale
      * @param requestedDiscountTypes contains the requested discount types
@@ -88,8 +95,9 @@ public class Controller {
     }
 
     /**
-     * Takes a paid amount and creates a new transaction and a new receipt. The method then register these objects in the cash register
-     * and updates the Accounting DB.
+     * Takes a paid amount and a summary of the current sale, then passes this to the cash register. 
+     * This method also updates the accounting database.
+     * 
      * @param payment sale payment
      * @param saleSummary saleDTO
      */
@@ -97,5 +105,4 @@ public class Controller {
         cashRegister.registerPayment(payment, saleSummary);
         accHandler.updateAccountBalance(cashRegister.getReceipt());
     }
-
 }

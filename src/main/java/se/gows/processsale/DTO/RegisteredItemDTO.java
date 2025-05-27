@@ -1,5 +1,8 @@
 package se.gows.processsale.DTO;
 
+/**
+ * Holds information about a purchased item.
+ */
 public class RegisteredItemDTO {
     private int itemID;
     private String itemDescription;
@@ -7,6 +10,13 @@ public class RegisteredItemDTO {
     private double vatRate;
     private int quantity;
 
+    /**
+     * @param itemID Unique item identifier
+     * @param itemDescription Name of item, e.g. "Smör"
+     * @param price Price of item (SEK)
+     * @param vatRate Item VAT rate (decimal)
+     * @param quantity Quantity of item purchased
+     */
     public RegisteredItemDTO(int itemID, String itemDescription, double price, double vatRate, int quantity) {
         this.itemID = itemID;
         this.itemDescription = itemDescription;

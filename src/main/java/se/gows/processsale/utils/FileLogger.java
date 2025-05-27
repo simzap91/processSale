@@ -18,9 +18,9 @@ public class FileLogger {
     * An existing log file will be deleted.
     */
     public FileLogger(){
-    try {
-        logStream = new PrintWriter(new FileWriter("log.txt"), true);
-    } catch (IOException ioe){
+        try {
+            logStream = new PrintWriter(new FileWriter("log.txt"), true);
+        } catch (IOException ioe){
             System.out.println("Unable to write to log.txt.");
             ioe.printStackTrace();
         }
