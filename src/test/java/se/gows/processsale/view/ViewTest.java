@@ -56,23 +56,34 @@ public class ViewTest {
     @Test
     void testTestRun() {
 
-        instanceToTest.testRun();
+        int itemQuantityInCart = 1;
+        int itemIdInCart = 1;
+        String itemNameInCart = "Mjölk";
+        double itemCostInCart = 14.9;
+        int itemVatInCart = 25;
+        double runningTotInFirstSale = 37.25;
+        double totAfterFirstSale = 37.25;
+        int customerIdInQueue = 1;
+        String requestetDiscType = "ITEM";
+        double totAfterDiscountSaleOne = 27.71;
 
-        String printout = printoutBuffer.toString();
         String expectedStartString = "A new sale has been started.";
-        String expectedAddString = "Add 1";
-        String expectedItemIdString = "Item ID: 1";
-        String expectedItemNameString = "Item name:";
-        String expectedItemCostString = "Item cost:";
-        String expectedVatString = "VAT: ";
+        String expectedAddString = "Add " + itemQuantityInCart;
+        String expectedItemIdString = "Item ID: " + itemIdInCart;
+        String expectedItemNameString = "Item name: " + itemNameInCart;
+        String expectedItemCostString = "Item cost: " + itemCostInCart;
+        String expectedVatString = "VAT: " + itemVatInCart;
         String expectedEndString = "Sale ended";
-        String expectedRunTotString = "Running total (inc. VAT):";
-        String expectedTotIncVatString = "Total (inc. VAT): ";
+        String expectedRunTotString = "Running total (inc. VAT): " + runningTotInFirstSale;
+        String expectedTotIncVatString = "Total (inc. VAT): " + totAfterFirstSale;
         String expectedDiscountString = "Discount requested.";
-        String expectedCustIdString = "Customer ID: 1";
-        String expectedDiscTypesString = "Discount types: ";
-        String expectedDiscTypeString = "ITEMS";
-        String expectedAfterDiscountString = "after discount:";
+        String expectedCustIdString = "Customer ID: " + customerIdInQueue;
+        String expectedDiscTypesString = "Discount types:";
+        String expectedDiscTypeString = requestetDiscType;
+        String expectedAfterDiscountString = "after discount: " + totAfterDiscountSaleOne;
+
+        instanceToTest.testRun();
+        String printout = printoutBuffer.toString();
         
         assertTrue(printout.contains(expectedStartString), "Test run did not print sale start correctly.");
         assertTrue(printout.contains(expectedAddString), "Test run did not print add item correctly.");
