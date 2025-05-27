@@ -5,7 +5,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
- * A subclass to the TotalIncomePrinter superclass that prints the total income of all sales to a file.
+ * Class that prints the total income to a file after a new sale is made.
+ * This class is a subclass to TotalIncomePrinter.
  * This class is put in the ObserversList by the Main-class when the program start.
  */
 public class TotalIncomeFilePrinter extends TotalIncomePrinter {

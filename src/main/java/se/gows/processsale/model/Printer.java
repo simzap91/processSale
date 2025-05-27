@@ -4,13 +4,14 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import se.gows.processsale.DTO.RegisteredItemDTO;
 
-
+/**
+ * Public printer that prints the passed receipt.
+ */
 public class Printer {
 
     /**
-    * Public method that receives a reciept object and prints its attributes 
-    * @param receipt
-    */
+     * @param receipt The receipt that is printed.
+     */
     public void printReceipt(Receipt receipt) {
         System.out.println("\r\n" + //
                         " __   ___  __   ___    __  ___ \r\n" + //

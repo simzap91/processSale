@@ -7,16 +7,16 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
-* Prints log messages to a file. The log file will be in the
-* current directory and will be called log.txt.
-*/
+ * Prints log messages to a file. The log file will be in the
+ * current directory and will be called log.txt.
+ */
 public class FileLogger {
      private PrintWriter logStream;
 
     /**
-    * Creates a new instance and also creates a new log file.
-    * An existing log file will be deleted.
-    */
+     * Creates a new instance and also creates a new log file.
+     * An existing log file will be deleted.
+     */
     public FileLogger(){
         try {
             logStream = new PrintWriter(new FileWriter("log.txt"), true);
@@ -27,9 +27,10 @@ public class FileLogger {
     }
     
     /**
-    * Prints the specified string to the log file.
-    * @param message The string that will be printed to the logfile.
-    */
+     * Prints the specified string to the log file.
+     * 
+     * @param message The string that will be printed to the logfile.
+     */
     public void log(String message){
         logStream.println(getTime() + " Exception thrown: " + message);
     }

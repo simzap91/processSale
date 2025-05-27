@@ -8,12 +8,13 @@ import se.gows.processsale.utils.Amount;
  * The class implements the DiscountCalculator interface.
  */
 public class CustomerDiscount implements DiscountCalculator {
-
+    
     private int[] memberCustomerIDs = {1, 2, 3};
     private double discountRate = 0.15;
 
     /**
      * Calculates a discounted price for sale when given a customer ID that is eligable for a discount
+     * 
      * @param discountRequest DiscountRequestDTO containing all information required for applying a discount, including customer ID.
      * @return a new discounted price.
      */

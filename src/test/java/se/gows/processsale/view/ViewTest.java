@@ -54,7 +54,7 @@ public class ViewTest {
     }
 
     @Test
-    void testTestRun() {
+    void testRunTestWithTwoCustomers() {
 
         int itemQuantityInCart = 1;
         int itemIdInCart = 1;
@@ -82,7 +82,7 @@ public class ViewTest {
         String expectedDiscTypeString = requestetDiscType;
         String expectedAfterDiscountString = "after discount: " + totAfterDiscountSaleOne;
 
-        instanceToTest.testRun();
+        instanceToTest.runTestWithTwoCustomers();
         String printout = printoutBuffer.toString();
         
         assertTrue(printout.contains(expectedStartString), "Test run did not print sale start correctly.");
@@ -104,7 +104,7 @@ public class ViewTest {
     @Test
     void testExceptionsInTestRun() {
 
-        instanceToTest.testRun();
+        instanceToTest.runTestWithTwoCustomers();
 
         String printout = printoutBuffer.toString();
         String expectedStringItemException = "Invalid item id.";

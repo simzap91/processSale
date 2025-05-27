@@ -6,8 +6,9 @@ import se.gows.processsale.utils.ObserversList;
 import se.gows.processsale.view.*;
 
 /**
- * The only Main class of the program. This class executes the program. Before execution the class initializes handlers to all external data bases,
- * and also the controller and the view that is used throughout the sale process.
+ * The only Main class of the program. This class executes the program. Before execution the class initializes 
+ * handlers to all external data bases, an observer list containing objects that observes the total income and also 
+ * the controller and the view that is used throughout the sale process.
  */
 public class Main {
     public static void main(String[] args) {
@@ -20,6 +21,6 @@ public class Main {
         Controller ctrl = new Controller(invHandler, accHandler, discHandler, obsList);
         View view = new View(ctrl);
 
-        view.testRun();
+        view.runTestWithTwoCustomers();
     }
 }

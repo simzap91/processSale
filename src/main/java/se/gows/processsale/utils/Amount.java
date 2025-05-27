@@ -17,6 +17,7 @@ public class Amount {
 
     /**
      * Method that formats the default toString-method to use dots instead of commas in decimal numbers
+     * 
      * @return amount as string
      */
     @Override

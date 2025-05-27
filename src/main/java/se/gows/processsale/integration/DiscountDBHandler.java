@@ -16,6 +16,7 @@ public class DiscountDBHandler {
 
     /**
      * Public method that fetches all requested and applicable discounts and calculates a new reduced total price.
+     * 
      * @param requestedDiscountTypes A list of requested discount types.
      * @param discountRequest Contains customer ID, purchased items and total price of the sale.
      * @return Updated totalprice. Returns unchanged if no discount apply.

@@ -3,11 +3,7 @@ package se.gows.processsale.integration.inventory;
 import se.gows.processsale.DTO.ItemDTO;
 
 /**
- * Item object, containing all information about an item, which is stored in the inventoryDB.
- * @param itemID ID for the item
- * @param description the name of the item
- * @param price the price for the item
- * @param vatRate the Vat-rate for the item
+ * Inventory item object, containing all information about an item, which is stored in the inventory database.
  */
 public class InventoryItem {
     private int itemID;
@@ -15,6 +11,12 @@ public class InventoryItem {
     private double price;
     private double vatRate;
     
+    /**
+     * @param itemID ID for the item
+     * @param description the name of the item
+     * @param price the price for the item
+     * @param vatRate the Vat-rate for the item
+     */
     public InventoryItem (int itemID, String description, double price, double vatRate){
         this.itemID = itemID;
         this.description = description;
@@ -22,7 +24,8 @@ public class InventoryItem {
         this.vatRate = vatRate;
     }
     /**
-     * Public method that creates a ItemDTO 
+     * Public method that creates a new ItemDTO with the information of this inventory item.
+     * 
      * @return ItemDTO
      */
     public ItemDTO createItemDTO() {

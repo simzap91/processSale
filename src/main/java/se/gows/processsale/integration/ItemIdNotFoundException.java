@@ -8,12 +8,14 @@ public class ItemIdNotFoundException extends Exception {
 
     /**
      * Creates a new instance of itemID together with a message clarifying which item ID the search failed to find.
+     * 
     * @param itemID the item ID that was not found
      */
     public ItemIdNotFoundException(int itemId){
         super("Item with id " + itemId + " can not be found in inventory.");
         this.itemIdNotFound = itemId;
     }
+    
     /**
      * @return The item ID that could not be found.
      */    

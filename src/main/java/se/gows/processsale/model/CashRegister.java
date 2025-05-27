@@ -8,6 +8,7 @@ import se.gows.processsale.utils.SumOfCostsObserver;
 /**
  * Class that stores sale transaction and receipt.
  * The class also contains a receipt printer that prints a receipt when a new payment is registered.
+ * This class also notifies SumOfCostsObserver-objects when a new sale is done.
  */
 public class CashRegister {
     private Printer printer;
@@ -15,6 +16,11 @@ public class CashRegister {
     private Receipt receipt;
     private ObserversList obsList;
 
+    /**
+     * Creates a new printer and is passed a list with observers.
+     * 
+     * @param obsList A list with observers that gets notified when a new sale is done
+     */
     public CashRegister (ObserversList obsList) {
         this.printer = new Printer();
         this.obsList = obsList;
@@ -22,6 +28,7 @@ public class CashRegister {
 
     /**
      * Register payment as a new Transaction object, creates a new receipt and finally prints the receipt.
+     * 
      * @param payment Payment made by customer.
      * @param saleSummary Information about the sale.
      */

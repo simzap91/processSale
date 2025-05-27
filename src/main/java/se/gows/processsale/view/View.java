@@ -19,6 +19,7 @@ public class View {
 
     /**
      * Creates a new instance that uses the specified controller for all calls to other layers.
+     * 
      * @param ctrl The controller to use for all calls to other layers
      */
     public View(Controller ctrl){
@@ -36,7 +37,7 @@ public class View {
     /**
      * Runs simulation of sale process.
      */
-    public void testRun() {
+    public void runTestWithTwoCustomers() {
 
         int customersInQueue = 2;
 

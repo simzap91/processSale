@@ -4,6 +4,11 @@ import java.util.Locale;
 
 import se.gows.processsale.utils.TotalIncomePrinter;
 
+/**
+ * Class that prints the total income to the view console after a new sale is made.
+ * This class is a subclass to TotalIncomePrinter.
+ * This class is put in the ObserversList by the Main-class when the program start.
+ */
 public class TotalIncomeViewPrinter extends TotalIncomePrinter {
 
     @Override
