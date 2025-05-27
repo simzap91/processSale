@@ -22,7 +22,6 @@ public class PrinterTest {
     private Amount totalVatTest;
     private Amount totalPriceIncVatTest;
     private Transaction transactionTest;
-    private RegisteredItemDTO[] itemListTest;
     private SaleDTO saleDTOTest;
     private Receipt receiptTest;
     private Printer printerTest;
@@ -51,7 +50,6 @@ public class PrinterTest {
         totalVatTest = null;
         totalPriceIncVatTest = null;
         transactionTest = null;
-        itemListTest = null;
         saleDTOTest = null;
         receiptTest = null;
         printerTest = null;
