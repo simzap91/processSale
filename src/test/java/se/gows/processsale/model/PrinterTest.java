@@ -7,8 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-
-
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import se.gows.processsale.utils.*;
 import se.gows.processsale.DTO.RegisteredItemDTO;
@@ -60,11 +60,15 @@ public class PrinterTest {
         RegisteredItemDTO[] itemListTest = {new RegisteredItemDTO(1, "Mjölk", 14.90, 0.25, 3)};
         saleDTOTest = new SaleDTO(totalPriceTest, totalVatTest, itemListTest);
         receiptTest = new Receipt(saleDTOTest,transactionTest);
+        LocalDateTime timeTest = LocalDateTime.now();
 
         printerTest = new Printer();
         printerTest.printReceipt(receiptTest);
         String printout = printoutBuffer.toString();
         
+        String expectedOutputTime = "Time of Sale: "+ timeTest.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        assertTrue(printout.contains(expectedOutputTime), "Wrong time is printed to console");
+
         String expectedOutputItemList = "3st Mjölk á 14.9kr -> 44.7kr";
         assertTrue(printout.contains(expectedOutputItemList), "Wrong item list is printed to console");
 
