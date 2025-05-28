@@ -27,7 +27,8 @@ public class CashRegister {
     }
 
     /**
-     * Register payment as a new Transaction object, creates a new receipt and finally prints the receipt.
+     * Register payment as a new Transaction object, creates a new receipt and then prints the receipt.
+     * This method also notify the SumOfCostsObserver classes in the ObserversList with the new total cost.
      * 
      * @param payment Payment made by customer.
      * @param saleSummary Information about the sale.
