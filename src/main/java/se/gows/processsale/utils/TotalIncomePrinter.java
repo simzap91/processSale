@@ -7,7 +7,7 @@ public abstract class TotalIncomePrinter implements SumOfCostsObserver {
     private double totalIncome;
 
     /**
-     * Creates a new instance with sumOfCosts set to 0.
+     * Creates a new instance with totalIncome set to 0.
      */
     protected TotalIncomePrinter(){
         this.totalIncome = 0;
