@@ -31,7 +31,7 @@ public class MainTest {
         Main.main(args);
 
         String printout = printoutBuffer.toString();
-        String expectedWordInOutput = "started";
-        assertTrue(printout.contains(expectedWordInOutput), "Test run did not start correctly.");
+        String expectedOutput = "A new sale has been started.";
+        assertTrue(printout.contains(expectedOutput), "Test run did not start as expected.");
     }
 }
