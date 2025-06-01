@@ -25,6 +25,13 @@ public class TotalIncomeFilePrinter extends TotalIncomePrinter {
         this.logger = new FileLogger();
     }
     
+    /**
+     * Declares the protected abstract method 'doShowTotalIncome' from the superclass. This method
+     * is called by the superclass and prints the total income to the file set to filePath.
+     * 
+     * @param totalIncome Total income that is to be printed.
+     * @throws IOException This exception is catched in the superclass.
+     */
     @Override
     protected void doShowTotalIncome(double totalIncome) throws IOException {
         try (PrintWriter writer = new PrintWriter(new FileWriter(filePath), true)) {
@@ -32,6 +39,12 @@ public class TotalIncomeFilePrinter extends TotalIncomePrinter {
         }
     }
 
+    /**
+     * Declares the protected abstract method 'handleErrors' from the superclass. This method is called by
+     * the superclass and handles IOExceptions when thrown by 'doShowTotalIncome'.
+     * 
+     * @param e Exception to handle.
+     */
     @Override
     protected void handleErrors(Exception e) {
         logger.log("Failed to print total income to file: " + e.getMessage());

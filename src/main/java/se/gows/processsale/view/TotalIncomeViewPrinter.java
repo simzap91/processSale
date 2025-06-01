@@ -11,6 +11,12 @@ import se.gows.processsale.utils.TotalIncomePrinter;
  */
 public class TotalIncomeViewPrinter extends TotalIncomePrinter {
 
+    /**
+     * Declares the protected abstract method 'doShowTotalIncome' from the superclass. This method
+     * is called by the superclass and prints the total income to the view console.
+     * 
+     * @param totalIncome Total income that is to be printed.
+     */
     @Override
     protected void doShowTotalIncome(double totalIncome) {
         System.out.println();
@@ -20,7 +26,7 @@ public class TotalIncomeViewPrinter extends TotalIncomePrinter {
     }
 
     /**
-     * This error handler will not be called at the moment, since doShowTotalIncome does not throw any Exceptions.
+     * This error handler will never be called at the moment, since doShowTotalIncome do not throw any Exceptions.
      */
     @Override
     protected void handleErrors(Exception e) {
